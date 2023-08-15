@@ -46,7 +46,7 @@ class CompetencyCategoriesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\CompetencyCategory  $competencyCategory
      * @return \Illuminate\Http\Response
      */
     public function show(CompetencyCategory $competencyCategory)
@@ -59,7 +59,7 @@ class CompetencyCategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\CompetencyCategory  $competencyCategory
      * @return \Illuminate\Http\Response
      */
     public function edit(CompetencyCategory $competencyCategory)

@@ -26,7 +26,7 @@
             @foreach ($competencies as $key => $competencies)
             <tr>
                 <td>{{ $competencies->id }}</td>
-                <td>{{ $competencies->category_category_id }}</td>
+                <td>{{ $competencies->competencyCategory->category_name }}</td>
                 <td>{{ $competencies->name }}</td>
                 <td>{{ $competencies->description }}</td>
                 <td>
