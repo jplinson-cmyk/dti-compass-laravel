@@ -87,6 +87,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{competency}/delete', 'CompetenciesController@destroy')->name('competencies.destroy');
         });
 
+        Route::group(['prefix' => 'behavioral_indicators'], function() {
+            Route::get('/', 'BehavioralIndicatorsController@index')->name('behavioral_indicators.index');
+            Route::get('/create', 'BehavioralIndicatorsController@create')->name('behavioral_indicators.create');
+            Route::post('/create', 'BehavioralIndicatorsController@store')->name('behavioral_indicators.store');
+            Route::get('/{behavioralIndicator}/show', 'BehavioralIndicatorsController@show')->name('behavioral_indicators.show');
+            Route::get('/{behavioralIndicator}/edit', 'BehavioralIndicatorsController@edit')->name('behavioral_indicators.edit');
+            Route::patch('/{behavioralIndicator}/update', 'BehavioralIndicatorsController@update')->name('behavioral_indicators.update');
+            Route::delete('/{behavioralIndicator}/delete', 'BehavioralIndicatorsController@destroy')->name('behavioral_indicators.destroy');
+        });
+        
+
         Route::resource('roles', RolesController::class);
         Route::resource('permissions', PermissionsController::class);
     });

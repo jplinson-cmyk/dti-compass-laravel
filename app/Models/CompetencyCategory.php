@@ -15,4 +15,9 @@ class CompetencyCategory extends Model
         'category_name'
     ];
 
+    public function competencies()
+    {
+        return $this->hasMany(Competency::class, 'competency_category_id');
+    }
+
 }
