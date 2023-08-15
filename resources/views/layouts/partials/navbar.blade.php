@@ -21,7 +21,7 @@
                                 <li><a href="{{ route('competency_categories.index') }}" class="dropdown-item">Competency
                                         Categories</a></li>
                                 <li><a href="{{ route('competencies.index') }}" class="dropdown-item">Competencies</a></li>
-                                <li><a href="#" class="dropdown-item">Behavioral Indicators</a></li>
+                                <li><a href="{{ route('behavioral_indicators.index') }}" class="dropdown-item">Behavioral Indicators</a></li>
                             </ul>
                         </li>
                     @endrole

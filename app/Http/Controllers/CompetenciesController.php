@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Competency;
-
+use App\Models\CompetencyCategory;
 use Illuminate\Http\Request;
 
 class CompetenciesController extends Controller
@@ -27,7 +27,9 @@ class CompetenciesController extends Controller
      */
     public function create()
     {
-        return view('competencies.create');
+        $categories = CompetencyCategory::all(); 
+        
+        return view('competencies.create', compact('categories'));
     }
 
     /**
@@ -47,7 +49,7 @@ class CompetenciesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Competency  $competency
      * @return \Illuminate\Http\Response
      */
     public function show(Competency $competency)
@@ -60,13 +62,16 @@ class CompetenciesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Competency  $competency
      * @return \Illuminate\Http\Response
      */
     public function edit(Competency $competency)
     {
+        $categories = CompetencyCategory::all();
+    
         return view('competencies.edit', [
-            'competencies' => $competency
+            'competencies' => $competency,
+            'categories' => $categories,
         ]);
     }
 
