@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'App\Http\Controllers'], function()
-{   
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
     /**
      * Home Routes
      */
     Route::get('/', 'HomeController@index')->name('home.index');
 
-    Route::group(['middleware' => ['guest']], function() {
+    Route::group(['middleware' => ['guest']], function () {
         /**
          * Register Routes
          */
@@ -32,10 +31,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
-
     });
 
-    Route::group(['middleware' => ['auth', 'permission']], function() {
+    Route::group(['middleware' => ['auth', 'permission']], function () {
         /**
          * Logout Routes
          */
@@ -44,7 +42,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         /**
          * User Routes
          */
-        Route::group(['prefix' => 'users'], function() {
+        Route::group(['prefix' => 'users'], function () {
             Route::get('/', 'UsersController@index')->name('users.index');
             Route::get('/create', 'UsersController@create')->name('users.create');
             Route::post('/create', 'UsersController@store')->name('users.store');
@@ -55,9 +53,23 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         });
 
         /**
-         * User Routes
+         * Employee Routes
          */
-        Route::group(['prefix' => 'posts'], function() {
+        Route::group(['prefix' => 'employees'], function () {
+            Route::get('/', 'EmployeesController@index')->name('employees.index');
+            Route::get('/create', 'EmployeesController@create')->name('employees.create');
+            Route::post('/create', 'EmployeesController@store')->name('employees.store');
+            Route::get('/{employee}/show', 'EmployeesController@show')->name('employees.show');
+            Route::get('/{employee}/edit', 'EmployeesController@edit')->name('employees.edit');
+            Route::patch('/{employee}/update', 'EmployeesController@update')->name('employees.update');
+            Route::delete('/{employee}/delete', 'EmployeesController@destroy')->name('employees.destroy');
+        });
+
+
+        /**
+         * Test Post Routes
+         */
+        Route::group(['prefix' => 'posts'], function () {
             Route::get('/', 'PostsController@index')->name('posts.index');
             Route::get('/create', 'PostsController@create')->name('posts.create');
             Route::post('/create', 'PostsController@store')->name('posts.store');
@@ -67,7 +79,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{post}/delete', 'PostsController@destroy')->name('posts.destroy');
         });
 
-        Route::group(['prefix' => 'competency_categories'], function() {
+         /**
+         * Competency Category Routes
+         */
+
+        Route::group(['prefix' => 'competency-categories'], function () {
             Route::get('/', 'CompetencyCategoriesController@index')->name('competency_categories.index');
             Route::get('/create', 'CompetencyCategoriesController@create')->name('competency_categories.create');
             Route::post('/create', 'CompetencyCategoriesController@store')->name('competency_categories.store');
@@ -77,7 +93,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{competency_category}/delete', 'CompetencyCategoriesController@destroy')->name('competency_categories.destroy');
         });
 
-        Route::group(['prefix' => 'competencies'], function() {
+        /**
+         * Competency Routes
+         */
+
+        Route::group(['prefix' => 'competencies'], function () {
             Route::get('/', 'CompetenciesController@index')->name('competencies.index');
             Route::get('/create', 'CompetenciesController@create')->name('competencies.create');
             Route::post('/create', 'CompetenciesController@store')->name('competencies.store');
@@ -87,7 +107,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{competency}/delete', 'CompetenciesController@destroy')->name('competencies.destroy');
         });
 
-        Route::group(['prefix' => 'behavioral_indicators'], function() {
+        /**
+         * Behavioral Indicator Routes
+         */
+
+        Route::group(['prefix' => 'behavioral-indicators'], function () {
             Route::get('/', 'BehavioralIndicatorsController@index')->name('behavioral_indicators.index');
             Route::get('/create', 'BehavioralIndicatorsController@create')->name('behavioral_indicators.create');
             Route::post('/create', 'BehavioralIndicatorsController@store')->name('behavioral_indicators.store');
@@ -96,9 +120,21 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::patch('/{behavioralIndicator}/update', 'BehavioralIndicatorsController@update')->name('behavioral_indicators.update');
             Route::delete('/{behavioralIndicator}/delete', 'BehavioralIndicatorsController@destroy')->name('behavioral_indicators.destroy');
         });
-        
+
+        /**
+         * Role Routes
+         */
 
         Route::resource('roles', RolesController::class);
+        Route::group(['prefix' => 'roles-assign'], function () {
+            Route::get('/', 'RolesAssignController@index')->name('roles_assign.index');
+            Route::post('/assign', 'RolesAssignController@assign')->name('roles_assign.assign');
+            Route::get('/search/users', 'RolesAssignController@searchUsers')->name('roles_assign.search_users');
+
+            Route::get('/user/roles/{userId}', 'RolesAssignController@getUserRoles')->name('roles_assign.user_roles');
+        });
+
+
         Route::resource('permissions', PermissionsController::class);
     });
 });

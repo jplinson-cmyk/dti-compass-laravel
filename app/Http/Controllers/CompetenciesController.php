@@ -8,11 +8,7 @@ use Illuminate\Http\Request;
 
 class CompetenciesController extends Controller
 {
-     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $competencies = Competency::latest()->paginate(10);
@@ -20,11 +16,6 @@ class CompetenciesController extends Controller
         return view('competencies.index', compact('competencies'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $categories = CompetencyCategory::all(); 
@@ -32,12 +23,6 @@ class CompetenciesController extends Controller
         return view('competencies.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         Competency::create(array_merge($request->only('competency_category_id', 'name', 'description')));
@@ -46,12 +31,6 @@ class CompetenciesController extends Controller
             ->withSuccess(__('Competency created successfully.'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Competency  $competency
-     * @return \Illuminate\Http\Response
-     */
     public function show(Competency $competency)
     {
         return view('competencies.show', [
@@ -59,12 +38,6 @@ class CompetenciesController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Competency  $competency
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Competency $competency)
     {
         $categories = CompetencyCategory::all();
@@ -75,13 +48,6 @@ class CompetenciesController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Competency  $competency
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Competency $competency)
     {
         $competency->update($request->only('competency_category_id', 'name', 'description'));
@@ -90,12 +56,6 @@ class CompetenciesController extends Controller
             ->withSuccess(__('Competency updated successfully.'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Competency  $competency
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Competency $competency)
     {
         $competency->delete();

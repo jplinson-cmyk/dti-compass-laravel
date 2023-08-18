@@ -10,11 +10,7 @@ use App\Http\Requests\UpdateUserRequest;
 
 class UsersController extends Controller
 {
-    /**
-     * Display all users
-     * 
-     * @return \Illuminate\Http\Response
-     */
+
     public function index() 
     {
         $users = User::latest()->paginate(10);
@@ -22,24 +18,11 @@ class UsersController extends Controller
         return view('users.index', compact('users'));
     }
 
-    /**
-     * Show form for creating user
-     * 
-     * @return \Illuminate\Http\Response
-     */
     public function create() 
     {
         return view('users.create');
     }
 
-    /**
-     * Store a newly created user
-     * 
-     * @param User $user
-     * @param StoreUserRequest $request
-     * 
-     * @return \Illuminate\Http\Response
-     */
     public function store(User $user, StoreUserRequest $request) 
     {
         //For demo purposes only. When creating user or inviting a user
@@ -52,13 +35,6 @@ class UsersController extends Controller
             ->withSuccess(__('User created successfully.'));
     }
 
-    /**
-     * Show user data
-     * 
-     * @param User $user
-     * 
-     * @return \Illuminate\Http\Response
-     */
     public function show(User $user) 
     {
         return view('users.show', [
@@ -66,13 +42,6 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Edit user data
-     * 
-     * @param User $user
-     * 
-     * @return \Illuminate\Http\Response
-     */
     public function edit(User $user) 
     {
         return view('users.edit', [
@@ -82,14 +51,6 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Update user data
-     * 
-     * @param User $user
-     * @param UpdateUserRequest $request
-     * 
-     * @return \Illuminate\Http\Response
-     */
     public function update(User $user, UpdateUserRequest $request) 
     {
         $user->update($request->validated());
@@ -100,13 +61,6 @@ class UsersController extends Controller
             ->withSuccess(__('User updated successfully.'));
     }
 
-    /**
-     * Delete user data
-     * 
-     * @param User $user
-     * 
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(User $user) 
     {
         $user->delete();
