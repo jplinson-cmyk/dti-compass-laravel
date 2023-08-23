@@ -31,6 +31,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          */
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
+
+        /**
+         * Forgot Password Routes
+         */
+        Route::get('/forgot-password', 'PasswordResetController@requestPassword')->name('password.request');
+        Route::post('/forgot-password', 'PasswordResetController@emailPassword')->name('password.email');
+        Route::get('/reset-password/{token}', 'PasswordResetController@resetPassword')->name('password.reset');
+        Route::post('/reset-password', 'PasswordResetController@updatePassword')->name('password.update');
+
     });
 
     Route::group(['middleware' => ['auth', 'permission']], function () {
@@ -50,7 +59,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
             Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
             Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
+            Route::post('/{userId}/send-password-link', 'UsersController@sendPasswordLink')->name('users.send_password_link');
+
         });
+
+
+        
 
         /**
          * Employee Routes
@@ -64,7 +78,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::patch('/{employee}/update', 'EmployeesController@update')->name('employees.update');
             Route::delete('/{employee}/delete', 'EmployeesController@destroy')->name('employees.destroy');
         });
-
 
         /**
          * Test Post Routes
@@ -128,10 +141,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('roles', RolesController::class);
         Route::group(['prefix' => 'roles-assign'], function () {
             Route::get('/', 'RolesAssignController@index')->name('roles_assign.index');
-            Route::post('/assign', 'RolesAssignController@assign')->name('roles_assign.assign');
-            Route::get('/search/users', 'RolesAssignController@searchUsers')->name('roles_assign.search_users');
+            Route::get('/{user}/get-user-roles', 'RolesAssignController@getUserRoles')->name('get_user_roles');
 
-            Route::get('/user/roles/{userId}', 'RolesAssignController@getUserRoles')->name('roles_assign.user_roles');
         });
 
 
