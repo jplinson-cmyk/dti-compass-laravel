@@ -114,6 +114,7 @@ class ComposerStaticInitc35673415aa781818839770aab391e20
             'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
+            'Psr\\Clock\\' => 10,
             'Psr\\Cache\\' => 10,
             'PhpParser\\' => 10,
             'PhpOption\\' => 10,
@@ -407,6 +408,10 @@ class ComposerStaticInitc35673415aa781818839770aab391e20
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'Psr\\Clock\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/clock/src',
+        ),
         'Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
@@ -634,6 +639,7 @@ class ComposerStaticInitc35673415aa781818839770aab391e20
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/LoginController.php',
         'App\\Http\\Controllers\\LogoutController' => __DIR__ . '/../..' . '/app/Http/Controllers/LogoutController.php',
+        'App\\Http\\Controllers\\PasswordResetController' => __DIR__ . '/../..' . '/app/Http/Controllers/PasswordResetController.php',
         'App\\Http\\Controllers\\PermissionsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionsController.php',
         'App\\Http\\Controllers\\PostsController' => __DIR__ . '/../..' . '/app/Http/Controllers/PostsController.php',
         'App\\Http\\Controllers\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegisterController.php',
@@ -654,6 +660,7 @@ class ComposerStaticInitc35673415aa781818839770aab391e20
         'App\\Http\\Requests\\RegisterRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RegisterRequest.php',
         'App\\Http\\Requests\\StoreEmployeeRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreEmployeeRequest.php',
         'App\\Http\\Requests\\StoreUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreUserRequest.php',
+        'App\\Http\\Requests\\UpdateEmployeeRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateEmployeeRequest.php',
         'App\\Http\\Requests\\UpdateUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateUserRequest.php',
         'App\\Models\\BehavioralIndicator' => __DIR__ . '/../..' . '/app/Models/BehavioralIndicator.php',
         'App\\Models\\Competency' => __DIR__ . '/../..' . '/app/Models/Competency.php',
@@ -4725,6 +4732,7 @@ class ComposerStaticInitc35673415aa781818839770aab391e20
         'Psr\\Cache\\CacheItemInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemInterface.php',
         'Psr\\Cache\\CacheItemPoolInterface' => __DIR__ . '/..' . '/psr/cache/src/CacheItemPoolInterface.php',
         'Psr\\Cache\\InvalidArgumentException' => __DIR__ . '/..' . '/psr/cache/src/InvalidArgumentException.php',
+        'Psr\\Clock\\ClockInterface' => __DIR__ . '/..' . '/psr/clock/src/ClockInterface.php',
         'Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
         'Psr\\Container\\ContainerInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerInterface.php',
         'Psr\\Container\\NotFoundExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/NotFoundExceptionInterface.php',

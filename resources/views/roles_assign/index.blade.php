@@ -12,94 +12,39 @@
             <form method="GET" action="{{ route('roles_assign.index') }}">
                 <div class="mb-3">
                     <label for="user_search" class="form-label">Search User</label>
-                    <input type="text" class="form-control" name="user_search" id="user_search" list="user_options" placeholder="Search User">
-                    <datalist id="user_options">
-                        @foreach ($usersForAutocomplete as $user)
-                            <option value="{{ $user->firstname }} {{ $user->lastname }}" data-user-id="{{ $user->id }}">
-                        @endforeach
-                    </datalist>
+                    <input type="text" class="form-control" name="user_search" id="user_search" placeholder="Search User">
                 </div>
             </form>
 
-            <!-- Display User Roles -->
-            <div id="user_roles" class="mt-3"></div>
-
-            <!-- Role Assignment Form -->
-            @if(isset($user))
-                <form method="POST" action="{{ route('roles_assign.assign') }}">
-                    @csrf
-                    <input type="hidden" name="user_id" value="{{ $user->id }}">
-                    
-                    <label for="roles" class="form-label">Select Roles:</label>
-                    <select name="roles[]" multiple>
-                        @foreach($roles as $role)
-                            <option value="{{ $role->name }}">{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                    
-                    <button type="submit" class="btn btn-primary">Assign Roles</button>
-                </form>
-            @endif
+            <div id="user_search_results" class="mt-3">
+                @foreach ($users as $user)
+                    <div class="user-result" data-user-id="{{ $user->id }}">
+                        <button class="btn btn-link user-link" data-user-id="{{ $user->id }}">
+                            {{ $user->firstname }} {{ $user->lastname }}
+                        </button>
+                    </div>
+                @endforeach
+            </div>
+            
+            <!-- Display User Assigned Roles -->
+            <div id="user_roles" class="mt-3">
+                <!-- Display assigned roles here -->
+            </div>
         </div>
     </div>
 
-    <!-- Autocomplete logic -->
     <script>
-        const userSearchInput = document.getElementById('user_search');
-        const userResults = document.getElementById('user_results');
+        // AJAX Request to get user's assigned roles
+        function getUserRoles(userId) {
+            $.get('{{ route('roles_assign.index') }}/' + userId + '/get-user-roles', function (data) {
+                $('#user_roles').html(data.join(', '));
+            });
+        }
 
-        userSearchInput.addEventListener('input', async (e) => {
-            const searchQuery = e.target.value;
-
-            if (searchQuery.length >= 3) {
-                const response = await fetch(`/roles-assign/search/users?q=${searchQuery}`);
-                const data = await response.json();
-
-                if (data.length > 0) {
-                    userResults.innerHTML = ''; // Clear previous results
-
-                    data.forEach(user => {
-                        const resultItem = document.createElement('div');
-                        resultItem.textContent = `${user.firstname} ${user.lastname}`;
-                        resultItem.classList.add('result-item', 'clickable'); // Add clickable class
-                        resultItem.setAttribute('data-user-id', user.id); // Add user ID attribute
-
-                        resultItem.addEventListener('click', async () => {
-                            userSearchInput.value = `${user.firstname} ${user.lastname}`;
-                            userResults.innerHTML = ''; // Clear results when a user is selected
-
-                            // Fetch and display roles of the selected user
-                            const userId = user.id;
-                            const rolesResponse = await fetch(`/roles-assign/user/roles/${userId}`);
-                            const rolesData = await rolesResponse.json();
-
-                            const userRolesElement = document.getElementById('user_roles');
-                            userRolesElement.textContent = 'Roles: ' + rolesData.roles.join(', ');
-                        });
-
-                        userResults.appendChild(resultItem);
-                    });
-
-                    userResults.style.display = 'block'; // Show the results dropdown
-                } else {
-                    userResults.innerHTML = '<div class="result-item">No results found</div>';
-                }
-            } else {
-                userResults.innerHTML = ''; // Clear results when input is below minimum length
-            }
-        });
-
-        // Close results dropdown when clicking outside
-        document.addEventListener('click', (event) => {
-            if (!userResults.contains(event.target) && event.target !== userSearchInput) {
-                userResults.style.display = 'none';
-            }
-        });
-
-        // Prevent form submission when clicking on the result items
-        userResults.addEventListener('click', (event) => {
-            event.preventDefault();
-            event.stopPropagation();
+         // Listen for user selection
+        $('#user_search_results').on('click', '.user-link', function () {
+            var userId = $(this).data('user-id');
+            getUserRoles(userId);
         });
     </script>
 @endsection
