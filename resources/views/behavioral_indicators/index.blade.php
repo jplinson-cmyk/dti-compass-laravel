@@ -32,23 +32,13 @@
                     <td>{{ $indicator->description }}</td>
                     <td>
                         @php
-                            $levelText = '';
-                            switch ($indicator->level) {
-                                case 1:
-                                    $levelText = 'Basic';
-                                    break;
-                                case 2:
-                                    $levelText = 'Intermediate';
-                                    break;
-                                case 3:
-                                    $levelText = 'Advanced';
-                                    break;
-                                case 4:
-                                    $levelText = 'Superior';
-                                    break;
-                                default:
-                                    $levelText = 'Unknown';
-                            }
+                            $levelMapping = [
+                                1 => 'Basic',
+                                2 => 'Intermediate',
+                                3 => 'Advanced',
+                                4 => 'Superior',
+                            ];
+                            $levelText = $levelMapping[$indicator->level] ?? 'Unknown';
                         @endphp
                         {{ $levelText }}
                     </td>
