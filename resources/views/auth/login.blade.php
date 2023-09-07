@@ -35,7 +35,9 @@
           <span class="text-danger text-left">{{$errors->first()}}</span>
          @endif
         <button class="w-100 btn btn-lg btn-primary" type="submit">Login</button>
-        
+        <div class="mt-3">
+            <a href="{{ route('password.request') }}">Forgot Password?</a>
+        </div>
         @include('auth.partials.copy')
     </form>
 @endsection

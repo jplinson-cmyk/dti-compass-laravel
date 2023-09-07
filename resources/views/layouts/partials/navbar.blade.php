@@ -17,7 +17,6 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ route('users.index') }}" class="dropdown-item">Users</a></li>
                                 <li><a href="{{ route('roles.index') }}" class="dropdown-item">Roles</a></li>
-                                <li><a href="{{ route('roles_assign.index') }}" class="dropdown-item">Assign Roles</a></li>
                                 <li><a href="{{ route('permissions.index') }}" class="dropdown-item">Permissions</a></li>
                             </ul>
                         </li>
@@ -27,7 +26,6 @@
                                 role="button" aria-expanded="false">Employee Management</a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ route('employees.index') }}" class="dropdown-item">Employees</a></li>
-                                <li><a href="#" class="dropdown-item">Assessors</a></li>
                             </ul>
                         </li>
 
@@ -39,6 +37,13 @@
                                         Categories</a></li>
                                 <li><a href="{{ route('competencies.index') }}" class="dropdown-item">Competencies</a></li>
                                 <li><a href="{{ route('behavioral_indicators.index') }}" class="dropdown-item">Behavioral Indicators</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link dropdown-toggle px-2 text-white" data-bs-toggle="dropdown"
+                                role="button" aria-expanded="false">Competency Assessment</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ route('competency_assessment.about') }}" class="dropdown-item">About</a></li>
                             </ul>
                         </li>
                     @endrole
