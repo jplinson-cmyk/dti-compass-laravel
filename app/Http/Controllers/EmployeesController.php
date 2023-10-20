@@ -6,6 +6,12 @@ use App\Http\Requests\StoreEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\EmploymentStatus; 
+use App\Models\FunctionalGroup;
+use App\Models\BureauOffice;
+use App\Models\Division;
+use App\Models\Position;
+use App\Models\JobLevel;
 
 class EmployeesController extends Controller
 {
@@ -18,7 +24,14 @@ class EmployeesController extends Controller
 
     public function create()
     {
-        return view('employees.create');
+        $employmentStatus = EmploymentStatus::all();
+        $functionalGroups = FunctionalGroup::all();
+        $bureauOffices = BureauOffice::all();
+        $divisions = Division::all();
+        $positions = Position::all();
+        $jobLevels = JobLevel::all();
+
+        return view('employees.create', compact('employmentStatus', 'functionalGroups', 'bureauOffices', 'divisions', 'positions', 'jobLevels'));
     }
 
     public function show($id)
@@ -36,8 +49,16 @@ class EmployeesController extends Controller
 
     public function edit(Employee $employee)
     {
-        return view('employees.edit', compact('employee'));
+        $employmentStatus = EmploymentStatus::all();
+        $functionalGroups = FunctionalGroup::all();
+        $bureauOffices = BureauOffice::all();
+        $divisions = Division::all();
+        $positions = Position::all();
+        $jobLevels = JobLevel::all();
+    
+        return view('employees.edit', compact('employee', 'employmentStatus', 'functionalGroups', 'bureauOffices', 'divisions', 'positions', 'jobLevels'));
     }
+    
 
     public function update(UpdateEmployeeRequest $request, Employee $employee)
     {

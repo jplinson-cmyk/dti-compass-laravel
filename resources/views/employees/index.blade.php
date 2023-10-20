@@ -24,7 +24,6 @@
                 <th scope="col">Email</th>
                 <th scope="col" width="10%">Employee ID</th>
                 <th scope="col" width="10%">Gender</th>
-                <th scope="col" width="10%">Position</th>
                 <th scope="col" width="1%" colspan="3"></th>    
             </tr>
             </thead>
@@ -35,9 +34,9 @@
                         <td>{{ $employee->firstname }}</td>
                         <td>{{ $employee->lastname }}</td>
                         <td>{{ $employee->email }}</td>
-                        <td>{{ $employee->employee_id_number }}</td>
+                        <td>{{ $employee->employee_id }}</td>
                         <td>{{ $employee->gender }}</td>
-                        <td>{{ $employee->position }}</td>
+                        <td><a href="{{ route('employees_supervisors.tags.index', $employee->id) }}" class="btn btn-success btn-sm">Tags</a></td>
                         <td><a href="{{ route('employees.show', $employee->id) }}" class="btn btn-warning btn-sm">Show</a></td>
                         <td><a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-info btn-sm">Edit</a></td>
                         <td>

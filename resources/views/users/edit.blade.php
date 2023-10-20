@@ -47,7 +47,7 @@
                 </div>
 
                 <div id="selected-roles" class="mb-3">
-                    <label for="selected-roles" class="form-label">Selected Roles</label>
+                    <label for="selected-roles" class="form-label">Assigned Roles</label>
                     @foreach ($user->roles as $selectedRole)
                         <div class="badge-container">
                             <span class="badge bg-primary">{{ $selectedRole->name }}</span>

@@ -46,14 +46,14 @@
                     @endif
                 </div>
                 <div class="mb-3">
-                    <label for="employee_id_number" class="form-label">Employee ID</label>
-                    <input value="{{ old('employee_id_number') }}"
-                        type="text" 
+                    <label for="employee_id" class="form-label">Employee ID</label>
+                    <input value="{{ old('employee_id') }}"
+                        type="int" 
                         class="form-control" 
-                        name="employee_id_number" 
+                        name="employee_id" 
                         placeholder="Employee ID number" required>
-                    @if ($errors->has('employee_id_number'))
-                        <span class="text-danger text-left">{{ $errors->first('employee_id_number') }}</span>
+                    @if ($errors->has('employee_id'))
+                        <span class="text-danger text-left">{{ $errors->first('employee_id') }}</span>
                     @endif
                 </div>
                 <div class="mb-3">
@@ -67,47 +67,82 @@
                     @endif
                 </div>
                 <div class="mb-3">
-                    <label for="employment_status" class="form-label">Employment Status</label>
-                    <input value="{{ old('employment_status') }}"
-                        type="text" 
-                        class="form-control" 
-                        name="employment_status" 
-                        placeholder="Employment Status" required>
-                    @if ($errors->has('employment_status'))
-                        <span class="text-danger text-left">{{ $errors->first('employment_status') }}</span>
+                    <label for="employment_status_id" class="form-label">Employment Status</label>
+                    <select class="form-select" name="employment_status_id" id="employment_status_id" required>
+                        <option value="" disabled selected>Select Employment Status</option>
+                        @foreach($employmentStatus as $status)
+                            <option value="{{ $status->id }}">{{ $status->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('employment_status_id'))
+                        <span class="text-danger text-left">{{ $errors->first('employment_status_id') }}</span>
+                    @endif
+                </div>
+                
+                <div class="mb-3">
+                    <label for="functional_group_id" class="form-label">Functional Group</label>
+                    <select class="form-select" name="functional_group_id" id="functional_group_id" required>
+                        <option value="" disabled selected>Select Functional Group</option>
+
+                        @foreach($functionalGroups as $group)
+                            <option value="{{ $group->id }}">{{ $group->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('functional_group_id'))
+                        <span class="text-danger text-left">{{ $errors->first('functional_group_id') }}</span>
+                    @endif
+                </div>
+
+                <div class="mb-3">
+                    <label for="bureau_office_id" class="form-label">Bureau Office</label>
+                    <select class="form-select" name="bureau_office_id" id="bureau_office_id" required>
+                        <option value="" disabled selected>Select Bureau / Office</option>
+
+                        @foreach($bureauOffices as $office)
+                            <option value="{{ $office->id }}">{{ $office->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('bureau_office_id'))
+                        <span class="text-danger text-left">{{ $errors->first('bureau_office_id') }}</span>
+                    @endif
+                </div>
+
+                <div class="mb-3">
+                    <label for="division_id" class="form-label">Division</label>
+                    <select class="form-select" name="division_id" id="division_id" required>
+                        <option value="" disabled selected>Select Division</option>
+
+                        @foreach($divisions as $division)
+                            <option value="{{ $division->id }}">{{ $division->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('division_id'))
+                        <span class="text-danger text-left">{{ $errors->first('division_id') }}</span>
                     @endif
                 </div>
                 <div class="mb-3">
-                    <label for="functional_group" class="form-label">Functional Group</label>
-                    <input value="{{ old('functional_group') }}"
-                        type="text" 
-                        class="form-control" 
-                        name="functional_group" 
-                        placeholder="Functional Group" required>
-                    @if ($errors->has('functional_group'))
-                        <span class="text-danger text-left">{{ $errors->first('functional_group') }}</span>
+                    <label for="position_id" class="form-label">Position</label>
+                    <select class="form-select" name="position_id" id="position_id" required>
+                        <option value="" disabled selected>Select Position</option>
+                        @foreach($positions as $position)
+                            <option value="{{ $position->id }}">{{ $position->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('position_id'))
+                        <span class="text-danger text-left">{{ $errors->first('position_id') }}</span>
                     @endif
                 </div>
+
                 <div class="mb-3">
-                    <label for="bureau_office" class="form-label">Bureau Office</label>
-                    <input value="{{ old('bureau_office') }}"
-                        type="text" 
-                        class="form-control" 
-                        name="bureau_office" 
-                        placeholder="Bureau Office" required>
-                    @if ($errors->has('bureau_office'))
-                        <span class="text-danger text-left">{{ $errors->first('bureau_office') }}</span>
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="division" class="form-label">Division</label>
-                    <input value="{{ old('division') }}"
-                        type="text" 
-                        class="form-control" 
-                        name="division" 
-                        placeholder="Division" required>
-                    @if ($errors->has('division'))
-                        <span class="text-danger text-left">{{ $errors->first('division') }}</span>
+                    <label for="job_level_id" class="form-label">Job Level</label>
+                    <select class="form-select" name="job_level_id" id="job_level_id" required>
+                        <option value="" disabled selected>Select Job Level</option>
+                        @foreach($jobLevels as $level)
+                            <option value="{{ $level->id }}">{{ $level->name }}</option>
+                        @endforeach
+                    </select>
+                    @if ($errors->has('job_level_id'))
+                        <span class="text-danger text-left">{{ $errors->first('job_level_id') }}</span>
                     @endif
                 </div>
                 <div class="mb-3">
@@ -121,28 +156,7 @@
                         <span class="text-danger text-left">{{ $errors->first('immediate_supervisor') }}</span>
                     @endif
                 </div>
-                <div class="mb-3">
-                    <label for="position" class="form-label">Position</label>
-                    <input value="{{ old('position') }}"
-                        type="text" 
-                        class="form-control" 
-                        name="position" 
-                        placeholder="Position" required>
-                    @if ($errors->has('position'))
-                        <span class="text-danger text-left">{{ $errors->first('position') }}</span>
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="job_level" class="form-label">Job Level</label>
-                    <input value="{{ old('job_level') }}"
-                        type="text" 
-                        class="form-control" 
-                        name="job_level" 
-                        placeholder="Job Level" required>
-                    @if ($errors->has('job_level'))
-                        <span class="text-danger text-left">{{ $errors->first('job_level') }}</span>
-                    @endif
-                </div>
+
                 <div class="mb-3">
                     <label for="last_review_at" class="form-label">Last Review Date</label>
                     <input value="{{ old('last_review_at') }}"

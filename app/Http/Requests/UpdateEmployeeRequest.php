@@ -24,22 +24,24 @@ class UpdateEmployeeRequest extends FormRequest
      */
     public function rules()
     {
-        $employee = $this->route('employee'); // Get the current employee model
-        
+        $employee = $this->route('employee'); 
+
         return [
             'firstname' => 'required',
             'lastname' => 'required',
-            'employee_id_number' => ['required',Rule::unique('employees')->ignore($employee->id)],
-            //'required|unique:employees,employee_id_number,' . $employee->id . ',id',
+            'employee_id' => [
+                'required',
+                Rule::unique('employees')->ignore($employee->id),
+            ],
             'email' => 'required|email:rfc,dns',
             'gender' => 'required|in:male,female',
-            'employment_status' => 'required',
-            'functional_group' => 'required',
-            'bureau_office' => 'required',
-            'division' => 'required',
+            'employment_status_id' => 'required|exists:employment_status,id',
+            'functional_group_id' => 'required|exists:functional_groups,id',
+            'bureau_office_id' => 'required|exists:bureaus_offices,id',
+            'division_id' => 'required|exists:divisions,id',
             'immediate_supervisor' => 'required',
-            'position' => 'required',
-            'job_level' => 'required',
+            'position_id' => 'required|exists:positions,id',
+            'job_level_id' => 'required|exists:job_levels,id',
             'last_review_at' => 'required|date',
         ];
     }

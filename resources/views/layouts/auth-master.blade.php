@@ -11,6 +11,7 @@
     <!-- Bootstrap core CSS -->
     <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
     <link href="{!! url('assets/css/signin.css') !!}" rel="stylesheet">
+    
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <style>
       .bd-placeholder-img {

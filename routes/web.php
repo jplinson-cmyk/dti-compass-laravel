@@ -39,7 +39,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/forgot-password', 'PasswordResetController@emailPassword')->name('password.email');
         Route::get('/reset-password/{token}', 'PasswordResetController@resetPassword')->name('password.reset');
         Route::post('/reset-password', 'PasswordResetController@updatePassword')->name('password.update');
-
     });
 
     Route::group(['middleware' => ['auth', 'permission']], function () {
@@ -60,11 +59,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
             Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
             Route::post('/{userId}/send-password-link', 'UsersController@sendPasswordLink')->name('users.send_password_link');
-
         });
 
+        Route::group(['prefix' => 'profile'], function () {
+            Route::get('/', 'ProfileController@index')->name('profile.index');
+        });
 
-        
 
         /**
          * Employee Routes
@@ -77,6 +77,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/{employee}/edit', 'EmployeesController@edit')->name('employees.edit');
             Route::patch('/{employee}/update', 'EmployeesController@update')->name('employees.update');
             Route::delete('/{employee}/delete', 'EmployeesController@destroy')->name('employees.destroy');
+
+            Route::get('/{employee}/tags/create', 'EmployeesSupervisorsController@showTagForm')->name('employees_supervisors.tags.create');
+            Route::post('/{employee}/tags', 'EmployeesSupervisorsController@storeTag')->name('employees_supervisors.tags.store');
+            Route::get('/{employee}/tags', 'EmployeesSupervisorsController@showTaggedEmployees')->name('employees_supervisors.tags.index');
+            Route::delete('/{employee}/tags/delete/{employee_id}', 'EmployeesSupervisorsController@destroy')->name('employees_supervisors.tags.destroy');
+
+            Route::get('/{employee}/tags/search', 'EmployeesSupervisorsController@searchEmployees')->name('employees_supervisors.tags.search');
         });
 
         /**
@@ -92,7 +99,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::delete('/{post}/delete', 'PostsController@destroy')->name('posts.destroy');
         });
 
-         /**
+        /**
          * Competency Category Routes
          */
 
@@ -142,10 +149,30 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::group(['prefix' => 'roles-assign'], function () {
             Route::get('/', 'RolesAssignController@index')->name('roles_assign.index');
             Route::get('/{user}/get-user-roles', 'RolesAssignController@getUserRoles')->name('get_user_roles');
-
         });
 
 
         Route::resource('permissions', PermissionsController::class);
+
+
+
+
+        //Employee Competency Assessment Routes
+
+        /**
+         * Competency Assessment Routes
+         */
+
+        Route::group(['prefix' => 'competency-assessment'], function () {
+            Route::get('/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
+            Route::get('/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
+            Route::get('/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
+            Route::get('/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
+            Route::get('/core_competency', 'CompetencyAssessmentController@coreCompetencies')->name('competency_assessment.core_competency');
+            Route::get('/technical_competency', 'CompetencyAssessmentController@technicalCompetencies')->name('competency_assessment.technical_competency');
+            Route::get('/leadership_competency', 'CompetencyAssessmentController@leadershipCompetencies')->name('competency_assessment.leadership_competency');
+
+           
+        });
     });
 });
