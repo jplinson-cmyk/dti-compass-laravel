@@ -13,14 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'App\Http\Controllers'], function()
-{   
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
     /**
      * Home Routes
      */
     Route::get('/', 'HomeController@index')->name('home.index');
 
-    Route::group(['middleware' => ['guest']], function() {
+    Route::group(['middleware' => ['guest']], function () {
         /**
          * Register Routes
          */
@@ -33,9 +32,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
 
+        /**
+         * Forgot Password Routes
+         */
+        Route::get('/forgot-password', 'PasswordResetController@requestPassword')->name('password.request');
+        Route::post('/forgot-password', 'PasswordResetController@emailPassword')->name('password.email');
+        Route::get('/reset-password/{token}', 'PasswordResetController@resetPassword')->name('password.reset');
+        Route::post('/reset-password', 'PasswordResetController@updatePassword')->name('password.update');
     });
 
-    Route::group(['middleware' => ['auth', 'permission']], function() {
+    Route::group(['middleware' => ['auth', 'permission']], function () {
         /**
          * Logout Routes
          */
@@ -44,7 +50,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         /**
          * User Routes
          */
-        Route::group(['prefix' => 'users'], function() {
+        Route::group(['prefix' => 'users'], function () {
             Route::get('/', 'UsersController@index')->name('users.index');
             Route::get('/create', 'UsersController@create')->name('users.create');
             Route::post('/create', 'UsersController@store')->name('users.store');
@@ -52,12 +58,38 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::get('/{user}/edit', 'UsersController@edit')->name('users.edit');
             Route::patch('/{user}/update', 'UsersController@update')->name('users.update');
             Route::delete('/{user}/delete', 'UsersController@destroy')->name('users.destroy');
+            Route::post('/{userId}/send-password-link', 'UsersController@sendPasswordLink')->name('users.send_password_link');
+        });
+
+        Route::group(['prefix' => 'profile'], function () {
+            Route::get('/', 'ProfileController@index')->name('profile.index');
+        });
+
+
+        /**
+         * Employee Routes
+         */
+        Route::group(['prefix' => 'employees'], function () {
+            Route::get('/', 'EmployeesController@index')->name('employees.index');
+            Route::get('/create', 'EmployeesController@create')->name('employees.create');
+            Route::post('/create', 'EmployeesController@store')->name('employees.store');
+            Route::get('/{employee}/show', 'EmployeesController@show')->name('employees.show');
+            Route::get('/{employee}/edit', 'EmployeesController@edit')->name('employees.edit');
+            Route::patch('/{employee}/update', 'EmployeesController@update')->name('employees.update');
+            Route::delete('/{employee}/delete', 'EmployeesController@destroy')->name('employees.destroy');
+
+            Route::get('/{employee}/tags/create', 'EmployeesSupervisorsController@showTagForm')->name('employees_supervisors.tags.create');
+            Route::post('/{employee}/tags', 'EmployeesSupervisorsController@storeTag')->name('employees_supervisors.tags.store');
+            Route::get('/{employee}/tags', 'EmployeesSupervisorsController@showTaggedEmployees')->name('employees_supervisors.tags.index');
+            Route::delete('/{employee}/tags/delete/{employee_id}', 'EmployeesSupervisorsController@destroy')->name('employees_supervisors.tags.destroy');
+
+            Route::get('/{employee}/tags/search', 'EmployeesSupervisorsController@searchEmployees')->name('employees_supervisors.tags.search');
         });
 
         /**
-         * User Routes
+         * Test Post Routes
          */
-        Route::group(['prefix' => 'posts'], function() {
+        Route::group(['prefix' => 'posts'], function () {
             Route::get('/', 'PostsController@index')->name('posts.index');
             Route::get('/create', 'PostsController@create')->name('posts.create');
             Route::post('/create', 'PostsController@store')->name('posts.store');
@@ -67,7 +99,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{post}/delete', 'PostsController@destroy')->name('posts.destroy');
         });
 
-        Route::group(['prefix' => 'competency_categories'], function() {
+        /**
+         * Competency Category Routes
+         */
+
+        Route::group(['prefix' => 'competency-categories'], function () {
             Route::get('/', 'CompetencyCategoriesController@index')->name('competency_categories.index');
             Route::get('/create', 'CompetencyCategoriesController@create')->name('competency_categories.create');
             Route::post('/create', 'CompetencyCategoriesController@store')->name('competency_categories.store');
@@ -77,7 +113,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{competency_category}/delete', 'CompetencyCategoriesController@destroy')->name('competency_categories.destroy');
         });
 
-        Route::group(['prefix' => 'competencies'], function() {
+        /**
+         * Competency Routes
+         */
+
+        Route::group(['prefix' => 'competencies'], function () {
             Route::get('/', 'CompetenciesController@index')->name('competencies.index');
             Route::get('/create', 'CompetenciesController@create')->name('competencies.create');
             Route::post('/create', 'CompetenciesController@store')->name('competencies.store');
@@ -87,7 +127,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::delete('/{competency}/delete', 'CompetenciesController@destroy')->name('competencies.destroy');
         });
 
-        Route::group(['prefix' => 'behavioral_indicators'], function() {
+        /**
+         * Behavioral Indicator Routes
+         */
+
+        Route::group(['prefix' => 'behavioral-indicators'], function () {
             Route::get('/', 'BehavioralIndicatorsController@index')->name('behavioral_indicators.index');
             Route::get('/create', 'BehavioralIndicatorsController@create')->name('behavioral_indicators.create');
             Route::post('/create', 'BehavioralIndicatorsController@store')->name('behavioral_indicators.store');
@@ -96,9 +140,39 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
             Route::patch('/{behavioralIndicator}/update', 'BehavioralIndicatorsController@update')->name('behavioral_indicators.update');
             Route::delete('/{behavioralIndicator}/delete', 'BehavioralIndicatorsController@destroy')->name('behavioral_indicators.destroy');
         });
-        
+
+        /**
+         * Role Routes
+         */
 
         Route::resource('roles', RolesController::class);
+        Route::group(['prefix' => 'roles-assign'], function () {
+            Route::get('/', 'RolesAssignController@index')->name('roles_assign.index');
+            Route::get('/{user}/get-user-roles', 'RolesAssignController@getUserRoles')->name('get_user_roles');
+        });
+
+
         Route::resource('permissions', PermissionsController::class);
+
+
+
+
+        //Employee Competency Assessment Routes
+
+        /**
+         * Competency Assessment Routes
+         */
+
+        Route::group(['prefix' => 'competency-assessment'], function () {
+            Route::get('/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
+            Route::get('/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
+            Route::get('/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
+            Route::get('/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
+            Route::get('/core_competency', 'CompetencyAssessmentController@coreCompetencies')->name('competency_assessment.core_competency');
+            Route::get('/technical_competency', 'CompetencyAssessmentController@technicalCompetencies')->name('competency_assessment.technical_competency');
+            Route::get('/leadership_competency', 'CompetencyAssessmentController@leadershipCompetencies')->name('competency_assessment.leadership_competency');
+
+           
+        });
     });
 });

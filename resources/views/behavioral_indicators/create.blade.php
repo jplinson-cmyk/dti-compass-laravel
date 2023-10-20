@@ -28,15 +28,6 @@
                 @endif
             </div>
             <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" 
-                    name="description" 
-                    placeholder="Description" required>{{ old('description') }}</textarea>
-                @if ($errors->has('description'))
-                    <span class="text-danger">{{ $errors->first('description') }}</span>
-                @endif
-            </div>
-            <div class="mb-3">
                 <label for="level" class="form-label">Level</label>
                 <select class="form-select" name="level" required>
                     <option value="" selected>Select a level</option>
@@ -49,6 +40,16 @@
                     <span class="text-danger">{{ $errors->first('level') }}</span>
                 @endif
             </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" 
+                    name="description" 
+                    placeholder="Description" required>{{ old('description') }}</textarea>
+                @if ($errors->has('description'))
+                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                @endif
+            </div>
+            
             <button type="submit" class="btn btn-primary">Save Behavioral Indicator</button>
             <a href="{{ route('behavioral_indicators.index') }}" class="btn btn-default">Back</a>
         </form>

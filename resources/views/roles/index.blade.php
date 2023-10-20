@@ -8,7 +8,7 @@
         <h1>Roles</h1>
         <div class="lead">
             Manage your roles here.
-            <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right">Add role</a>
+            <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right ">Add role</a>
         </div>
 
         <div class="mt-2">
