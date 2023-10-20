@@ -44,6 +44,12 @@
                                 role="button" aria-expanded="false">Competency Assessment</a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="{{ route('competency_assessment.about') }}" class="dropdown-item">About</a></li>
+                                <li><a href="{{ route('competency_assessment.dictionary') }}" class="dropdown-item">Competency Dictionary</a></li>
+                                <li><a href="{{ route('competency_assessment.employee_profile') }}" class="dropdown-item">Employee Profile</a></li>
+                                <li><a href="{{ route('competency_assessment.instructions') }}" class="dropdown-item">Instructions</a></li>
+                                <li><a href="{{ route('competency_assessment.core_competency') }}" class="dropdown-item">Core Competency</a></li>
+                                <li><a href="{{ route('competency_assessment.technical_competency') }}" class="dropdown-item">Technical Competency</a></li>
+                                <li><a href="{{ route('competency_assessment.leadership_competency') }}" class="dropdown-item">Leadership Competency</a></li>
                             </ul>
                         </li>
                     @endrole
@@ -51,7 +57,9 @@
             </ul>
 
             @auth
-                {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}&nbsp;
+                <a href="{{ route('profile.index') }}" class="text-white nav-link">{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</a>
+
+                &nbsp;
                 <div class="text-end">
                     <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">Logout</a>
                 </div>

@@ -41,3 +41,10 @@
 
     </div>
 @endsection
+@section("scripts")
+<script>
+    $(document).ready(function(){
+        alert('123');
+    });
+</script>
+@endsection

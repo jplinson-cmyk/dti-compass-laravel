@@ -23,7 +23,6 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        // Let's get the route param by name to get the User object value
         $user = request()->route('user');
 
         return [

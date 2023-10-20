@@ -61,7 +61,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/{userId}/send-password-link', 'UsersController@sendPasswordLink')->name('users.send_password_link');
         });
 
-
+        Route::group(['prefix' => 'profile'], function () {
+            Route::get('/', 'ProfileController@index')->name('profile.index');
+        });
 
 
         /**
@@ -163,7 +165,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::group(['prefix' => 'competency-assessment'], function () {
             Route::get('/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
+            Route::get('/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
+            Route::get('/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
             Route::get('/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
+            Route::get('/core_competency', 'CompetencyAssessmentController@coreCompetencies')->name('competency_assessment.core_competency');
+            Route::get('/technical_competency', 'CompetencyAssessmentController@technicalCompetencies')->name('competency_assessment.technical_competency');
+            Route::get('/leadership_competency', 'CompetencyAssessmentController@leadershipCompetencies')->name('competency_assessment.leadership_competency');
 
            
         });

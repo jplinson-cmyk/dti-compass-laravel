@@ -53,7 +53,6 @@ class EmployeesSupervisorsController extends Controller
     
     public function destroy($employee, $employee_id)
     {
-        // Find the record in the employees_supervisors table
         $record = EmployeesSupervisor::where('supervisor_id', $employee)
             ->where('employee_id', $employee_id)
             ->first();
@@ -62,7 +61,6 @@ class EmployeesSupervisorsController extends Controller
             return redirect()->back()->with('error', 'Record not found.');
         }
     
-        // Delete the record
         $record->delete();
     
         return redirect()->back()->with('success', 'Employee untagged successfully.');

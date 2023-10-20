@@ -13,7 +13,7 @@
     <p>
         "The competency framework displays mission-critical competencies clustered into three groups, these are:"
     </p>
-
+    <img src="{{ asset('images/about_compass.png') }}">
     <ul>
         <li>
             <strong>Organizational or Core Competencies:</strong> Capture DTI’s values, mission, strategy, and unique service proposition and must be possessed by all employees regardless of position or rank.
@@ -37,10 +37,11 @@
     <p>
         "When you're ready to begin, click the 'Continue' button below to proceed to your Profile."
     </p>
-
+   
     <!-- Continue Button -->
     <div class="form-group">
         <a href="#" class="btn btn-primary">CONTINUE</a>
     </div>
+    <br>
 </div>
 @endsection
