@@ -174,5 +174,19 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
            
         });
+             /**
+         * Divisions Routes
+         */
+        Route::group(['prefix' => 'divisions'], function () {
+            Route::get('/', 'DivisionsController@index')->name('divisions.index');
+            Route::get('/create', 'DivisionsController@create')->name('divisions.create');
+            Route::post('/create', 'DivisionsController@store')->name('divisions.store');
+            Route::get('/{division}/show', 'DivisionsController@show')->name('divisions.show');
+            Route::get('/{division}/edit', 'DivisionsController@edit')->name('divisions.edit');
+            Route::patch('/{division}/update', 'DivisionsController@update')->name('divisions.update');
+            Route::delete('/{division}/delete', 'DivisionsController@destroy')->name('divisions.destroy');
+
+           
+        });
     });
 });
