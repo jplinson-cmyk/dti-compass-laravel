@@ -45,17 +45,17 @@ class PositionsController extends Controller
         ]);
     }
 
-    public function update(Request $request, Position $positions)
+    public function update(Request $request, Position $position)
     {
-        $positions->update($request->only('name'));
+        $position->update($request->only('name'));
         return redirect()->route('positions.index')
             ->withSuccess(__('Position updated successfully.'));
     }
 
    
-    public function destroy(Position $positions)
+    public function destroy(Position $position)
     {
-        $positions->delete();
+        $position->delete();
 
         return redirect()->route('positions.index')
             ->withSuccess(__('Position deleted successfully.'));

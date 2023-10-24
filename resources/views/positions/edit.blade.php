@@ -10,7 +10,7 @@
 
         <div class="container mt-4">
 
-            <form method="POST" action="{{ route('divisions.update', $position->id) }}">
+            <form method="POST" action="{{ route('positions.update', $position->id) }}">
                 @method('patch')
                 @csrf
                 <div class="mb-3">
