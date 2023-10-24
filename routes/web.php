@@ -174,9 +174,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
            
         });
-             /**
+        /**
          * Divisions Routes
-         */
+        */
         Route::group(['prefix' => 'divisions'], function () {
             Route::get('/', 'DivisionsController@index')->name('divisions.index');
             Route::get('/create', 'DivisionsController@create')->name('divisions.create');
@@ -185,6 +185,21 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/{division}/edit', 'DivisionsController@edit')->name('divisions.edit');
             Route::patch('/{division}/update', 'DivisionsController@update')->name('divisions.update');
             Route::delete('/{division}/delete', 'DivisionsController@destroy')->name('divisions.destroy');
+
+           
+        });
+
+        /**
+         * Positions Routes
+         */
+        Route::group(['prefix' => 'positions'], function () {
+            Route::get('/', 'PositionsController@index')->name('positions.index');
+            Route::get('/create', 'PositionsController@create')->name('positions.create');
+            Route::post('/create', 'PositionsController@store')->name('positions.store');
+            Route::get('/{position}/show', 'PositionsController@show')->name('positions.show');
+            Route::get('/{position}/edit', 'PositionsController@edit')->name('positions.edit');
+            Route::patch('/{position}/update', 'PositionsController@update')->name('positions.update');
+            Route::delete('/{position}/delete', 'PositionsController@destroy')->name('positions.destroy');
 
            
         });
