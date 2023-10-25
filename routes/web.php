@@ -218,5 +218,20 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
            
         });
+
+        /**
+         * Bureau Office Routes
+         */
+        Route::group(['prefix' => 'bureaus-offices'], function () {
+            Route::get('/', 'BureausOfficesController@index')->name('bureaus_offices.index');
+            Route::get('/create', 'BureausOfficesController@create')->name('bureaus_offices.create');
+            Route::post('/create', 'BureausOfficesController@store')->name('bureaus_offices.store');
+            Route::get('/{bureau_office}/show', 'BureausOfficesController@show')->name('bureaus_offices.show');
+            Route::get('/{bureau_office}/edit', 'BureausOfficesController@edit')->name('bureaus_offices.edit');
+            Route::patch('/{bureau_office}/update', 'BureausOfficesController@update')->name('bureaus_offices.update');
+            Route::delete('/{bureau_office}/delete', 'BureausOfficesController@destroy')->name('bureaus_offices.destroy');
+
+           
+        });
     });
 });
