@@ -51,7 +51,6 @@
                     When you're ready to begin, click the 'Continue' button below to proceed to view the complete Competency Dictionary.
                 </p>
             </div>
-            <!-- Continue Button -->
             <div class="form-group">
                 <a href="{{ route('competency_assessment.dictionary') }}" class="btn btn-primary float-right">CONTINUE</a>
             </div>
