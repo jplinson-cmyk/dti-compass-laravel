@@ -17,8 +17,11 @@ class CompetencyAssessmentController extends Controller
 
     
     public function dictionary()
-    {
-        return view('competency_assessment.dictionary');
+    { 
+        $competencyCategories = CompetencyCategory::all();
+        $competencies = Competency::all();
+       
+        return view('competency_assessment.dictionary',compact('competencyCategories', 'competencies'));
     }
 
     public function instructions()
