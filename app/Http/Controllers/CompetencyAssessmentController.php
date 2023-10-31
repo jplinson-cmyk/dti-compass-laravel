@@ -24,6 +24,11 @@ class CompetencyAssessmentController extends Controller
         return view('competency_assessment.dictionary',compact('competencyCategories', 'competencies'));
     }
 
+    public function ratingScale()
+    {
+        return view('competency_assessment.rating_scale');
+    }
+
     public function instructions()
     {
         return view('competency_assessment.instructions');

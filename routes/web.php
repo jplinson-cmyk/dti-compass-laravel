@@ -166,6 +166,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::group(['prefix' => 'competency-assessment'], function () {
             Route::get('/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
             Route::get('/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
+            Route::get('/rating_scale', 'CompetencyAssessmentController@ratingScale')->name('competency_assessment.rating_scale');
             Route::get('/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
             Route::get('/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
             Route::get('/core_competency', 'CompetencyAssessmentController@coreCompetencies')->name('competency_assessment.core_competency');
