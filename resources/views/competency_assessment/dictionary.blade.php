@@ -38,7 +38,9 @@
             @endforeach
         </div>
         <div class="form-group">
-            <a href="{{ route('competency_assessment.employee_profile') }}" class="btn btn-primary float-right mt-2">CONTINUE</a>
+            <a href="{{ route('competency_assessment.about') }}"
+            class="btn btn-default float-left mt-2">Back</a>
+            <a href="{{ route('competency_assessment.employee_profile') }}" class="btn btn-primary float-right mt-2">Continue</a>
         </div>
     </div>
 @endsection
