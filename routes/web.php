@@ -116,7 +116,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         /**
          * Competency Routes
          */
-
+        
         Route::group(['prefix' => 'competencies'], function () {
             Route::get('/', 'CompetenciesController@index')->name('competencies.index');
             Route::get('/create', 'CompetenciesController@create')->name('competencies.create');
@@ -125,6 +125,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/{competency}/edit', 'CompetenciesController@edit')->name('competencies.edit');
             Route::patch('/{competency}/update', 'CompetenciesController@update')->name('competencies.update');
             Route::delete('/{competency}/delete', 'CompetenciesController@destroy')->name('competencies.destroy');
+        
+        /**
+         * Competency Sets Routes
+         */
+            Route::get('/competency-sets', 'CompetencySetsController@index')->name('competency_sets.index');
+            Route::get('/competency-sets/create', 'CompetencySetsController@create')->name('competency_sets.create');
+            Route::post('/competency-sets/create', 'CompetencySetsController@store')->name('competency_sets.store');
+            Route::get('/competency-sets/{competencySet}/show', 'CompetencySetsController@show')->name('competency_sets.show');
+            Route::get('/competency-sets/{competencySet}/edit', 'CompetencySetsController@edit')->name('competency_sets.edit');
+            Route::patch('/competency-sets/{competencySet}/update', 'CompetencySetsController@update')->name('competency_sets.update');
+            Route::delete('/competency-sets/{competencySet}/delete', 'CompetencySetsController@destroy')->name('competency_sets.destroy');
         });
 
         /**
