@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="text-center mb-5">
-            <h2>PART 1. ORGANIZATIONAL/CORE COMPETENCY</h2>
+            <h1>PART 1. ORGANIZATIONAL/CORE COMPETENCY</h1>
         </div>
         <div class="row">
             <div class="col">

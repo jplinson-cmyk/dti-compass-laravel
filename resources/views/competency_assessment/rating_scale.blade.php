@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2 class="text-center">COMPETENCY ASSESSMENT</h2>
+        <h1 class="text-center">COMPETENCY ASSESSMENT</h1>
         <p>As we strive to continuously provide programs that will cater to the specific needs of the DTI employees, please allow us to conduct a competency assessment to evaluate your current competency levels and determine your training needs in preparation for the 2024 competency-based training programs.  The result will also be used in developing a 3-year DTI Academy Training Plan which will have a series of recommended training courses for employees to attend to per competency, depending on the overall result of this evaluation.</p>
         <p>  Using the rating scale below, please select the appropriate rating for each behavioral indicator that you are going to assess based on how you see yourself. Once you are done reading the guidelines below, click "Continue" to proceed to the next page of this evaluation.</p>
         <h4 class="text-center">RATING SCALE</h4>
@@ -45,9 +45,9 @@
 
 
         <div class="form-group">
-            <a href="{{ route('competency_assessment.employee_profile') }}"
+            <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}"
             class="btn btn-default float-left mt-2">Back</a>
-            <a href="{{ route('competency_assessment.instructions') }}"
+            <a href="{{ route('competency_assessment.instructions', ['employee' => $employee]) }}"
                 class="btn btn-primary float-right mt-2">Continue</a>
         </div>
     </div>

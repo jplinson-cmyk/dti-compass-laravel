@@ -52,7 +52,8 @@
                 </p>
             </div>
             <div class="form-group">
-                <a href="{{ route('competency_assessment.dictionary') }}" class="btn btn-primary float-right">CONTINUE</a>
+                <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}
+                    " class="btn btn-primary float-right">Continue</a>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h2 class="text-center">THE DTI COMPETENCY DICTIONARY</h2>
+        <h1 class="text-center">THE DTI COMPETENCY DICTIONARY</h1>
         <p>For your reference, here is your complete guide to the DTI Competency Dictionary. If you wish to view the competency descriptions prior to beginning the assessment, you may scroll down and browse through this page. When you're ready to begin with the assessment, click the 'Continue' button.</p>
 
         <div class="accordion" id="competencyAccordion">
@@ -38,9 +38,11 @@
             @endforeach
         </div>
         <div class="form-group">
-            <a href="{{ route('competency_assessment.about') }}"
+            <a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}"
             class="btn btn-default float-left mt-2">Back</a>
-            <a href="{{ route('competency_assessment.employee_profile') }}" class="btn btn-primary float-right mt-2">Continue</a>
+            
+
+            <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="btn btn-primary float-right mt-2">Continue</a>
         </div>
     </div>
 @endsection

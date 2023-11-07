@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 class Employee extends Model
 {
@@ -65,5 +66,10 @@ class Employee extends Model
     public function supervisedEmployees()
     {
         return $this->belongsToMany(Employee::class, 'employees_supervisors', 'supervisor_id', 'employee_id');
+    }
+
+    public function users(): MorphToMany
+    {
+        return $this->morphToMany(User::class, 'model', 'model_has_users', 'model_id', 'user_id');
     }
 }
