@@ -26,4 +26,9 @@ class Competency extends Model
     {
         return $this->hasMany(BehavioralIndicator::class);
     }
+
+    public function competencySets()
+    {
+        return $this->hasMany(CompetencySet::class);
+    }
 }

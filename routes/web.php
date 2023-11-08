@@ -116,7 +116,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         /**
          * Competency Routes
          */
-
+        
         Route::group(['prefix' => 'competencies'], function () {
             Route::get('/', 'CompetenciesController@index')->name('competencies.index');
             Route::get('/create', 'CompetenciesController@create')->name('competencies.create');
@@ -125,6 +125,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/{competency}/edit', 'CompetenciesController@edit')->name('competencies.edit');
             Route::patch('/{competency}/update', 'CompetenciesController@update')->name('competencies.update');
             Route::delete('/{competency}/delete', 'CompetenciesController@destroy')->name('competencies.destroy');
+        
+        /**
+         * Competency Sets Routes
+         */
+            Route::get('/competency-sets', 'CompetencySetsController@index')->name('competency_sets.index');
+            Route::get('/competency-sets/create', 'CompetencySetsController@create')->name('competency_sets.create');
+            Route::post('/competency-sets/create', 'CompetencySetsController@store')->name('competency_sets.store');
+            Route::get('/competency-sets/{competencySet}/show', 'CompetencySetsController@show')->name('competency_sets.show');
+            Route::get('/competency-sets/{competencySet}/edit', 'CompetencySetsController@edit')->name('competency_sets.edit');
+            Route::patch('/competency-sets/{competencySet}/update', 'CompetencySetsController@update')->name('competency_sets.update');
+            Route::delete('/competency-sets/{competencySet}/delete', 'CompetencySetsController@destroy')->name('competency_sets.destroy');
         });
 
         /**
@@ -171,6 +182,65 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/core_competency', 'CompetencyAssessmentController@coreCompetencies')->name('competency_assessment.core_competency');
             Route::get('/technical_competency', 'CompetencyAssessmentController@technicalCompetencies')->name('competency_assessment.technical_competency');
             Route::get('/leadership_competency', 'CompetencyAssessmentController@leadershipCompetencies')->name('competency_assessment.leadership_competency');
+
+           
+        });
+        /**
+         * Divisions Routes
+        */
+        Route::group(['prefix' => 'divisions'], function () {
+            Route::get('/', 'DivisionsController@index')->name('divisions.index');
+            Route::get('/create', 'DivisionsController@create')->name('divisions.create');
+            Route::post('/create', 'DivisionsController@store')->name('divisions.store');
+            Route::get('/{division}/show', 'DivisionsController@show')->name('divisions.show');
+            Route::get('/{division}/edit', 'DivisionsController@edit')->name('divisions.edit');
+            Route::patch('/{division}/update', 'DivisionsController@update')->name('divisions.update');
+            Route::delete('/{division}/delete', 'DivisionsController@destroy')->name('divisions.destroy');
+
+           
+        });
+
+        /**
+         * Positions Routes
+         */
+        Route::group(['prefix' => 'positions'], function () {
+            Route::get('/', 'PositionsController@index')->name('positions.index');
+            Route::get('/create', 'PositionsController@create')->name('positions.create');
+            Route::post('/create', 'PositionsController@store')->name('positions.store');
+            Route::get('/{position}/show', 'PositionsController@show')->name('positions.show');
+            Route::get('/{position}/edit', 'PositionsController@edit')->name('positions.edit');
+            Route::patch('/{position}/update', 'PositionsController@update')->name('positions.update');
+            Route::delete('/{position}/delete', 'PositionsController@destroy')->name('positions.destroy');
+
+           
+        });
+
+        /**
+         * Positions Routes
+         */
+        Route::group(['prefix' => 'functionalgroups'], function () {
+            Route::get('/', 'functionalgroupsController@index')->name('functionalgroups.index');
+            Route::get('/create', 'functionalgroupsController@create')->name('functionalgroups.create');
+            Route::post('/create', 'functionalgroupsController@store')->name('functionalgroups.store');
+            Route::get('/{functionalgroup}/show', 'functionalgroupsController@show')->name('functionalgroups.show');
+            Route::get('/{functionalgroup}/edit', 'functionalgroupsController@edit')->name('functionalgroups.edit');
+            Route::patch('/{functionalgroup}/update', 'functionalgroupsController@update')->name('functionalgroups.update');
+            Route::delete('/{functionalgroup}/delete', 'functionalgroupsController@destroy')->name('functionalgroups.destroy');
+
+           
+        });
+
+        /**
+         * Bureau Office Routes
+         */
+        Route::group(['prefix' => 'bureaus-offices'], function () {
+            Route::get('/', 'BureausOfficesController@index')->name('bureaus_offices.index');
+            Route::get('/create', 'BureausOfficesController@create')->name('bureaus_offices.create');
+            Route::post('/create', 'BureausOfficesController@store')->name('bureaus_offices.store');
+            Route::get('/{bureau_office}/show', 'BureausOfficesController@show')->name('bureaus_offices.show');
+            Route::get('/{bureau_office}/edit', 'BureausOfficesController@edit')->name('bureaus_offices.edit');
+            Route::patch('/{bureau_office}/update', 'BureausOfficesController@update')->name('bureaus_offices.update');
+            Route::delete('/{bureau_office}/delete', 'BureausOfficesController@destroy')->name('bureaus_offices.destroy');
 
            
         });

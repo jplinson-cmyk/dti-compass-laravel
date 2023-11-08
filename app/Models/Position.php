@@ -16,5 +16,10 @@ class Position extends Model
     {
         return $this->hasMany(Employee::class);
     }
+
+    public function competencySets()
+    {
+        return $this->hasMany(CompetencySet::class);
+    }
 }
 

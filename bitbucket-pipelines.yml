@@ -4,32 +4,29 @@
 # You can specify a custom docker image from Docker Hub as your build environment.
 
 image: atlassian/default-image:3
-
 pipelines:
-  default:
-    - parallel:
-      - step:
-          name: 'Build and Test'
-          script:
-            - echo "Your build and test goes here..."
-      - step:
-          name: 'Lint'
-          script:
-            - echo "Your linting goes here..."
-      - step:
-          name: 'Security scan'
-          script:
-            - echo "Your security scan goes here..."
-
-    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
+  branches:
+   '{master}':
     - step:
-        name: 'Deployment to Staging'
-        deployment: staging
-        script:
-          - echo "Your deployment to staging script goes here..."
+       name: 'Running Pipeline'
+       script:
+         - echo "Running Pipeline"
     - step:
         name: 'Deployment to Production'
         deployment: production
         trigger: 'manual'
         script:
-          - echo "Your deployment to production script goes here..."
+          - echo "Pushing to Production..."
+#          - git push ssh://u357-f31vucuafghn@gsgpm1049.siteground.biz:18765/home/customer/www/dticompass.razzaconsulting.com/public_html/laravel/ staging:master
+   '{staging}':
+    - step:
+       name: 'Running Pipeline'
+       script:
+         - echo "Running Pipeline"
+    - step:
+        name: 'Deployment to Staging'
+        trigger: 'manual'
+        deployment: staging
+        script:
+          - echo "Pushing to Staging..."
+          - git push ssh://u357-f31vucuafghn@gsgpm1049.siteground.biz:18765/home/customer/www/dticompass.razzaconsulting.com/public_html/laravel/ staging:master

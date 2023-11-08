@@ -49,6 +49,9 @@ class EmployeesController extends Controller
 
     public function edit(Employee $employee)
     {
+        if(auth()->user()->cannot("update", $employee)){
+            abort(403);
+        }
         $employmentStatus = EmploymentStatus::all();
         $functionalGroups = FunctionalGroup::all();
         $bureauOffices = BureauOffice::all();

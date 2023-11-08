@@ -50,4 +50,9 @@ Thumbs.db
 
 .env
 
+composer.lock
+phpunit.xml
 vendor/
+
+
+.editorconfig

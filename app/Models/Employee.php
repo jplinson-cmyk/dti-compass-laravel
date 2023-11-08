@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -65,5 +66,9 @@ class Employee extends Model
     public function supervisedEmployees()
     {
         return $this->belongsToMany(Employee::class, 'employees_supervisors', 'supervisor_id', 'employee_id');
+    }
+
+    public function user(){
+        return $this->morphOne(User::class,"userable");
     }
 }
