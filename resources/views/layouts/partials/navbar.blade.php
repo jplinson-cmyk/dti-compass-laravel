@@ -43,25 +43,38 @@
                                 Competency Management
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ route('competency_categories.index') }}" class="dropdown-item">Competency Categories</a></li>
+                                <li><a href="{{ route('competency_categories.index') }}" class="dropdown-item">Competency
+                                        Categories</a></li>
                                 <li><a href="{{ route('competencies.index') }}" class="dropdown-item">Competencies</a></li>
-                                <li><a href="{{ route('behavioral_indicators.index') }}" class="dropdown-item">Behavioral Indicators</a></li>
+                                <li><a href="{{ route('behavioral_indicators.index') }}" class="dropdown-item">Behavioral
+                                        Indicators</a></li>
                             </ul>
                         </li>
-
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown">
                                 Competency Assessment
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}" class="dropdown-item">About</a></li>
-                                <li><a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}" class="dropdown-item">Competency Dictionary</a></li>
-                                <li><a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="dropdown-item">Employee Profile</a></li>
-                                <li><a href="{{ route('competency_assessment.instructions', ['employee' => $employee]) }}" class="dropdown-item">Instructions</a></li>
-                                <li><a href="{{ route('competency_assessment.core_competency', ['employee' => $employee]) }}" class="dropdown-item">Core Competency</a></li>
-                                <li><a href="{{ route('competency_assessment.technical_competency', ['employee' => $employee]) }}" class="dropdown-item">Technical Competency</a></li>
-                                <li><a href="{{ route('competency_assessment.leadership_competency', ['employee' => $employee]) }}" class="dropdown-item">Leadership Competency</a></li>
-                                <li><a href="{{ route('competency_assessment.summary', ['employee' => $employee]) }}" class="dropdown-item">Summary of Rating</a></li>
+                                @if (isset($employee))
+                                    <li><a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}"
+                                            class="dropdown-item">About</a></li>
+                                    <li><a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}"
+                                            class="dropdown-item">Competency Dictionary</a></li>
+                                    <li><a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}"
+                                            class="dropdown-item">Employee Profile</a></li>
+                                    <li><a href="{{ route('competency_assessment.instructions', ['employee' => $employee]) }}"
+                                            class="dropdown-item">Instructions</a></li>
+                                    <li><a href="{{ route('competency_assessment.core_competency', ['employee' => $employee]) }}"
+                                            class="dropdown-item">Core Competency</a></li>
+                                    <li><a href="{{ route('competency_assessment.technical_competency', ['employee' => $employee]) }}"
+                                            class="dropdown-item">Technical Competency</a></li>
+                                    <li><a href="{{ route('competency_assessment.leadership_competency', ['employee' => $employee]) }}"
+                                            class="dropdown-item">Leadership Competency</a></li>
+                                    <li><a href="{{ route('competency_assessment.summary', ['employee' => $employee]) }}"
+                                            class="dropdown-item">Summary of Rating</a></li>
+                                @else
+                                    <li><a href="#" class="dropdown-item disabled">Please enter the employee id in the url "competency-assessment/employeeid/about"</a></li>
+                                @endif
                             </ul>
                         </li>
                     @endrole
@@ -71,8 +84,8 @@
             @auth
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="{{ route('profile.index') }}"
-                           class="nav-link text-white">{{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</a>
+                        <a href="{{ route('profile.index') }}" class="nav-link text-white">{{ auth()->user()->firstname }}
+                            {{ auth()->user()->lastname }}</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('logout.perform') }}" class="btn btn-outline-light">Logout</a>

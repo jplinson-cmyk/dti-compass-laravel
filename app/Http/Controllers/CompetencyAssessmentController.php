@@ -39,11 +39,17 @@ class CompetencyAssessmentController extends Controller
 
     public function instructions(Employee $employee)
     {
-        $competencySets = CompetencySet::where([
+        $query = CompetencySet::where([
             'functional_group_id' => $employee->functional_group_id,
             'bureau_office_id' => $employee->bureau_office_id,
             'position_id' => $employee->position_id,
-        ])->get();
+        ]);
+
+            if($employee->division_id != null){
+                $query = $query->where("division_id",$employee->division_id);
+                
+            }
+        $competencySets = $query->get();
 
         $competencyDetails = [];
         foreach ($competencySets as $competencySet) {
@@ -55,6 +61,7 @@ class CompetencyAssessmentController extends Controller
                 'behavioral_indicators' => $behavioralIndicators,
             ];
         }
+
     
         return view('competency_assessment.instructions', compact('employee', 'competencyDetails'));
     }

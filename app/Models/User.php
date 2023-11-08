@@ -68,5 +68,7 @@ class User extends Authenticatable
     {
         return $this->morphToMany(Employee::class, 'model', 'model_has_users', 'user_id', 'model_id');
     }
+
+ 
     
 }
