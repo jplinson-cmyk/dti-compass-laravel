@@ -33,28 +33,26 @@ class CompetencySetsController extends Controller
         $competencies = Competency::all();
 
 
-        return view('competency_sets.create', compact('competency_sets', 'functional_groups', 'bureau_offices', 'divisions', 'positions', 'competencies'));
+        return view('competency_sets.create', compact('competency_sets', 'functional_groups', 'bureau_offices', 'divisions', 'positions', 'competencies',));
     }
 
     public function store(Request $request)
     {
 
 
-        try {
-            $request->validate([
-                'functional_group_id' => 'required',
-                'bureau_office_id' => 'required',
-                'competency_id' => 'required',
-                'division_id' => 'required',
-                'position_id' => 'required',
-                'standard' => 'required',
-            ]);
-        } catch (\Exception $e) {
-            throw ($e);
-        }
+        $validatedData = $request->validate([
+            'functional_group_id' => 'required',
+            'bureau_office_id' => 'required',
+            'competency_id' => 'required',
+            'division_id' => 'required',
+            'position_id' => 'required',
+            'standard' => 'required',
+        ]);
 
+        // dd($validatedData);
 
-        // CompetencySet::create($validatedData);
+        
+        CompetencySet::create($validatedData);
 
         return redirect()->route('competency_sets.index')
             ->withSuccess(__('Competency created successfully.'));
@@ -77,7 +75,7 @@ class CompetencySetsController extends Controller
         $positions = Position::all();
         $competencies = Competency::all();
 
-        return view('competency_sets.edit', compact('competencySet', 'functional_groups','bureau_offices','divisions','positions','competencies'));
+        return view('competency_sets.edit', compact('competencySet', 'functional_groups', 'bureau_offices', 'divisions', 'positions', 'competencies'));
     }
 
     public function update(Request $request, CompetencySet $competencySet)

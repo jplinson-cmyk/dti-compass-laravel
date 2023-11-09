@@ -105,10 +105,10 @@
                     <label for="standard" class="form-label">standard</label>
                     <select class="form-select" name="standard" required>
                         <option value="" selected>Select a standard</option>
-                        <option value="1" {{ $competencySet->standard == 1 ? 'selected' : '' }}>Basic</option>
-                        <option value="2" {{ $competencySet->standard == 2 ? 'selected' : '' }}>Intermediate</option>
-                        <option value="3" {{ $competencySet->standard == 3 ? 'selected' : '' }}>Advanced</option>
-                        <option value="4" {{ $competencySet->standard == 4 ? 'selected' : '' }}>Superior</option>
+                        <option value="1" {{ $competencySet->standard == 1 ? 'selected' : '' }}>1</option>
+                        <option value="2" {{ $competencySet->standard == 2 ? 'selected' : '' }}>2</option>
+                        <option value="3" {{ $competencySet->standard == 3 ? 'selected' : '' }}>3</option>
+                        <option value="4" {{ $competencySet->standard == 4 ? 'selected' : '' }}>4</option>
                     </select>
                     @if ($errors->has('standard'))
                         <span class="text-danger">{{ $errors->first('standard') }}</span>

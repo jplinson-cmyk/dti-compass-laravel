@@ -13,7 +13,7 @@ class CompetencySet extends Model
         'functional_group_id',
         'bureau_office_id',
         'division_id',
-        'position_id'.
+        'position_id',
         'competency_id',
         'standard'
     ];
