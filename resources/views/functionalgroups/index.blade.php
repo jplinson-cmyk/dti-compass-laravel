@@ -19,12 +19,14 @@
           <tr>
              <th width="1%">No</th>
              <th>Functional Group Name</th>
+             <th>Short Name</th>
              <th width="3%" colspan="3">Action</th>
           </tr>
             @foreach ($functionalgroups as $key => $functionalgroups)
             <tr>
                 <td>{{ $functionalgroups->id }}</td>
                 <td>{{ $functionalgroups->name }}</td>
+                <td>{{ $functionalgroups->short_name }}</td>
                 <td>
                     <a class="btn btn-info btn-sm" href="{{ route('functionalgroups.show', $functionalgroups->id) }}">Show</a>
                 </td>

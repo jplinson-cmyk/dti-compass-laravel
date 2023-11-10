@@ -24,7 +24,7 @@ class PositionsController extends Controller
 
     public function store(Request $request)
     {
-        Position::create(array_merge($request->only('name')));
+        Position::create(array_merge($request->only('name','short_name')));
         return redirect()->route('positions.index')
             ->withSuccess(__('Position created successfully.'));
     }
@@ -47,7 +47,7 @@ class PositionsController extends Controller
 
     public function update(Request $request, Position $position)
     {
-        $position->update($request->only('name'));
+        $position->update($request->only('name','short_name'));
         return redirect()->route('positions.index')
             ->withSuccess(__('Position updated successfully.'));
     }

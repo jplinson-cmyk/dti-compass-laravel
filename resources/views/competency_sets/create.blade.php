@@ -70,7 +70,7 @@
                 <select class="form-select" name="position_id" id="positionSelect" required>
                     <option value="" selected>Select a Position</option>
                     @foreach ($positions as $position)
-                        <option value="{{ $position->id }}" data-category="{{ $position->name}}">
+                        <option value="{{ $position->id }}" data-category="{{ $position->name ?? 'N/A'}}">
                             {{ $position->name }}
                         </option>
                     @endforeach
