@@ -9,7 +9,8 @@
 
         <div class="container mt-4">
             <div>
-                Category Name: {{ $division->name }}
+                <p><strong>Division Name:</strong> {{ $division->name }}</p>
+                <p><strong>Short Name:</strong> {{ $division->short_name }}</p>
             </div>
         </div>
 

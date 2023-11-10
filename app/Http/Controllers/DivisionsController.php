@@ -25,7 +25,7 @@ class DivisionsController extends Controller
 
     public function store(Request $request)
     {
-        Division::create(array_merge($request->only('name')));
+        Division::create(array_merge($request->only('name','short_name')));
         return redirect()->route('divisions.index')
             ->withSuccess(__('Division created successfully.'));
     }
@@ -48,7 +48,7 @@ class DivisionsController extends Controller
 
     public function update(Request $request, Division $Division)
     {
-        $Division->update($request->only('name'));
+        $Division->update($request->only('name','short_name'));
         return redirect()->route('divisions.index')
             ->withSuccess(__('Division updated successfully.'));
     }

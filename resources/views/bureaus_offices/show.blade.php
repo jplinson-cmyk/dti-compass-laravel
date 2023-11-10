@@ -9,7 +9,9 @@
 
         <div class="container mt-4">
             <div>
-                Bureau Office Name: {{ $bureau_office->name }}
+                <p><strong>Functional Group Name:</strong> {{ $bureau_office->id }}</p>
+                <p><strong>Functional Group Name:</strong> {{ $bureau_office->name }}</p>
+                <p><strong>Functional Group Name:</strong> {{ $bureau_office->short_name }}</p>
             </div>
         </div>
 

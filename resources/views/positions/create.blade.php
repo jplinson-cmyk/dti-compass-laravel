@@ -9,7 +9,7 @@
 
         <div class="container mt-4">
 
-            <form method="POST" action="{{ route('divisions.store') }}">
+            <form method="POST" action="{{ route('positions.store') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Position Name</label>
@@ -21,6 +21,19 @@
 
                     @if ($errors->has('name'))
                         <span class="text-danger text-left">{{ $errors->first('name') }}</span>
+                    @endif
+                </div>
+
+                <div class="mb-3">
+                    <label for="short_name" class="form-label">Short Name</label>
+                    <input value="{{ old('short_name') }}" 
+                        type="text" 
+                        class="form-control" 
+                        name="short_name" 
+                        placeholder="Short Name" required>
+
+                    @if ($errors->has('short_name'))
+                        <span class="text-danger text-left">{{ $errors->first('short_name') }}</span>
                     @endif
                 </div>
 
