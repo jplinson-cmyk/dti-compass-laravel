@@ -1,6 +1,22 @@
 @extends('layouts.app-master')
 
 @section('content')
+
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page"><a href="#">About COMPASS</a></li>
+      <li class="breadcrumb-item">Competency Dictionary</li>
+      <li class="breadcrumb-item" >Employee Profile</li>
+      <li class="breadcrumb-item" >COMPASS Rating Scale</li>
+      <li class="breadcrumb-item" >My Checklist</li>
+      <li class="breadcrumb-item" >Core Competency</li>
+      <li class="breadcrumb-item" >Technical Competency</li>
+      <li class="breadcrumb-item" >Leadership Competency</li>
+      <li class="breadcrumb-item" >Summary of Rating</li>
+      <li class="breadcrumb-item" >Career Development Plan</li>
+      <li class="breadcrumb-item" >End of COMPASS</li>
+    </ol>
+  </nav>
     <div class="container">
         <h1>ABOUT COMPASS</h1>
         <div class="row">
@@ -51,10 +67,17 @@
                     When you're ready to begin, click the 'Continue' button below to proceed to view the complete Competency Dictionary.
                 </p>
             </div>
-            <div class="form-group">
-                <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}
-                    " class="btn btn-primary float-right">Continue</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <form action="{{ route('competency_assessment.save.about', ['employee' => $employee]) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-primary float-right">Continue</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+            
         </div>
     </div>
 @endsection
