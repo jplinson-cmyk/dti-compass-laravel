@@ -229,13 +229,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          * Positions Routes
          */
         Route::group(['prefix' => 'functionalgroups'], function () {
-            Route::get('/', 'functionalgroupsController@index')->name('functionalgroups.index');
-            Route::get('/create', 'functionalgroupsController@create')->name('functionalgroups.create');
-            Route::post('/create', 'functionalgroupsController@store')->name('functionalgroups.store');
-            Route::get('/{functionalgroup}/show', 'functionalgroupsController@show')->name('functionalgroups.show');
-            Route::get('/{functionalgroup}/edit', 'functionalgroupsController@edit')->name('functionalgroups.edit');
-            Route::patch('/{functionalgroup}/update', 'functionalgroupsController@update')->name('functionalgroups.update');
-            Route::delete('/{functionalgroup}/delete', 'functionalgroupsController@destroy')->name('functionalgroups.destroy');
+            Route::get('/', 'FunctionalGroupsController@index')->name('functionalgroups.index');
+            Route::get('/create', 'FunctionalGroupsController@create')->name('functionalgroups.create');
+            Route::post('/create', 'FunctionalGroupsController@store')->name('functionalgroups.store');
+            Route::get('/{functionalgroup}/show', 'FunctionalGroupsController@show')->name('functionalgroups.show');
+            Route::get('/{functionalgroup}/edit', 'FunctionalGroupsController@edit')->name('functionalgroups.edit');
+            Route::patch('/{functionalgroup}/update', 'FunctionalGroupsController@update')->name('functionalgroups.update');
+            Route::delete('/{functionalgroup}/delete', 'FunctionalGroupsController@destroy')->name('functionalgroups.destroy');
 
            
         });

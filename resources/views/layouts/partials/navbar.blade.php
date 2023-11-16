@@ -35,6 +35,10 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('employees.index') }}" class="dropdown-item">Employees</a></li>
+                                <li><a href="{{ route('functionalgroups.index') }}" class="dropdown-item">Functional Groups</a></li>
+                                <li><a href="{{ route('bureaus_offices.index') }}" class="dropdown-item">Bureaus / Offices</a></li>
+                                <li><a href="{{ route('divisions.index') }}" class="dropdown-item">Division</a></li>
+                                <li><a href="{{ route('positions.index') }}" class="dropdown-item">Position</a></li>
                             </ul>
                         </li>
 
@@ -48,6 +52,7 @@
                                 <li><a href="{{ route('competencies.index') }}" class="dropdown-item">Competencies</a></li>
                                 <li><a href="{{ route('behavioral_indicators.index') }}" class="dropdown-item">Behavioral
                                         Indicators</a></li>
+                                        <li><a href="{{ route('competency_sets.index') }}" class="dropdown-item">Competency Sets</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">

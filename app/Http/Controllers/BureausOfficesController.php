@@ -25,7 +25,7 @@ class BureausOfficesController extends Controller
 
     public function store(Request $request)
     {
-        BureauOffice::create(array_merge($request->only('name')));
+        BureauOffice::create(array_merge($request->only('name','short_name')));
         return redirect()->route('bureaus_offices.index')
             ->withSuccess(__('Bureaus Offices created successfully.'));
     }
@@ -48,7 +48,7 @@ class BureausOfficesController extends Controller
 
     public function update(Request $request, BureauOffice $bureau_office)
     {
-        $bureau_office->update($request->only('name'));
+        $bureau_office->update($request->only('name','short_name'));
         return redirect()->route('bureaus_offices.index')
             ->withSuccess(__('Bureaus Offices updated successfully.'));
     }
