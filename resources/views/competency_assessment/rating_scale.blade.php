@@ -44,11 +44,20 @@
         </table>
 
 
-        <div class="form-group">
-            <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}"
-            class="btn btn-default float-left mt-2">Back</a>
-            <a href="{{ route('competency_assessment.instructions', ['employee' => $employee]) }}"
-                class="btn btn-primary float-right mt-2">Continue</a>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="btn btn-default float-left mt-2">Back</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <form action="{{ route('competency_assessment.save.rating_scale', ['employee' => $employee]) }}" method="post">
+                        @csrf
+                        <button type="submit" class="btn btn-primary float-right mt-2">Continue</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

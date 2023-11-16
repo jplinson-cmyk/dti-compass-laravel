@@ -3,7 +3,9 @@
 @section('content')
     <div class="container">
         <div class="text-center mb-5">
-            <h1>PART 1. ORGANIZATIONAL/CORE COMPETENCY</h1>
+            <h1>ORGANIZATIONAL / CORE COMPETENCY</h1>
+            <p>Complete the form by clicking on the button to the left of your selected rating. All questions are required
+                and must be answered.</p>
         </div>
         <div class="row">
             <div class="col">
@@ -12,51 +14,34 @@
             <div class="col text-center">
                 <h2>Rating Scale</h2>
             </div>
-        </div>  
+        </div>
 
-        @php
-            $levelHeadings = [1 => 'Basic', 2 => 'Intermediate', 3 => 'Advanced', 4 => 'Superior'];
-            $currentLevel = null;
-            $currentCompetencyName = null;
-        @endphp
+        <form method="post" action="{{ route('competency_assessment.save.core_competency', ['employee' => $employee]) }}">
+            @csrf
 
-        @foreach ($behavioralIndicators as $indicator)
-            @php
-                $levelHeading = $levelHeadings[$indicator->level] ?? 'Unknown';
-                $competencyName = $indicator->competency->name ?? 'Unknown' ;
-                
-                if ($currentLevel !== $levelHeading || $currentCompetencyName !== $competencyName) {
-                    if ($currentLevel !== null) {
-                        echo '</form>';
-                    }
-                    echo '<h3>' . $competencyName . ' (' . $levelHeading . ')</h3>';
-                    echo '<form method="post" action="#">';
-                    echo csrf_field();
-                    $currentLevel = $levelHeading;
-                    $currentCompetencyName = $competencyName;
-                }
-            @endphp
-
-            <div class="row">
-                <div class="col-md-8">
-                    <p>{{ $indicator->description }}</p>
+            @foreach ($employee->current_competency_assessment->getCompetencyItemsByCategory(1) as $item)
+                <div class="row">
+                    <div class="col-md-8">
+                        <p id="{{ $item->id }}" class="">{{ $item->behavioralIndicator->description }}</p>
+                    </div>
+                    <div class="col-md-4">
+                        @for ($i = 0; $i <= 5; $i++)
+                            <label>
+                                <input type="radio" name="rating[{{ $item->behavioralIndicator->id }}]"
+                                    value="{{ $i }}">
+                                {{ $i }}
+                            </label>
+                        @endfor
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    @for ($i = 0; $i <= 5; $i++)
-                        <label>
-                            <input type="radio" name="ratings[{{ $indicator->id }}]" value="{{ $i }}">
-                            {{ $i }}
-                        </label>
-                    @endfor
-                </div>
-            </div>
-        @endforeach
+            @endforeach
 
-        @if ($currentLevel !== null)
-            </form>
-        @endif
-        <button type="button" class="btn btn-primary">Back</button>
+    </div>
+    </div>
 
-        <button type="submit" class="btn btn-primary">Submit & Continue</button>
+    <button type="button" class="btn btn-primary">Back</button>
+
+    <button type="submit" class="btn btn-primary">Submit & Continue</button>
+    </form>
     </div>
 @endsection
