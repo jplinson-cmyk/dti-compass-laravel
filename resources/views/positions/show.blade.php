@@ -9,7 +9,9 @@
 
         <div class="container mt-4">
             <div>
-                Position Name: {{ $position->name }}
+                <p><strong>Division Id:</strong> {{ $position->id }}</p>
+                <p><strong>Position Name:</strong> {{ $position->name }}</p>
+                <p><strong>Short Name:</strong> {{ $position->short_name }}</p>
             </div>
         </div>
 

@@ -10,7 +10,7 @@ class BureauOffice extends Model
     use HasFactory;
     protected $table = 'bureaus_offices';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','short_name'];
 
     public function employees()
     {

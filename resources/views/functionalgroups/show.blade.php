@@ -9,7 +9,9 @@
 
         <div class="container mt-4">
             <div>
-                Position Name: {{ $functionalgroup->name }}
+                <p><strong>Functional Group Name:</strong> {{ $functionalgroup->id }}</p>
+                <p><strong>Functional Group Name:</strong> {{ $functionalgroup->name }}</p>
+                <p><strong>Functional Group Name:</strong> {{ $functionalgroup->short_name }}</p>
             </div>
         </div>
 

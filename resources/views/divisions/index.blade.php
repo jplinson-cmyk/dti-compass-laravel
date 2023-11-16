@@ -19,12 +19,14 @@
           <tr>
              <th width="1%">No</th>
              <th>Division Name</th>
+             <th>Short Name</th>
              <th width="3%" colspan="3">Action</th>
           </tr>
             @foreach ($divisions as $key => $divisions)
             <tr>
                 <td>{{ $divisions->id }}</td>
                 <td>{{ $divisions->name }}</td>
+                <td>{{ $divisions->short_name }}</td>
                 <td>
                     <a class="btn btn-info btn-sm" href="{{ route('divisions.show', $divisions->id) }}">Show</a>
                 </td>

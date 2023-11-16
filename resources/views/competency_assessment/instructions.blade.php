@@ -2,38 +2,32 @@
 
 @section('content')
 <div class="container">
-    <h1>Directions</h1>
-    <p>
-        Using the rating scale below, please select the appropriate rating for each behavioral indicator that you are going to assess based on how you see yourself.
-        Once you are done reading the guideline below, click "Continue" to proceed to the next page of this evaluation.
-    </p>
-
-    <h2>RATING SCALE</h2>
-    <ul>
-        <li>
-            <strong>5 - EXCELLENT:</strong> The performance represents a high level of expertise, achievement, and commitment in terms of quality, quantity, and timeliness.
-            The behavior is fully developed and demonstrated ALL THE TIME in performing the job.
-        </li>
-        <li>
-            <strong>4 - VERY GOOD:</strong> The performance exceeded expectations; the behavior is developed and demonstrated MOST OF THE TIME in performing the job.
-        </li>
-        <li>
-            <strong>3 - SATISFACTORY:</strong> The performance met expectations in terms of quality of work, efficiency, and timeliness.
-            The behavior is developed and demonstrated FREQUENTLY in performing the job.
-        </li>
-        <li>
-            <strong>2 - NEEDS IMPROVEMENT:</strong> The performance failed to meet expectations in terms of work, efficiency, and timeliness; the behavior is inadequate and demonstrated SOMETIMES in performing the job.
-        </li>
-        <li>
-            <strong>1 - POOR:</strong> The behavior is underdeveloped; the performance was consistently below expectations and demonstrated RARELY OR ALMOST NEVER in performing the job.
-        </li>
-        <li>
-            <strong>0 - INVALID:</strong> Does not exhibit the required behavioral performance at work.
-        </li>
-    </ul>
+    <h1 class="text-center">INSTRUCTIONS</h1>
+    <h2>MY SELF-ASSESSMENT CHECKLIST</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                {{-- <th>Competency Cluster</th> --}}
+                <th>Competency Name</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($competencyDetails as $details)
+                <tr>
+                    {{-- <td>{{ $details['competency']->competency_category->name }}</td> --}}
+                    <td>{{ $details['competency']->name }}</td>
+                    <td><p href="#" class="btn btn-warning"><strong>CONTINUE</strong></p></td>
+                    <td><a href="#" class="btn btn-primary"><i class="fa fa-pen"></i></a></td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
     <div class="mt-4">
-        <a href="#" class="btn btn-primary">Continue</a>
+        <a href="{{ route('competency_assessment.rating_scale', ['employee' => $employee]) }}" class="btn btn-default float-left mt-2">Back</a>
+        <a href="{{ route('competency_assessment.core_competency', ['employee' => $employee]) }}" class="btn btn-primary float-right mt-2">Continue</a>
     </div>
 </div>
 @endsection

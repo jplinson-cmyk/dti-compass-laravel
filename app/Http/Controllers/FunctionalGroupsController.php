@@ -25,7 +25,7 @@ class FunctionalGroupsController extends Controller
 
     public function store(Request $request)
     {
-        FunctionalGroup::create(array_merge($request->only('name')));
+        FunctionalGroup::create(array_merge($request->only('name','short_name')));
         return redirect()->route('functionalgroups.index')
             ->withSuccess(__('Functional Group created successfully.'));
     }
@@ -48,7 +48,7 @@ class FunctionalGroupsController extends Controller
 
     public function update(Request $request, FunctionalGroup $functionalgroup)
     {
-        $functionalgroup->update($request->only('name'));
+        $functionalgroup->update($request->only('name','short_name'));
         return redirect()->route('functionalgroups.index')
             ->withSuccess(__('Functional Group updated successfully.'));
     }

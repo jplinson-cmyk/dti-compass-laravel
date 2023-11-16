@@ -24,6 +24,19 @@
                     @endif
                 </div>
 
+                <div class="mb-3">
+                    <label for="short_name" class="form-label">Functional Group Name</label>
+                    <input value="{{ old('short_name') }}" 
+                        type="text" 
+                        class="form-control" 
+                        name="short_name" 
+                        placeholder="Short Name" required>
+
+                    @if ($errors->has('short_name'))
+                        <span class="text-danger text-left">{{ $errors->first('short_name') }}</span>
+                    @endif
+                </div>
+
                 <button type="submit" class="btn btn-primary">Save Functional Group</button>
                 <a href="{{ route('functionalgroups.index') }}" class="btn btn-default">Back</a>
             </form>

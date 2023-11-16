@@ -175,13 +175,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          */
 
         Route::group(['prefix' => 'competency-assessment'], function () {
-            Route::get('/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
-            Route::get('/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
-            Route::get('/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
-            Route::get('/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
-            Route::get('/core_competency', 'CompetencyAssessmentController@coreCompetencies')->name('competency_assessment.core_competency');
-            Route::get('/technical_competency', 'CompetencyAssessmentController@technicalCompetencies')->name('competency_assessment.technical_competency');
-            Route::get('/leadership_competency', 'CompetencyAssessmentController@leadershipCompetencies')->name('competency_assessment.leadership_competency');
+            Route::get('/{employee}/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
+            Route::get('/{employee}/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
+            Route::get('/{employee}/rating_scale', 'CompetencyAssessmentController@ratingScale')->name('competency_assessment.rating_scale');
+            Route::get('/{employee}/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
+            Route::get('/{employee}/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
+            Route::get('/{employee}/core_competency', 'CompetencyAssessmentController@coreCompetencies')->name('competency_assessment.core_competency');
+            Route::get('/{employee}/technical_competency', 'CompetencyAssessmentController@technicalCompetencies')->name('competency_assessment.technical_competency');
+            Route::get('/{employee}/leadership_competency', 'CompetencyAssessmentController@leadershipCompetencies')->name('competency_assessment.leadership_competency');
+            Route::get('/{employee}/summary', 'CompetencyAssessmentController@summary')->name('competency_assessment.summary');
 
            
         });
@@ -219,13 +221,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          * Positions Routes
          */
         Route::group(['prefix' => 'functionalgroups'], function () {
-            Route::get('/', 'functionalgroupsController@index')->name('functionalgroups.index');
-            Route::get('/create', 'functionalgroupsController@create')->name('functionalgroups.create');
-            Route::post('/create', 'functionalgroupsController@store')->name('functionalgroups.store');
-            Route::get('/{functionalgroup}/show', 'functionalgroupsController@show')->name('functionalgroups.show');
-            Route::get('/{functionalgroup}/edit', 'functionalgroupsController@edit')->name('functionalgroups.edit');
-            Route::patch('/{functionalgroup}/update', 'functionalgroupsController@update')->name('functionalgroups.update');
-            Route::delete('/{functionalgroup}/delete', 'functionalgroupsController@destroy')->name('functionalgroups.destroy');
+            Route::get('/', 'FunctionalGroupsController@index')->name('functionalgroups.index');
+            Route::get('/create', 'FunctionalGroupsController@create')->name('functionalgroups.create');
+            Route::post('/create', 'FunctionalGroupsController@store')->name('functionalgroups.store');
+            Route::get('/{functionalgroup}/show', 'FunctionalGroupsController@show')->name('functionalgroups.show');
+            Route::get('/{functionalgroup}/edit', 'FunctionalGroupsController@edit')->name('functionalgroups.edit');
+            Route::patch('/{functionalgroup}/update', 'FunctionalGroupsController@update')->name('functionalgroups.update');
+            Route::delete('/{functionalgroup}/delete', 'FunctionalGroupsController@destroy')->name('functionalgroups.destroy');
 
            
         });

@@ -67,7 +67,7 @@
 
             <div class="mb-3">
                 <label for="position" class="form-label">Position</label>
-                <select class="form-select" name="position_id" id="divisionSelect" required>
+                <select class="form-select" name="position_id" id="positionSelect" required>
                     <option value="" selected>Select a Position</option>
                     @foreach ($positions as $position)
                         <option value="{{ $position->id }}" data-category="{{ $position->name ?? 'N/A'}}">
@@ -81,9 +81,9 @@
             </div>
 
             <div class="mb-3">
-                <label for="competency_id" class="form-label">Position</label>
-                <select class="form-select" name="competency_id" id="divisionSelect" required>
-                    <option value="" selected>Select a Position</option>
+                <label for="competency_id" class="form-label">Competency</label>
+                <select class="form-select" name="competency_id" id="competencySelect" required>
+                    <option value="" selected>Select a Competency</option>
                     @foreach ($competencies as $competency)
                         <option value="{{ $competency->id }}" data-category="{{ $competency->name ?? 'N/A'}}">
                             {{ $competency->name }}
@@ -99,10 +99,10 @@
                 <label for="standard" class="form-label">Standard</label>
                 <select class="form-select" name="standard" required>
                     <option value="" selected>Select a standard</option>
-                    <option value="1">Basic</option>
-                    <option value="2">Intermediate</option>
-                    <option value="3">Advanced</option>
-                    <option value="4">Superior</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
                 </select>
                 @if ($errors->has('standard'))
                     <span class="text-danger">{{ $errors->first('standard') }}</span>

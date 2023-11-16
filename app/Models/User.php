@@ -7,6 +7,7 @@ use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -68,5 +69,12 @@ class User extends Authenticatable
     }
 
     
+    
+    public function employee(): MorphToMany
+    {
+        return $this->morphToMany(Employee::class, 'model', 'model_has_users', 'user_id', 'model_id');
+    }
+
+ 
     
 }
