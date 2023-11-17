@@ -1,7 +1,10 @@
 @extends('layouts.employee')
 
 @section("content")
-<div>
+
+
+
+<div style="margin-top:105px;">
 	@php $cur_page = 2 @endphp
 	<ul class="compass-breadcrumb">
   		<li><a href="#">About</a></li>
