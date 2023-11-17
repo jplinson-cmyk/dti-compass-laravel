@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Competency;
+use App\Models\CompetencyCategory;
 
 class HomeController extends Controller
 {
@@ -16,7 +18,15 @@ class HomeController extends Controller
         //     return collect($array)->unique('level')->all();
         // });
         // dd( $collection);
+  
+        
 
         return view('home.index');
+    }
+    public function test(){
+
+        $categories = CompetencyCategory::all();
+
+        return view("home.test")->with("categories",$categories);
     }
 }
