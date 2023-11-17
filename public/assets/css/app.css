@@ -1,43 +1,67 @@
-/* Custom page CSS
--------------------------------------------------- */
-
-
-/* Not required for template or sticky footer method. */
-
-main>.container {
-    padding: 60px 15px 0;
+.compass-breadcrumb {
+  list-style: none;
+  overflow: hidden;
+  font: 18px Helvetica, Arial, Sans-Serif;
+  margin: 0;
+  padding: 0;
 }
 
-.b-example-divider {
-    height: 3rem;
-    background-color: rgba(0, 0, 0, .1);
-    border: solid rgba(0, 0, 0, .15);
-    border-width: 1px 0;
-    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+.compass-breadcrumb li {
+  float: left;
+  position: relative;
+  background: #fff;
+  margin: 0 5px;
 }
 
-.form-control-dark {
-    color: #fff;
-    background-color: var(--bs-dark);
-    border-color: var(--bs-gray);
+.compass-breadcrumb li a {
+  border: 1px solid #0976a1;
+  color: #0976a1;
+  text-decoration: none;
+  padding: 10px 10px 10px 32px;
+  position: relative;
+  display: block;
+  z-index: 99;
+  font-weight: bold;
+  max-height:41px;
+  min-height:41px;
+}
+.compass-breadcrumb li:first-child a {
+  padding-left: 10px;
+  border-right: none;
 }
 
-.form-control-dark:focus {
-    color: #fff;
-    background-color: var(--bs-dark);
-    border-color: #fff;
-    box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
+.compass-breadcrumb li:nth-child(n+2) a {
+ border-left: none;
+ border-right: none;
+}
+.compass-breadcrumb li:before, .compass-breadcrumb li:after{
+  content: " "; 
+  display: block; 
+  width: 32px; 
+  height: 32px; 
+  border-top: 5px solid transparent; 
+  border-bottom: 1px solid #0976a1; 
+  border-right: 1px solid #0976a1; 
+  position: absolute; 
+  top: 4px; 
+  z-index: -1;
+  background: #fff;
+  transform: rotate(-47deg);
+  -moz-transform: rotate(-47deg);
+
+}
+.compass-breadcrumb li:before {
+  right: -24px; 
+}
+.compass-breadcrumb li:after {
+  right: -14px;
+}
+.compass-breadcrumb li:before, .compass-breadcrumb li:after{ z-index: 1; }
+.compass-breadcrumb li:last-child:before{
+  display: none;
 }
 
-.bi {
-    vertical-align: -.125em;
-    fill: currentColor;
-}
 
-.text-small {
-    font-size: 85%;
-}
-
-.dropdown-toggle {
-    outline: 0;
-}
+.compass-breadcrumb li:hover:after, .compass-breadcrumb li:hover, .compass-breadcrumb li.active,  .compass-breadcrumb li.active:after{ background: #0976a1; }
+.compass-breadcrumb li:hover a, .compass-breadcrumb li.active a{ border-color: transparent; }
+.compass-breadcrumb li:hover a, .compass-breadcrumb li.active a{ color: #fff; }
