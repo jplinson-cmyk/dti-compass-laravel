@@ -40,12 +40,16 @@
 </head>
 <body>
 
-  <div class="d-flex" id = "wrapper">
-    <div class = "border-end bg-white" id = "sidebar-wrapper" >
-        @include('layouts.partials.employee-sidebar') 
+  <div class="wrapper" id = "wrapper">
+
+    <div>
+      @include('layouts.partials.employee-sidebar') 
     </div>
-    <div id="page-content-wrapper" class="flex-fill">
-      <main class="container mt-5">
+    <div  class="content-header  fixed-top" style = "height:70px;background-color:blue;;z-index:-1">
+      test
+    </div>   
+    <div id="content" class="page-content-wrapper">
+      <main class="container-fluid mt-5">
           @yield('content')
       </main>
 
@@ -55,7 +59,17 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>    
 
+    <script>
+      $(document).ready(function () {
+
+        $('#sidebarCollapse').on('click', function () {
+          $('#sidebar').toggleClass('active');
+        });
+
+      });
+    </script>
     @section("scripts")
 
     @show
