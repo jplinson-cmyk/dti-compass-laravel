@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <div class="bg-light p-5 rounded">
+    <div class="p-5 bg-white rounded">
         @auth
         <h1>Dashboard</h1>
         <p class="lead">Only authenticated users can access this section.</p>
