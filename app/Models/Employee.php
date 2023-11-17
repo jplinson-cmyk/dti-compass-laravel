@@ -71,6 +71,16 @@ class Employee extends Model
 
     public function user(){
         return $this->morphOne(User::class,"userable");
-
     }
+
+    public function competencyAssessments()
+    {
+        return $this->hasMany(CompetencyAssessment::class, 'employee_id');
+    }
+
+    public function getCurrentCompetencyAssessmentAttribute()
+    {
+        return $this->competencyAssessments->where('status', 'in_progress')->first();
+    }
+
 }

@@ -17,7 +17,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     /**
      * Home Routes
      */
-    Route::get('/', 'HomeController@index')->name('home.index');
+  
+    Route::get('/test', 'HomeController@test')->name('home.test');
 
     Route::group(['middleware' => ['guest']], function () {
         /**
@@ -45,6 +46,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         /**
          * Logout Routes
          */
+        Route::get('/', 'HomeController@index')->name('home.index');
         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
 
         /**
@@ -174,7 +176,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          * Competency Assessment Routes
          */
 
-        Route::group(['prefix' => 'competency-assessment'], function () {
+         Route::group(['prefix' => 'competency-assessment'], function () {
             Route::get('/{employee}/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
             Route::get('/{employee}/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
             Route::get('/{employee}/rating_scale', 'CompetencyAssessmentController@ratingScale')->name('competency_assessment.rating_scale');
@@ -184,8 +186,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/{employee}/technical_competency', 'CompetencyAssessmentController@technicalCompetencies')->name('competency_assessment.technical_competency');
             Route::get('/{employee}/leadership_competency', 'CompetencyAssessmentController@leadershipCompetencies')->name('competency_assessment.leadership_competency');
             Route::get('/{employee}/summary', 'CompetencyAssessmentController@summary')->name('competency_assessment.summary');
-
-           
+        
+            Route::post('/{employee}/about/save', 'CompetencyAssessmentController@storeAboutAssessment')->name('competency_assessment.save.about');
+            Route::post('/{employee}/dictionary/save', 'CompetencyAssessmentController@storeDictionary')->name('competency_assessment.save.dictionary');
+            Route::post('/{employee}/rating_scale/save', 'CompetencyAssessmentController@storeRatingScale')->name('competency_assessment.save.rating_scale');
+            Route::post('/{employee}/employee_profile/save', 'CompetencyAssessmentController@storeEmployeeDetails')->name('competency_assessment.save.employee_profile');
+            Route::post('/{employee}/instructions/save', 'CompetencyAssessmentController@storeInstructions')->name('competency_assessment.save.instructions');
+            Route::post('/{employee}/core_competency/save', 'CompetencyAssessmentController@storeCoreCompetency')->name('competency_assessment.save.core_competency');
+            Route::post('/{employee}/technical_competency/save', 'CompetencyAssessmentController@storeTechnicalCompetency')->name('competency_assessment.save.technical_competency');
+            Route::post('/{employee}/leadership_competency/save', 'CompetencyAssessmentController@storeLeadershipCompetency')->name('competency_assessment.save.leadership_competency');
+            Route::post('/{employee}/summary/save', 'CompetencyAssessmentController@storeSummary')->name('competency_assessment.save.summary');
         });
         /**
          * Divisions Routes

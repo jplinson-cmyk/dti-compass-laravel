@@ -4,6 +4,8 @@
     <div class="container">
         <div class="text-center mb-5">
             <h1>LEADERSHIP COMPETENCY</h1>
+            <p>Complete the form by clicking on the button to the left of your selected rating. All questions are required
+                and must be answered.</p>
         </div>
         <div class="row">
             <div class="col">
@@ -12,19 +14,18 @@
             <div class="col text-center">
                 <h2>Rating Scale</h2>
             </div>
-        </div>  
+        </div>
 
         @php
             $levelHeadings = [1 => 'Basic', 2 => 'Intermediate', 3 => 'Advanced', 4 => 'Superior'];
             $currentLevel = null;
             $currentCompetencyName = null;
         @endphp
-
-        @foreach ($behavioralIndicators as $indicator)
+        @foreach ($data['assessmentItems'] as $item)
             @php
-                $levelHeading = $levelHeadings[$indicator->level] ?? 'Unknown';
-                $competencyName = $indicator->competency->name ?? 'Unknown' ;
-                
+                $levelHeading = $levelHeadings[$item->behavioralIndicator->level] ?? 'Unknown';
+                $competencyName = $item->behavioralIndicator->competency->name ?? 'Unknown';
+
                 if ($currentLevel !== $levelHeading || $currentCompetencyName !== $competencyName) {
                     if ($currentLevel !== null) {
                         echo '</form>';
@@ -39,18 +40,20 @@
 
             <div class="row">
                 <div class="col-md-8">
-                    <p>{{ $indicator->description }}</p>
+                    <p>{{ $item->behavioralIndicator->description }}</p>
                 </div>
                 <div class="col-md-4">
                     @for ($i = 0; $i <= 5; $i++)
                         <label>
-                            <input type="radio" id="ratings[{{ $indicator->id }}]" name="ratings[{{ $indicator->id }}]" value="{{ $i }}">
+                            <input type="radio" name="ratings[{{ $item->behavioralIndicator->id }}]"
+                                value="{{ $i }}">
                             {{ $i }}
                         </label>
                     @endfor
                 </div>
             </div>
         @endforeach
+
 
         @if ($currentLevel !== null)
             </form>

@@ -13,11 +13,14 @@ class BehavioralIndicator extends Model
         'description',
         'level'
     ];
-    
+
     public function competency()
     {
         return $this->belongsTo(Competency::class, 'competency_id');
     }
 
-
+    public function competencyAssessmentItems()
+    {
+        return $this->hasMany(CompetencyAssessmentItem::class, 'behavioral_indicator_id');
+    }
 }

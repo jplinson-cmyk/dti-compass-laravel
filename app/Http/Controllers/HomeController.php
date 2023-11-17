@@ -5,26 +5,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Competency;
+use App\Models\CompetencyCategory;
 
 class HomeController extends Controller
 {
     public function index() 
     {
+        // $employee = Employee::find(1);
+        // // dd($employee->competencyAssessments);
+        // $collection = $employee->current_competency_assessment->items->map(function ($array) {
+        //     return collect($array)->unique('level')->all();
+        // });
+        // dd( $collection);
+  
+        
 
-/*        $user = User::find(9);
-
-        $user->password = "password";
-        $user->save();
-        $employee = $user->userable;
-
-        if($employee instanceof Employee){
-            dd("is employee",$employee);
-        }
-        else{
-            dd(get_class($employee));
-            dd("not an employee");
-        }
-        */
         return view('home.index');
+    }
+    public function test(){
+
+        $categories = CompetencyCategory::all();
+
+        return view("home.test")->with("categories",$categories);
     }
 }
