@@ -4,9 +4,9 @@
 
 
 
-<div style="margin-top:105px;">
+<div style="margin-top:50px;">
 	@php $cur_page = 2 @endphp
-	<ul class="compass-breadcrumb">
+	<ul class="compass-breadcrumb py-2 border-bottom">
   		<li><a href="#">About</a></li>
   		<li><a href="#">Instructions</a></li>
 		@if($categories)

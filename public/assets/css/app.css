@@ -149,24 +149,24 @@ ul ul a {
 .compass-breadcrumb li:before, .compass-breadcrumb li:after{
   content: " "; 
   display: block; 
-  width: 32px; 
-  height: 32px; 
-  border-top: 5px solid transparent; 
+  width: 1.62em; 
+  height: 1.62em; 
+  border-top: 1px solid transparent; 
   border-bottom: 1px solid #0976a1; 
   border-right: 1px solid #0976a1; 
   position: absolute; 
-  top: 4px; 
+  top: 0.33em; 
   z-index: -1;
   background: #fff;
-  transform: rotate(-47deg);
-  -moz-transform: rotate(-47deg);
+  transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
 
 }
 .compass-breadcrumb li:before {
-  right: -24px; 
+  right: -1.39em; 
 }
 .compass-breadcrumb li:after {
-  right: -14px;
+  right: -.79em;
 }
 .compass-breadcrumb li:before, .compass-breadcrumb li:after{ z-index: 1; }
 .compass-breadcrumb li:last-child:before{
