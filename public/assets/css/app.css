@@ -73,6 +73,10 @@ a, a:hover, a:focus {
 
 }
 
+#sidebar ul.components li{
+
+    background: #edf3fe;
+}
 #sidebar ul p {
     color: #fff;
     padding: 10px;
@@ -113,7 +117,7 @@ ul ul a {
 .compass-breadcrumb {
   list-style: none;
   overflow: hidden;
-  font: 18px Helvetica, Arial, Sans-Serif;
+  font: 14px Helvetica, Arial, Sans-Serif;
   margin: 0;
   padding: 0;
 }
@@ -126,16 +130,16 @@ ul ul a {
 }
 
 .compass-breadcrumb li a {
-  border: 1px solid #0976a1;
-  color: #0976a1;
+  border: 1px solid #9ea2a6;    
+  color: var(--bs-body-color);
   text-decoration: none;
-  padding: 10px 10px 10px 32px;
+  padding: 8px 10px 10px 32px;
   position: relative;
   display: block;
   z-index: 99;
   font-weight: bold;
-  max-height:41px;
-  min-height:41px;
+  max-height:33px;
+  min-height:33px;
 }
 .compass-breadcrumb li:first-child a {
   padding-left: 10px;
@@ -146,14 +150,14 @@ ul ul a {
  border-left: none;
  border-right: none;
 }
-.compass-breadcrumb li:before, .compass-breadcrumb li:after{
+.compass-breadcrumb li:before, .compass-breadcrumb li::after{
   content: " "; 
   display: block; 
   width: 1.62em; 
   height: 1.62em; 
   border-top: 1px solid transparent; 
-  border-bottom: 1px solid #0976a1; 
-  border-right: 1px solid #0976a1; 
+  border-bottom: 1px solid #9ea2a6; 
+  border-right: 1px solid #9ea2a6; 
   position: absolute; 
   top: 0.33em; 
   z-index: -1;
@@ -172,8 +176,15 @@ ul ul a {
 .compass-breadcrumb li:last-child:before{
   display: none;
 }
+.compass-breadcrumb li:last-child:after{
+  display: none;
+}
 
+.compass-breadcrumb li:last-child{
+    border-right: 1px solid #9ea2a6; 
+}
 
-.compass-breadcrumb li:hover:after, .compass-breadcrumb li:hover, .compass-breadcrumb li.active,  .compass-breadcrumb li.active:after{ background: #0976a1; }
+.compass-breadcrumb li:hover:after, .compass-breadcrumb li:hover, .compass-breadcrumb li.active,  
+.compass-breadcrumb li.active:after{ background: #9ea2a6; }
 .compass-breadcrumb li:hover a, .compass-breadcrumb li.active a{ border-color: transparent; }
 .compass-breadcrumb li:hover a, .compass-breadcrumb li.active a{ color: #fff; }

@@ -8,6 +8,8 @@
 	@php $cur_page = 2 @endphp
 	<ul class="compass-breadcrumb py-2 border-bottom">
   		<li><a href="#">About</a></li>
+  		<li><a href="#">Dictionary</a></li>
+  		<li><a href="#">Profile</a></li>
   		<li><a href="#">Instructions</a></li>
 		@if($categories)
 			@foreach($categories as $category)
@@ -18,6 +20,7 @@
 		  		@endif
 	  		@endforeach
   		@endif
+  		<li><a href="#">Completed</a></li>
 	</ul>
 </div>
  @yield('compass-content')
