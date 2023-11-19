@@ -4,12 +4,12 @@
   </div>
   <ul class="list-unstyled components border-bottom">
       <p style="color:#212529">Home</p>
-      <li>
+      <li class="border-top">
           <a href="#">Dashboard</a>
       </li>   
-      <li class="active">
+      <li class="border-top active">
           <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">My Assessment</a>
-          <ul class="collapse list-unstyled collapse show" id="homeSubmenu"> 
+          <ul class="collapse list-unstyled show" id="homeSubmenu"> 
               <li>
                   <a href="#assessmentSubmenn" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Assessment</a>
                   <ul class="collapse show" id="assessmentSubmenn"> 
@@ -46,7 +46,7 @@
       </li>
 
 
-      <li>
+      <li class = "border-top">
           <a href="#">Assessment History</a>
       </li>
 
