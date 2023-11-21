@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('employee_id');
             $table->unsignedBigInteger('competency_assessment_id');
             $table->unsignedBigInteger('behavioral_indicator_id');
-            $table->string('score', 50)->nullable();
+            $table->integer('score')->nullable();
             $table->string('assessment_type', 50);
             $table->timestamps();
 
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->foreign('competency_assessment_id')->references('id')->on('competency_assessments');
             $table->foreign('behavioral_indicator_id')->references('id')->on('behavioral_indicators');
+
         });
     }
 

@@ -34,40 +34,18 @@ class CompetencyAssessmentController extends Controller
         return view('competency_assessment.dictionary', compact('competencyCategories', 'competencies', 'employee'));
     }
 
-    public function ratingScale(Employee $employee)
+    public function ratingScale(Employee $employee, $id)
     {
-        return view('competency_assessment.rating_scale', compact('employee'));
+        $competencyAssessment = CompetencyAssessment::find($id);
+        return view('competency_assessment.rating_scale', compact('employee', 'competencyAssessment'));
     }
 
-    public function instructions(Employee $employee)
+    public function instructions(Employee $employee, $id)
     {
-        $competencyItems = CompetencyAssessmentItem::with(['behavioralIndicator.competency.competencyCategory'])
-            ->where('employee_id', $employee->id)
-            ->get();
+        $competencyAssessment = $employee->competencyAssessments->where("id", $id)->first();
+        $competencyCategories = CompetencyCategory::all();
 
-        $competencyDetails = [];
-
-        foreach ($competencyItems as $item) {
-            $competency = $item->behavioralIndicator->competency;
-            $competencyId = $competency->id;
-
-
-            if (!isset($competencyDetails[$competencyId])) {
-                $competencyDetails[$competencyId] = [
-                    'competency' => $competency,
-                    'category' => $competency->competencyCategory->category_name,
-                    'name' => $competency->name,
-                    'no_of_questions' => 0,
-                    'behavioral_indicators' => [],
-                ];
-            }
-
-            $competencyDetails[$competencyId]['no_of_questions']++;
-
-            $competencyDetails[$competencyId]['behavioral_indicators'][] = $item->behavioralIndicator;
-        }
-
-        return view('competency_assessment.instructions', compact('employee', 'competencyDetails'));
+        return view('competency_assessment.instructions', compact('employee', 'competencyAssessment', 'competencyCategories'));
     }
 
 
@@ -98,61 +76,41 @@ class CompetencyAssessmentController extends Controller
         }
     }
 
-    public function getCompetencies(Employee $employee, $categoryId)
+
+    public function getAssessmentForm(Employee $employee, $id, $categoryId)
     {
-        $competencyCategories = CompetencyCategory::with('competencies.behavioralIndicators')->get();
+        $competencyAssessment = $employee->competencyAssessments->where("id", $id)->first();
+        $competencyCategory = CompetencyCategory::find($categoryId);
 
-        $coreCompetencies = $competencyCategories
-            ->find($categoryId)
-            ->competencies
-            ->pluck('behavioralIndicators')
-            ->flatten();
+        $filteredItemsByCategory = $competencyAssessment->items->filter(function ($item) use ($categoryId) {
+            return $item->behavioralIndicator->competency->competency_category_id == $categoryId;
+        })->map(function ($item) {
+            $existingItem = CompetencyAssessmentItem::where([
+                'employee_id' => $item->employee_id,
+                'behavioral_indicator_id' => $item->behavioral_indicator_id
+            ])->first();
 
-        $assessmentItems = CompetencyAssessmentItem::where([
-            'employee_id' => $employee->id,
-        ])->with('behavioralIndicator')
-            ->whereHas('behavioralIndicator', function ($query) use ($categoryId) {
-                $query->whereHas('competency', function ($query) use ($categoryId) {
-                    $query->where('competency_category_id', $categoryId);
-                });
-            })
-            ->get();
+            $item->score = $existingItem ? $existingItem->score : null;
+            return $item;
+        });
 
-        return [
-            'competencyCategories' => $competencyCategories,
-            'coreCompetencies' => $coreCompetencies,
-            'assessmentItems' => $assessmentItems,
-        ];
+        return view('competency_assessment.form', compact('employee', 'filteredItemsByCategory', 'competencyCategory', 'competencyAssessment'));
     }
 
-
-
-    public function coreCompetencies(Employee $employee)
-    {
-        $competencies = Competency::All();
-        //$data = $this->getCompetencies($employee, 1);
-        return view('competency_assessment.core_competency', compact('employee'));
-    }
-
-    public function technicalCompetencies(Employee $employee)
-    {
-        $data = $this->getCompetencies($employee, 2);
-        return view('competency_assessment.technical_competency', compact('data'));
-    }
-
-    public function leadershipCompetencies(Employee $employee)
-    {
-        $data = $this->getCompetencies($employee, 3);
-        return view('competency_assessment.leadership_competency', compact('data'));
-    }
 
     public function summary(Employee $employee)
     {
-        $competencyCategories = CompetencyCategory::all();
-        $competencies = Competency::all();
+        // Fetch all competency assessment items for the specific employee
+        $assessmentItems = CompetencyAssessmentItem::with('behavioralIndicator.competency.competencyCategory')
+            ->where('employee_id', $employee->id)
+            ->where('assessment_type', 'self_assessment')
+            ->get();
 
-        return view('competency_assessment.summary', compact('competencyCategories', 'competencies', 'employee'));
+        return view('competency_assessment.summary', compact('employee', 'assessmentItems'));
     }
+
+
+
 
     private function storeAssessmentData($currentPage, Request $request, Employee $employee)
     {
@@ -166,17 +124,17 @@ class CompetencyAssessmentController extends Controller
             $existingAssessment->update(['current_page' => $nextPage]);
 
             if ($currentPage == 'employee_profile') {
-                $query = CompetencySet::where([
+                $competencySetQuery = CompetencySet::where([
                     'functional_group_id' => $employee->functional_group_id,
                     'bureau_office_id' => $employee->bureau_office_id,
                     'position_id' => $employee->position_id,
                 ]);
 
                 if ($employee->division_id !== null) {
-                    $query = $query->where('division_id', $employee->division_id);
+                    $competencySetQuery = $competencySetQuery->where('division_id', $employee->division_id);
                 }
 
-                $competencySets = $query->get();
+                $competencySets = $competencySetQuery->get();
 
                 foreach ($competencySets as $competencySet) {
                     $behavioralIndicators = BehavioralIndicator::where('competency_id', $competencySet->competency_id)->get();
@@ -201,9 +159,6 @@ class CompetencyAssessmentController extends Controller
                     }
                 }
             }
-            if ($currentPage == 'core_competency'){
-
-            }
 
             return $this->getViewForPage($currentPage, $employee);
         }
@@ -224,8 +179,6 @@ class CompetencyAssessmentController extends Controller
         }
     }
 
-
-
     private function getNextPage($currentPage)
     {
         switch ($currentPage) {
@@ -238,11 +191,9 @@ class CompetencyAssessmentController extends Controller
             case 'rating_scale':
                 return 'instructions';
             case 'instructions':
-                return 'core_competency';
-            case 'technical_competency':
-                return 'leadership_competency';
-            case 'leadership_competency':
-                return 'summary_rating';
+                return 'form';
+            case 'form':
+                return 'summary';
 
             default:
                 return 'error';
@@ -251,23 +202,21 @@ class CompetencyAssessmentController extends Controller
 
     private function getViewForPage($currentPage, Employee $employee)
     {
+        $competencyAssessment = $employee->competencyAssessments->where('employee_id', $employee->id)->first();
+
         switch ($currentPage) {
             case 'about':
                 return redirect()->route('competency_assessment.dictionary', ['employee' => $employee]);
             case 'dictionary':
                 return redirect()->route('competency_assessment.employee_profile', ['employee' => $employee]);
             case 'employee_profile':
-                return redirect()->route('competency_assessment.rating_scale', ['employee' => $employee]);
+                return redirect()->route('competency_assessment.rating_scale', ['employee' => $employee, 'id' => $competencyAssessment->id]);
             case 'rating_scale':
-                return redirect()->route('competency_assessment.instructions', ['employee' => $employee]);
+                return redirect()->route('competency_assessment.instructions', ['employee' => $employee, 'id' => $competencyAssessment->id]);
             case 'instructions':
-                return redirect()->route('competency_assessment.core_competency', ['employee' => $employee]);
-            case 'core_competency':
-                return redirect()->route('competency_assessment.technical_competency', ['employee' => $employee]);
-            case 'technical_competency':
-                return redirect()->route('competency_assessment.leadership_competency', ['employee' => $employee]);
-            case 'leadership_competency':
-                return redirect()->route('competency_assessment.summary_rating', ['employee' => $employee]);
+                return redirect()->route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => 1]);
+            case 'form':
+                return redirect()->route('competency_assessment.summary', ['employee' => $employee, 'id' => $competencyAssessment->id]);
             default:
                 return view('error');
         }
@@ -303,23 +252,31 @@ class CompetencyAssessmentController extends Controller
         return $this->storeAssessmentData('instructions', $request, $employee);
     }
 
-    public function storeCoreCompetency(Request $request, Employee $employee)
-    {
-        return $this->storeAssessmentData('core_competency', $request, $employee);
-    }
-
-    public function storeTechnicalCompetency(Request $request, Employee $employee)
-    {
-        return $this->storeAssessmentData('technical_competency', $request, $employee);
-    }
-
-    public function storeLeadershipCompetency(Request $request, Employee $employee)
-    {
-        return $this->storeAssessmentData('leadership_competency', $request, $employee);
-    }
-
     public function storeSummary(Request $request, Employee $employee)
     {
         return $this->storeAssessmentData('summary', $request, $employee);
+    }
+
+    public function storeAssessmentForm(Request $request, Employee $employee, $competencyAssessmentId, $currentCategoryId)
+    {
+        $ratings = $request->input('rating', []);
+        foreach ($ratings as $behavioralIndicatorId => $score) {
+            CompetencyAssessmentItem::where([
+                'employee_id' => $employee->id,
+                'behavioral_indicator_id' => $behavioralIndicatorId,
+                'assessment_type' => 'self_assessment'
+            ])->update(['score' => $score]);
+        }
+
+        $allCategoryIds = CompetencyCategory::orderBy('id')->pluck('id')->toArray();
+
+        $currentIndex = array_search($currentCategoryId, $allCategoryIds);
+
+        if (isset($allCategoryIds[$currentIndex + 1])) {
+            $nextCategoryId = $allCategoryIds[$currentIndex + 1];
+            return redirect()->route('competency_assessment.form', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id, 'categoryId' => $nextCategoryId]);
+        } else {
+            return $this->storeAssessmentData('form', $request, $employee);
+        }
     }
 }

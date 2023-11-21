@@ -18,7 +18,7 @@
 
         <form method="post" action="{{ route('competency_assessment.save.core_competency', ['employee' => $employee]) }}">
             @csrf
-
+          
             @foreach ($employee->current_competency_assessment->getCompetencyItemsByCategory(1) as $item)
                 <div class="row">
                     <div class="col-md-8">
@@ -35,6 +35,8 @@
                     </div>
                 </div>
             @endforeach
+          
+            
 
     </div>
     </div>

@@ -1,57 +1,49 @@
 @extends('layouts.app-master')
 
 @section('content')
-    <div class="container">
-        <h1 class="text-center">THE DTI COMPETENCY DICTIONARY</h1>
-        <p>For your reference, here is your complete guide to the DTI Competency Dictionary. If you wish to view the competency descriptions prior to beginning the assessment, you may scroll down and browse through this page. When you're ready to begin with the assessment, click the 'Continue' button.</p>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">THE DTI COMPETENCY DICTIONARY</h1>
+    <p class="text-center mb-4">For your reference, here is your complete guide to the DTI Competency Dictionary. If you wish to view the competency descriptions prior to beginning the assessment, you may scroll down and browse through this page. When you're ready to begin with the assessment, click the 'Continue' button.</p>
 
-        <div class="accordion" id="competencyAccordion">
-            @foreach ($competencyCategories as $category)
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="category{{ $category->id }}">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $category->id }}" aria-expanded="true">
-                            {{ $category->category_name }}
-                        </button>
-                    </h2>
+    <div class="accordion mb-4" id="competencyAccordion">
+        @foreach ($competencyCategories as $category)
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="category{{ $category->id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $category->id }}" aria-expanded="false">
+                        {{ $category->category_name }}
+                    </button>
+                </h2>
 
-                    <div id="collapse{{ $category->id }}" class="accordion-collapse collapse " data-bs-parent="#competencyAccordion">
-                        <div class="accordion-body">
-                            <table class="table table-bordered">
-                                <thead>
+                <div id="collapse{{ $category->id }}" class="accordion-collapse collapse" data-bs-parent="#competencyAccordion">
+                    <div class="accordion-body">
+                        <table class="table table-bordered table-responsive">
+                            <thead>
                                 <tr>
-                                    <th>No.</th>
-                                    <th>Competency Name</th>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">Competency Name</th>
                                 </tr>
-                                </thead>
-                                <tbody>
+                            </thead>
+                            <tbody>
                                 @foreach ($category->competencies as $key => $competency)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
                                         <td>{{ $competency->name }}</td>
                                     </tr>
                                 @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            @endforeach
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group">
-                    <a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}" class="btn btn-default float-left mt-2">Back</a>
-                </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
-                    <form action="{{ route('competency_assessment.save.dictionary', ['employee' => $employee]) }}" method="post">
-                        @csrf
-                        <button type="submit" class="btn btn-primary float-right mt-2">Continue</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
+
+    <div class="d-flex justify-content-between">
+        <a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}" class="btn btn-secondary mt-2">Back</a>
+        <form action="{{ route('competency_assessment.save.dictionary', ['employee' => $employee]) }}" method="post" class="mt-2">
+            @csrf
+            <button type="submit" class="btn btn-primary">Continue</button>
+        </form>
+    </div>
+</div>
 @endsection
