@@ -1,6 +1,6 @@
-@extends('layouts.app-master')
+@extends('layouts.compass')
 
-@section('content')
+@section('compass-content')
 <div class="container my-5">
     <h1 class="text-center mb-4">COMPETENCY ASSESSMENT</h1>
     <p class="mb-3">As we strive to continuously provide programs that will cater to the specific needs of the DTI employees, please allow us to conduct a competency assessment to evaluate your current competency levels and determine your training needs in preparation for the 2024 competency-based training programs. The result will also be used in developing a 3-year DTI Academy Training Plan which will have a series of recommended training courses for employees to attend to per competency, depending on the overall result of this evaluation.</p>
@@ -47,10 +47,10 @@
     </div>
 
     <div class="d-flex justify-content-between mt-4">
-        <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="btn btn-secondary">Back</a>
+        <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="btn btn-outline-secondary">Back</a>
         <form action="{{ route('competency_assessment.save.rating_scale', ['employee' => $employee]) }}" method="post" class="d-inline">
             @csrf
-            <button type="submit" class="btn btn-primary">Continue</button>
+            <button type="submit" class="btn btn-outline-primary">Continue</button>
         </form>
     </div>
 </div>

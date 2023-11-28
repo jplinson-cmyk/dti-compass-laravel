@@ -168,8 +168,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('permissions', PermissionsController::class);
 
 
-
-
         //Employee Competency Assessment Routes
 
         /**

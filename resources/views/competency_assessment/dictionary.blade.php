@@ -1,6 +1,6 @@
-@extends('layouts.app-master')
+@extends('layouts.compass')
 
-@section('content')
+@section('compass-content')
 <div class="container mt-5">
     <h1 class="text-center mb-4">THE DTI COMPETENCY DICTIONARY</h1>
     <p class="text-center mb-4">For your reference, here is your complete guide to the DTI Competency Dictionary. If you wish to view the competency descriptions prior to beginning the assessment, you may scroll down and browse through this page. When you're ready to begin with the assessment, click the 'Continue' button.</p>
@@ -39,10 +39,10 @@
     </div>
 
     <div class="d-flex justify-content-between">
-        <a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}" class="btn btn-secondary mt-2">Back</a>
+        <a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}" class="btn btn-outline-secondary mt-2">Back</a>
         <form action="{{ route('competency_assessment.save.dictionary', ['employee' => $employee]) }}" method="post" class="mt-2">
             @csrf
-            <button type="submit" class="btn btn-primary">Continue</button>
+            <button type="submit" class="btn btn-outline-primary">Continue</button>
         </form>
     </div>
 </div>

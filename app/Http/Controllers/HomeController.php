@@ -10,23 +10,25 @@ use App\Models\CompetencyCategory;
 
 class HomeController extends Controller
 {
-    public function index() 
-    {
-        // $employee = Employee::find(1);
-        // // dd($employee->competencyAssessments);
-        // $collection = $employee->current_competency_assessment->items->map(function ($array) {
-        //     return collect($array)->unique('level')->all();
-        // });
-        // dd( $collection);
+    // public function index() 
+    // {
+    //     // $employee = Employee::find(1);
+    //     // // dd($employee->competencyAssessments);
+    //     // $collection = $employee->current_competency_assessment->items->map(function ($array) {
+    //     //     return collect($array)->unique('level')->all();
+    //     // });
+    //     // dd( $collection);
   
         
-
-        return view('home.index');
-    }
-    public function test(){
+    //     return view('home.index');
+    // }
+    public function index(){
 
         $categories = CompetencyCategory::all();
-
-        return view("home.test")->with("categories",$categories);
-    }
+        $employee = Employee::all();
+        return view("home.index", [
+            "categories" => $categories,
+            "employee" => $employee
+        ]);
+        }
 }

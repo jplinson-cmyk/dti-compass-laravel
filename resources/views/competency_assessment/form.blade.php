@@ -1,12 +1,21 @@
-@extends('layouts.app-master')
+@extends('layouts.compass')
 
-@section('content')
+@section('compass-content')
     <div class="container">
         <div class="text-center mb-5">
             <h1 class="mb-3">{{ $competencyCategory->category_name }}</h1>
             <p class="text-muted">Complete the form by selecting your rating. All questions are required and must be
                 answered.</p>
+
+            <div class="text-end">
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                    data-bs-target="#ratingScaleModal">
+                    <i class="fas fa-info-circle"></i> Rating Scale
+                </button>
+            </div>
+
         </div>
+
         <div class="d-none d-lg-block text-end">
             <span class="mx-2">Never</span>
             <span class="mx-2">Rarely</span>
@@ -27,7 +36,7 @@
                         <h3 class="card-title mb-0"
                             id="competency-{{ $items->first()->behavioralIndicator->competency->id }}">
                             {{ $items->first()->behavioralIndicator->competency->name }}</h3>
-                       
+
                     </div>
                     <div class="card-body">
                         @foreach ($items as $item)
@@ -64,21 +73,88 @@
                     </div>
                 </div>
             @endforeach
-            <div class="d-flex justify-content-between">
-                <button type="button" class="btn btn-secondary">Back</button>
-                <button type="submit" class="btn btn-primary">Submit & Continue</button>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-outline-secondary">Submit & Go Back to my checklist</button>
+                </div>
+                <div class="col text-end">
+                    <button type="submit" class="btn btn-outline-primary">Save</button>  
+                    <button type="submit" class="btn btn-outline-primary">Submit & Continue</button>
+                </div>
             </div>
         </form>
 
-        <button onclick="scrollToTop()" class="btn-scroll-top"
+        <button onclick="scrollToTop()" class="btn btn-outline-primary"
             style="position: fixed; bottom: 100px; right: 20px; z-index: 1000;">
             <i class="fa fa-arrow-up"></i>
         </button>
 
-        <button onclick="scrollToBottom()" class="btn-scroll-bottom"
+        <button onclick="scrollToBottom()" class="btn btn-outline-primary"
             style="position: fixed; bottom: 50px; right: 20px; z-index: 1000;">
             <i class="fa fa-arrow-down"></i>
         </button>
+        <!-- Modal -->
+        <div class="modal fade " id="ratingScaleModal" tabindex="-1" aria-labelledby="ratingScaleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="ratingScaleModalLabel">Rating Scale</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">RATING</th>
+                                        <th scope="col"></th>
+                                        <th scope="col">INTERPRETATION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>ALWAYS</td>
+                                        <td>The behavior is demonstrated ALL THE TIME in performing one's job, even if the
+                                            situation does not call for it; behavior is considered an epitome that is worth
+                                            emulating, and may already coach or mentor others for this particular behavior
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>FREQUENTLY</td>
+                                        <td>The behavior is demonstrated MOST OF THE TIME in performing the job; expect to
+                                            exhibit the behavior during expected situations at work; could demonstrate
+                                            behavior independently, without much supervision.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>SOMETIMES</td>
+                                        <td>The behavior is demonstrated EVERY ONCE IN A WHILE/OCCASIONALLY in performing
+                                            the job; may or may not exhibit the behavior during expected situations at work,
+                                            and relies on supervision or guidance from time to time.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>RARELY</td>
+                                        <td>The behavior is SELDOM demonstrated; cannot expect to exhibit the behavior when
+                                            a situation calls for it; relies heavily on supervision or guidance</td>
+                                    </tr>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>NEVER</td>
+                                        <td>The behavior is NOT being demonstrated in performing the job; cannot exhibit the
+                                            behavior when the situation at work calls for it.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
         <script>
             function scrollToTop() {

@@ -1,62 +1,65 @@
-@extends('layouts.app-master')
+@extends('layouts.compass')
 
-@section('content')
+@section('compass-content')
     <h2 class="text-center">SUMMARY OF RATING</h2>
-    <!-- Export Button -->
+
     <div class="container">
-        <div class="accordion" id="competencyAccordion">
-            @foreach ($assessmentItems->groupBy('behavioralIndicator.competency.competencyCategory.id') as $categoryId => $items)
-                @php
-                    $category = $items->first()->behavioralIndicator->competency->competencyCategory;
-                @endphp
+        <div class="accordion" id="summaryAccordion">
+            @foreach ($structuredItems as $categoryId => $category)
                 <div class="accordion-item">
-                    <h2 class="accordion-header" id="category{{ $category->id }}">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $category->id }}" aria-expanded="true">
-                            {{ $category->category_name }}
+                    <h2 class="accordion-header" id="heading{{ $categoryId }}">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapse{{ $categoryId }}" aria-expanded="true"
+                            aria-controls="collapse{{ $categoryId }}">
+                            {{ $category['category_name'] }}
                         </button>
                     </h2>
-                    <div id="collapse{{ $category->id }}" class="accordion-collapse collapse show" data-bs-parent="#competencyAccordion">
+                    <div id="collapse{{ $categoryId }}" class="accordion-collapse collapse"
+                        aria-labelledby="heading{{ $categoryId }}" data-bs-parent="#summaryAccordion">
                         <div class="accordion-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Competency</th>
-                                        <th>Behavioral Indicators</th>
-                                        <th>Self-Assessment</th>
-                                        <th>Supervisor</th>
-                                        <th>Final Rating</th>
-                                        <th>Performance Observation</th>
-                                        <th>Average Rating</th>
-                                        <th>Level of Mastery</th>
-                                        <th>Overall Competency Level</th>
-                                        <th>Level of Mastery</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($items as $item)
+                            @foreach ($category['competencies'] as $competencyId => $competency)
+                                <h5>{{ $competency['name'] }}</h5>
+                                <table class="table table-bordered">
+                                    <thead>
                                         <tr>
-                                            <td>{{ $item->behavioralIndicator->competency->name }}</td>
-                                            <td>{{ $item->behavioralIndicator->description }}</td>
-                                            <td>{{ $item->score }}</td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <th>Level</th>
+                                            <th>Behavioral Indicators</th>
+                                            <th>Self-Assessment</th>
+                                            <th>Supervisor</th>
+                                            <th>Final Rating</th>
+                                            <th>Performance Observation</th>
+                                            <th>Average Rating</th>
+                                            <th>Level of Mastery</th>
+                                            <th>Overall Competency Level</th>
+                                            <th>Level of Mastery</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($competency['indicators'] as $indicator)
+                                            <tr>
+                                                <td>{{ $indicator['level'] }}</td>
+                                                <td>{{ $indicator['description'] }}</td>
+                                                <td>{{ $indicator['self_assessment'] }}</td>
+                                                <td>{{ $indicator['supervisor'] }}</td>
+                                                <td>{{ $indicator['final_rating'] }}</td>
+                                                <td>{{ $indicator['performance_observation'] }}</td>
+                                                <td>{{ number_format($competency['average_final_rating'],2) }}</td>
+                                                <td>{{ $competency['mastery_level'] }}</td>
+                                                <td>
+                                                    {{ number_format($overallAverageRating, 2) }}                                      
+                                                </td>
+                                                <td>
+                                                    {{ $overallMasteryLevel }}              
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             @endforeach
         </div>
-        <div class="form-group">
-            <a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}" class="btn btn-default float-left mt-2">Back</a>
-            <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="btn btn-primary float-right mt-2">Continue</a>
-          </div>
     </div>
 @endsection

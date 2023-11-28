@@ -1,6 +1,6 @@
-@extends('layouts.app-master')
+@extends('layouts.compass')
 
-@section('content')
+@section('compass-content')
 <div class="container my-5">
     <h1 class="text-center mb-3">EMPLOYEE PROFILE</h1>
     <p class="text-center mb-4">Please provide all the required information below to complete your assessment profile.</p>
@@ -119,8 +119,8 @@
         </div>
 
         <div class="d-flex justify-content-between mt-4">
-            <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}" class="btn btn-secondary mt-2">Back</a>
-            <button type="submit" class="btn btn-primary">Save and Continue</button>
+            <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}" class="btn btn-outline-secondary mt-2">Back</a>
+            <button type="submit" class="btn btn-outline-primary">Save and Continue</button>
         </div>
     </form>
 </div>

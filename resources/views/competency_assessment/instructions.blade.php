@@ -1,6 +1,6 @@
-@extends('layouts.app-master')
+@extends('layouts.compass')
 
-@section('content')
+@section('compass-content')
 <div class="container my-5">
     <h1 class="text-center mb-4">INSTRUCTIONS</h1>
     <p class="mb-3">Provided in the table below are the competencies per category that are identified based on your position and functions. Please rate per competency and the corresponding behaviors according to the frequency of demonstration and level of supervision using the rating scale presented in the previous page.</p>
@@ -28,7 +28,7 @@
                         </td> 
                         <td>{{ $items->count() - $items->whereNull('score')->count() }} / {{ $items->count() }}</td>  
                         <td>
-                            <a href="{{ route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->first()->id, 'categoryId' => $items->first()->behavioralIndicator->competency->competencyCategory->id ]) }}#competency-{{ $items->first()->behavioralIndicator->competency->id }}" class="btn btn-primary">
+                            <a href="{{ route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => $items->first()->behavioralIndicator->competency->competencyCategory->id ]) }}#competency-{{ $items->first()->behavioralIndicator->competency->id }}" class="btn btn-outline-primary">
                                 <i class="fa fa-pen" aria-hidden="true"></i>
                             </a>
                         </td>
@@ -40,10 +40,10 @@
     </div>
 
     <div class="d-flex justify-content-between mt-4">
-        <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="btn btn-secondary">Back</a>
+        <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="btn btn-outline-secondary">Back</a>
         <form action="{{ route('competency_assessment.save.instructions', ['employee' => $employee]) }}" method="post" class="d-inline">
             @csrf
-            <button type="submit" class="btn btn-primary">Continue</button>
+            <button type="submit" class="btn btn-outline-primary">Continue</button>
         </form>
     </div>
 </div>

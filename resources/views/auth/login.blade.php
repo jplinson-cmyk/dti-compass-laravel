@@ -4,7 +4,7 @@
     <form method="post" action="{{ route('login.perform') }}">
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-        <img class="mb-4" src="{!! url('/images/dti-logo.ico') !!}" alt="" width="72" height="57">
+        <img class="mb-4" src="{!! url('/images/dti-logo.ico') !!}" alt="" width="72" height="auto">
         
         <h1 class="h3 mb-3 fw-normal">Login</h1>
 
@@ -27,10 +27,7 @@
             @endif
         </div>
 
-        <div class="form-group mb-3">
-            <label for="remember">Remember me</label>
-            <input type="checkbox" name="remember" value="1">
-        </div>
+    
         @if(Session::has('errors'))
           <span class="text-danger text-left">{{$errors->first()}}</span>
          @endif

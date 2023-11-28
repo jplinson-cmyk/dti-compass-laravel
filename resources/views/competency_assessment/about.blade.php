@@ -1,6 +1,6 @@
-@extends('layouts.app-master')
+@extends('layouts.compass')
 
-@section('content')
+@section('compass-content')
 <div class="container mt-5">
     <h1 class="mb-4">ABOUT COMPASS</h1>
     <div class="row">
@@ -14,10 +14,10 @@
                 shows the most basic, rudimentary, and supervised level while Level 4 shows the most complex, expert,
                 and autonomous level.
             </p>
-
-            <h2>Competency Framework</h2>
             <p>
-                The competency framework displays <strong>mission-critical competencies clustered into three groups</strong>, these are:
+                The competency framework displays 
+                <span class="fw-bold">mission-critical competencies clustered into three groups</span>
+                , these are:
             </p>
             <img src="{{ asset('images/about_compass.png') }}" class="img-fluid" alt="Compass Image">
         </div>
@@ -44,7 +44,7 @@
                 <div class="col mt-8 mb-4 text-end">
                     <form action="{{ route('competency_assessment.save.about', ['employee' => $employee]) }}" method="post">
                         @csrf
-                        <button type="submit" class="btn btn-primary">Start Assessment</button>
+                        <button type="submit" class="btn btn-outline-primary">Start Assessment</button>
                     </form>
                 </div>
             </div>
