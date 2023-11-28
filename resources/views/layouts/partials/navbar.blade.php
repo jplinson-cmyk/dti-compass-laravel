@@ -60,8 +60,7 @@
                                 Competency Assessment
                             </a>
                             <ul class="dropdown-menu">
-                                @if (isset($employee))
-                                    <li><a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}"
+                                    {{-- <li><a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}"
                                             class="dropdown-item">About</a></li>
                                     <li><a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}"
                                             class="dropdown-item">Competency Dictionary</a></li>
@@ -69,17 +68,10 @@
                                             class="dropdown-item">Employee Profile</a></li>
                                     <li><a href="{{ route('competency_assessment.instructions', ['employee' => $employee]) }}"
                                             class="dropdown-item">Instructions</a></li>
-                                    <li><a href="{{ route('competency_assessment.core_competency', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Core Competency</a></li>
-                                    <li><a href="{{ route('competency_assessment.technical_competency', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Technical Competency</a></li>
-                                    <li><a href="{{ route('competency_assessment.leadership_competency', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Leadership Competency</a></li>
+                    
                                     <li><a href="{{ route('competency_assessment.summary', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Summary of Rating</a></li>
-                                @else
-                                    <li><a href="#" class="dropdown-item disabled">Please enter the employee id in the url "competency-assessment/employeeid/about"</a></li>
-                                @endif
+                                            class="dropdown-item">Summary of Rating</a></li> --}}
+                                  
                             </ul>
                         </li>
                     @endrole

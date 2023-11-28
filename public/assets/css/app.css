@@ -1,3 +1,7 @@
+h1 {
+    color: #1E4387;
+}
+
 .wrapper {
     display: flex;
     width: 100%;
@@ -31,74 +35,74 @@ a[data-toggle="collapse"] {
 }
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-
-
 body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
 }
 
 p {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Helvetica', sans-serif;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
     color: #212529;
 }
 
-a, a:hover, a:focus {
+a,
+a:hover,
+a:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
 }
 
+
+/* Sidebar Styles */
+
 #sidebar {
-    /* don't forget to add all the previously mentioned styles here too */
     background: #fff;
     color: #212529;
+    min-width: 250px;
+    max-width: 250px;
+    min-height: 100vh;
     transition: all 0.3s;
 }
 
 #sidebar .sidebar-header {
     padding: 20px;
     background: #1E4387;
+    color: #fff;
+    max-height: 70px;
+    min-height: 70px;
 }
 
-#sidebar ul{
-    background-color:#fff;
-}
 #sidebar ul.components {
     padding: 20px 0;
-
-
+    background-color: #fff;
 }
 
-#sidebar ul.components li{
-
+#sidebar ul.components li {
     background: #edf3fe;
-}
-#sidebar ul p {
-    color: #fff;
-    padding: 10px;
+    border-top: 1px solid #ddd;
 }
 
-#sidebar ul li a {
+#sidebar ul.components li a {
     padding: 10px;
     font-size: 1.1em;
     display: block;
+    color: #212529;
 }
-#sidebar ul li a:hover {
+
+#sidebar ul.components li a:hover {
     color: #7386D5;
     background: #fff;
 }
 
-#sidebar ul li {
-    background:#fff;
-}
-#sidebar ul li.active > a {
+#sidebar ul.components li.active>a {
     color: #fff;
     background: #1E4387;
 }
+
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
@@ -113,78 +117,99 @@ ul ul a {
     transform: translateY(-50%);
 }
 
-
 .compass-breadcrumb {
-  list-style: none;
-  overflow: hidden;
-  font: 14px Helvetica, Arial, Sans-Serif;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    overflow: hidden;
+    font: 14px Helvetica, Arial, Sans-Serif;
+    margin: 0;
+    padding: 0;
 }
 
 .compass-breadcrumb li {
-  float: left;
-  position: relative;
-  background: #fff;
-  margin: 0 5px;
+    float: left;
+    position: relative;
+    background: #fff;
+    margin: 0 5px 10px;
 }
 
 .compass-breadcrumb li a {
-  border: 1px solid #9ea2a6;    
-  color: var(--bs-body-color);
-  text-decoration: none;
-  padding: 8px 10px 10px 32px;
-  position: relative;
-  display: block;
-  z-index: 99;
-  font-weight: bold;
-  max-height:33px;
-  min-height:33px;
+    border: 1px solid #1E4387;
+    color: var(--bs-body-color);
+    text-decoration: none;
+    padding: 8px 10px 10px 32px;
+    position: relative;
+    display: block;
+    z-index: 99;
+    font-weight: bold;
+    max-height: 33px;
+    min-height: 33px;
 }
+
 .compass-breadcrumb li:first-child a {
-  padding-left: 10px;
-  border-right: none;
+    padding-left: 10px;
+    border-right: none;
 }
 
 .compass-breadcrumb li:nth-child(n+2) a {
- border-left: none;
- border-right: none;
+    border-left: none;
+    border-right: none;
 }
-.compass-breadcrumb li:before, .compass-breadcrumb li::after{
-  content: " "; 
-  display: block; 
-  width: 1.62em; 
-  height: 1.62em; 
-  border-top: 1px solid transparent; 
-  border-bottom: 1px solid #9ea2a6; 
-  border-right: 1px solid #9ea2a6; 
-  position: absolute; 
-  top: 0.33em; 
-  z-index: -1;
-  background: #fff;
-  transform: rotate(-45deg);
-  -moz-transform: rotate(-45deg);
 
+.compass-breadcrumb li:before,
+.compass-breadcrumb li::after {
+    content: " ";
+    display: block;
+    width: 1.62em;
+    height: 1.62em;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid #1E4387;
+    border-right: 1px solid #1E4387;
+    position: absolute;
+    top: 0.33em;
+    z-index: -1;
+    background: #fff;
+    transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
 }
+
 .compass-breadcrumb li:before {
-  right: -1.39em; 
+    right: -1.39em;
 }
+
 .compass-breadcrumb li:after {
-  right: -.79em;
-}
-.compass-breadcrumb li:before, .compass-breadcrumb li:after{ z-index: 1; }
-.compass-breadcrumb li:last-child:before{
-  display: none;
-}
-.compass-breadcrumb li:last-child:after{
-  display: none;
+    right: -.79em;
 }
 
-.compass-breadcrumb li:last-child{
-    border-right: 1px solid #9ea2a6; 
+.compass-breadcrumb li:before,
+.compass-breadcrumb li:after {
+    z-index: 1;
 }
 
-.compass-breadcrumb li:hover:after, .compass-breadcrumb li:hover, .compass-breadcrumb li.active,  
-.compass-breadcrumb li.active:after{ background: #9ea2a6; }
-.compass-breadcrumb li:hover a, .compass-breadcrumb li.active a{ border-color: transparent; }
-.compass-breadcrumb li:hover a, .compass-breadcrumb li.active a{ color: #fff; }
+.compass-breadcrumb li:last-child:before {
+    display: none;
+}
+
+.compass-breadcrumb li:last-child:after {
+    display: none;
+}
+
+.compass-breadcrumb li:last-child {
+    border-right: 1px solid #1E4387;
+}
+
+.compass-breadcrumb li:hover:after,
+.compass-breadcrumb li:hover,
+.compass-breadcrumb li.active,
+.compass-breadcrumb li.active:after {
+    background: #1E4387;
+}
+
+.compass-breadcrumb li:hover a,
+.compass-breadcrumb li.active a {
+    border-color: transparent;
+}
+
+.compass-breadcrumb li:hover a,
+.compass-breadcrumb li.active a {
+    color: #fff;
+}

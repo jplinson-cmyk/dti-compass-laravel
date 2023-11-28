@@ -1,6 +1,6 @@
-@extends('layouts.app-master')
+@extends('layouts.compass')
 
-@section('content')
+@section('compass-content')
     <div class="bg-light p-5 rounded">
         @auth
         <h1>Dashboard</h1>
