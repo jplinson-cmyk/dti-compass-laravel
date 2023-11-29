@@ -45,6 +45,7 @@ class LoginController extends Controller
 
         if($employee instanceof Employee){
            $competencyAssessment = $employee->last_competency_assessment;
+          
            if(!$competencyAssessment){
              return redirect()->route('competency_assessment.about', ['employee' => $employee->id]);
            } else{
@@ -63,7 +64,8 @@ class LoginController extends Controller
                         return redirect()->route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => 1]);
                     case 'summary':
                         return redirect()->route('competency_assessment.summary', ['employee' => $employee, 'id' => $competencyAssessment->id]);
-    
+                    case 'closing':
+                        return redirect()->route('competency_assessment.closing', ['employee' => $employee, 'id' => $competencyAssessment->id]);
                     default:
                        
                 }
