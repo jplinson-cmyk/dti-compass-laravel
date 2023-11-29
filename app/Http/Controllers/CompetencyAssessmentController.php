@@ -304,7 +304,7 @@ class CompetencyAssessmentController extends Controller
             case 'instructions':
                 return 'form';
             case 'form':
-                return 'summary';
+                return 'closing';
             default:
                 abort(404);
         }
@@ -326,7 +326,7 @@ class CompetencyAssessmentController extends Controller
             case 'instructions':
                 return redirect()->route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => 1]);
             case 'form':
-                return redirect()->route('competency_assessment.summary', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                return redirect()->route('competency_assessment.closing', ['employee' => $employee, 'id' => $competencyAssessment->id]);
             default:
                 abort(404);
         }
