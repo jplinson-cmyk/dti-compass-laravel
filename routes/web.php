@@ -183,7 +183,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 Route::get('/{id}/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
                 Route::get('/{id}/categories/{categoryId}', 'CompetencyAssessmentController@getAssessmentForm')->name('competency_assessment.form');
                 Route::get('/{id}/summary', 'CompetencyAssessmentController@summary')->name('competency_assessment.summary');
-                
+                Route::get('/{id}/closing', 'CompetencyAssessmentController@closing')->name('competency_assessment.closing');
+
                 
                 Route::post('/about', 'CompetencyAssessmentController@storeAboutAssessment')->name('competency_assessment.save.about');
                 Route::post('/dictionary', 'CompetencyAssessmentController@storeDictionary')->name('competency_assessment.save.dictionary');

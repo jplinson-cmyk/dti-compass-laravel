@@ -42,45 +42,15 @@
 
 <body>
 
-    <div class="d-flex" id = "wrapper">
+    <div class="d-flex" id="wrapper">
 
         <div class="mt-5">
             @include('layouts.partials.employee-sidebar')
         </div>
 
-
-        <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-lg rounded">
-            <div class="container-fluid">
-                <!-- Logo -->
-                <a class="navbar-brand" href="#">
-                    <img src="{!! url('/images/dti-logo.ico') !!}" alt="" width="32" height="auto">
-                </a>
-
-                <!-- Toggler for mobile view -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
-                    aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Navbar links -->
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-black" href="{{ route('profile.index') }}">{{ auth()->user()->firstname }}
-                                {{ auth()->user()->lastname }}</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('logout.perform') }}">Logout</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
         <div id="content" class="page-content-wrapper">
             <main class="container-fluid mt-5">
-
+                <span id="toggleButton" style="font-size:30px;cursor:pointer" onclick="toggleNav()">&times;</span>
                 @yield('content')
             </main>
 
@@ -88,12 +58,14 @@
     </div>
 
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-      <div class="col-md-4 d-flex align-items-center">
-        <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-          <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-        </a>
-        <span class="mb-3 mb-md-0 text-body-secondary">© 2023 DTI COMPASS</span>
-      </div>
+        <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
+                <svg class="bi" width="30" height="24">
+                    <use xlink:href="#bootstrap"></use>
+                </svg>
+            </a>
+            <span class="mb-3 mb-md-0 text-body-secondary">© 2023 DTI COMPASS</span>
+        </div>
     </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -103,12 +75,33 @@
     </script>
 
     <script>
-        $(document).ready(function() {
+        var isOpen = true; 
 
-            $('#sidebarCollapse').on('click', function() {
-                $('#sidebar').toggleClass('active');
-            });
-        });
+        function toggleNav() {
+            if (isOpen) {
+                closeNav();
+            } else {
+                openNav();
+            }
+        }
+
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("content").style.marginLeft = "250px";
+            document.getElementById("toggleButton").innerHTML = "&times;";
+            isOpen = true;
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("content").style.marginLeft = "0";
+            document.getElementById("toggleButton").innerHTML = "&#9776;";
+            isOpen = false;
+        }
+
+        document.getElementById("toggleButton").innerHTML = "&times;";
+
+        document.getElementById("toggleButton").onclick = toggleNav;
     </script>
 
     @section('scripts')

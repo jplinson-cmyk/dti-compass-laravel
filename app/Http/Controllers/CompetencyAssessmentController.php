@@ -146,6 +146,14 @@ class CompetencyAssessmentController extends Controller
         return view('competency_assessment.form', compact('employee', 'filteredItemsByCategory', 'competencyCategory', 'competencyAssessment'));
     }
 
+    public function closing(Employee $employee, $id)
+    {
+        $this->authenticate($employee);
+        $this->checkCompetencyAssessment($employee, $id);
+
+        return view('competency_assessment.closing', compact('employee'));
+    }
+
     private function getLevelText($level) {
         switch ($level) {
             case 1:
@@ -192,16 +200,21 @@ class CompetencyAssessmentController extends Controller
             ->first();
         
         $structuredItems = [];
-    
+        
         foreach ($selfAssessmentItems->items as $item) {
             $competency = $item->behavioralIndicator->competency;
             $category = $competency->competencyCategory;
            // $supervisorItem = $supervisorAssessmentItems->items->firstWhere('behavioral_indicator_id', $item->behavioral_indicator_id);
-    
+           
             $selfAssessmentScore = $item->score;
+
+            if ($supervisorAssessmentItems){
+                
+                $supervisorScore=$item->score;
+            }
             
-            //$supervisorScore = $supervisorItem ? $supervisorItem->score : 0;
-            $supervisorScore=4;
+            $supervisorScore=NULL;
+            
             $finalRating = ($selfAssessmentScore * 0.5) + ($supervisorScore * 0.5);
             $levelText = $this->getLevelText($item->behavioralIndicator->level);
             $performanceObservation = $this->getPerformanceObservation($finalRating);

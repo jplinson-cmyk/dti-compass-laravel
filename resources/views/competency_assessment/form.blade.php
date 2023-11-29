@@ -27,10 +27,17 @@
             action="{{ route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => $competencyCategory->id]) }}"
             class="needs-validation" novalidate>
             @csrf
+            @php
+
+                $levelMapping = ['1' => 'Basic', '2' => 'Intermediate', '3' => 'Advance', '4' => 'Superior'];
+            @endphp
 
             @foreach ($filteredItemsByCategory->groupBy(function ($item) {
             return $item->behavioralIndicator->competency_id;
         }) as $key => $items)
+                @php
+                    $displayedLevels = [];
+                @endphp
                 <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h3 class="card-title mb-0"
@@ -39,7 +46,21 @@
 
                     </div>
                     <div class="card-body">
+
                         @foreach ($items as $item)
+                            @php
+                                $currentLevel = $item->behavioralIndicator->level;
+                            @endphp
+                            @if (!in_array($currentLevel, $displayedLevels))
+                                <div class="row">
+                                    <div class="col">
+                                        <h4 class="text-primary">{{ $levelMapping[$currentLevel] ?? 'Unknown Level' }}</h4>
+                                    </div>
+                                </div>
+                                @php
+                                    $displayedLevels[] = $currentLevel;
+                                @endphp
+                            @endif
                             <div class="row mb-3 align-items-center">
                                 <div class="col-lg-8 col-md-8">
                                     <p>{{ $item->behavioralIndicator->description }}</p>
@@ -75,10 +96,10 @@
             @endforeach
             <div class="row">
                 <div class="col">
-                    <button type="submit" class="btn btn-outline-secondary">Submit & Go Back to my checklist</button>
+                    <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}"
+                        class="btn btn-outline-secondary mt-2">Back to my Checklist</a>
                 </div>
                 <div class="col text-end">
-                    <button type="submit" class="btn btn-outline-primary">Save</button>  
                     <button type="submit" class="btn btn-outline-primary">Submit & Continue</button>
                 </div>
             </div>

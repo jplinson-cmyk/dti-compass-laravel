@@ -8,30 +8,8 @@ h1 {
     align-items: stretch;
 }
 
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-}
-
-#content {
-    width: 100%;
-    padding: 20px;
-    min-height: 100vh;
-    transition: all 0.3s;
-}
-
 a[data-toggle="collapse"] {
     position: relative;
-}
-
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -250px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
 }
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
@@ -56,16 +34,68 @@ a:focus {
     transition: all 0.3s;
 }
 
+#content {
+    transition: margin-left .3s;
+    padding: 16px;
+    margin-left: 250px;
+}
 
-/* Sidebar Styles */
+.competency-assessment-links {
+    display: none;
+}
 
-#sidebar {
-    background: #fff;
-    color: #212529;
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-    transition: all 0.3s;
+@media (max-width: 768px) {
+    .sidenav {
+        width: 0;
+    }
+    #content {
+        margin-left: 0;
+    }
+    .navbar-toggler {
+        display: block;
+        /* Show the navbar toggler */
+    }
+    #sidebar {
+        display: none;
+    }
+    #toggleButton {
+        display: none;
+    }
+    .navbar-nav,
+    .competency-assessment-links {
+        display: flex;
+        /* Display the navbar items on mobile */
+        flex-direction: column;
+        /* Stack the items vertically */
+    }
+    .navbar-nav .nav-item {
+        width: 100%;
+        /* Full width for each nav item */
+    }
+    .navbar-nav .nav-link {
+        padding: 10px 15px;
+        /* Adjust padding for touch targets */
+    }
+}
+
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
 }
 
 #sidebar .sidebar-header {
