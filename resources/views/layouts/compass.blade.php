@@ -7,9 +7,11 @@
     @endphp
 
     <ul class="compass-breadcrumb py-2 border-bottom">
+       
         <li class="{{ $currentRouteName == 'competency_assessment.about' ? 'active' : '' }}"><a href="{{ route('competency_assessment.about', ['employee' => $employee->id]) }}">About</a></li>
         <li class="{{ $currentRouteName == 'competency_assessment.dictionary' ? 'active' : '' }}"><a href="{{ route('competency_assessment.dictionary', ['employee' => $employee->id]) }}">Competency Dictionary</a></li>
         <li class="{{ $currentRouteName == 'competency_assessment.employee_profile' ? 'active' : '' }}"><a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee->id]) }}">Employee Profile</a></li>
+
         @if ($employee->competencyAssessments->isNotEmpty())
         <li class="{{ $currentRouteName == 'competency_assessment.rating_scale' ? 'active' : '' }}"><a href="{{ route('competency_assessment.rating_scale', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Rating Scale</a></li>
         <li class="{{ $currentRouteName == 'competency_assessment.instructions' ? 'active' : '' }}"><a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Instructions</a></li>
