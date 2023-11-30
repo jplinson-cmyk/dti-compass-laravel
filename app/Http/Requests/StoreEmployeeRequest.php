@@ -32,7 +32,7 @@ class StoreEmployeeRequest extends FormRequest
             'employment_status_id' => 'required|exists:employment_status,id',
             'functional_group_id' => 'required|exists:functional_groups,id',
             'bureau_office_id' => 'required|exists:bureaus_offices,id',
-            'division_id' => 'required|exists:divisions,id',
+            'division_id' => 'exists:divisions,id',
             'position_id' => 'required|exists:positions,id',
             'job_level_id' => 'required|exists:job_levels,id',
             'immediate_supervisor' => 'required',
