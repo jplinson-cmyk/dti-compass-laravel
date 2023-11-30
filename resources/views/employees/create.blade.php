@@ -109,17 +109,18 @@
 
                 <div class="mb-3">
                     <label for="division_id" class="form-label">Division</label>
-                    <select class="form-select" name="division_id" id="division_id" required>
-                        <option value="" disabled selected>Select Division</option>
-
+                    <select class="form-select" name="division_id" id="division_id" >
+                        <option value="" {{ old('division_id') == '' ? 'selected' : '' }}>None</option>
+                
                         @foreach($divisions as $division)
-                            <option value="{{ $division->id }}">{{ $division->name }}</option>
+                            <option value="{{ $division->id }}" {{ old('division_id') == $division->id ? 'selected' : '' }}>{{ $division->name }}</option>
                         @endforeach
                     </select>
                     @if ($errors->has('division_id'))
                         <span class="text-danger text-left">{{ $errors->first('division_id') }}</span>
                     @endif
                 </div>
+                
                 <div class="mb-3">
                     <label for="position_id" class="form-label">Position</label>
                     <select class="form-select" name="position_id" id="position_id" required>
