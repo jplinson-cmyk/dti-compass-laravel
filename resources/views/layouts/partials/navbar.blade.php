@@ -60,17 +60,7 @@
                                 Competency Assessment
                             </a>
                             <ul class="dropdown-menu">
-                                    {{-- <li><a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}"
-                                            class="dropdown-item">About</a></li>
-                                    <li><a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Competency Dictionary</a></li>
-                                    <li><a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Employee Profile</a></li>
-                                    <li><a href="{{ route('competency_assessment.instructions', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Instructions</a></li>
-                    
-                                    <li><a href="{{ route('competency_assessment.summary', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Summary of Rating</a></li> --}}
+                                  
                                   
                             </ul>
                         </li>

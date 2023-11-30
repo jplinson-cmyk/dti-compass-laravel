@@ -18,7 +18,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
      * Home Routes
      */
   
-    Route::get('/test', 'HomeController@test')->name('home.test');
 
     Route::group(['middleware' => ['guest']], function () {
         /**
@@ -75,10 +74,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/', 'EmployeesController@index')->name('employees.index');
             Route::get('/create', 'EmployeesController@create')->name('employees.create');
             Route::post('/create', 'EmployeesController@store')->name('employees.store');
+            Route::post('/bulk-reset', 'EmployeesController@sendBulkResetLinks')->name('employees.bulk-reset');
+
             Route::get('/{employee}/show', 'EmployeesController@show')->name('employees.show');
             Route::get('/{employee}/edit', 'EmployeesController@edit')->name('employees.edit');
             Route::patch('/{employee}/update', 'EmployeesController@update')->name('employees.update');
-            Route::delete('/{employee}/delete', 'EmployeesController@destroy')->name('employees.destroy');
+            Route::get('/{employee}/delete', 'EmployeesController@destroy')->name('employees.destroy');
 
             Route::get('/{employee}/tags/create', 'EmployeesSupervisorsController@showTagForm')->name('employees_supervisors.tags.create');
             Route::post('/{employee}/tags', 'EmployeesSupervisorsController@storeTag')->name('employees_supervisors.tags.store');

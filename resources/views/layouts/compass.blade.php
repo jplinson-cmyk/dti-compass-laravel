@@ -7,7 +7,7 @@
     @endphp
 
     <ul class="compass-breadcrumb py-2 border-bottom">
-       
+        
         <li class="{{ $currentRouteName == 'competency_assessment.about' ? 'active' : '' }}"><a href="{{ route('competency_assessment.about', ['employee' => $employee->id]) }}">About</a></li>
         <li class="{{ $currentRouteName == 'competency_assessment.dictionary' ? 'active' : '' }}"><a href="{{ route('competency_assessment.dictionary', ['employee' => $employee->id]) }}">Competency Dictionary</a></li>
         <li class="{{ $currentRouteName == 'competency_assessment.employee_profile' ? 'active' : '' }}"><a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee->id]) }}">Employee Profile</a></li>
@@ -34,11 +34,9 @@
             @endif
         @endforeach
 
-        {{-- <li class="{{ $currentRouteName == 'competency_assessment.summary' ? 'active' : '' }}"><a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Rating Summary</a></li>
-        <li class=""><a href="">Career Development Plan</a></li> --}}
         <li class="{{ $currentRouteName == 'competency_assessment.closing' || $currentRouteName == 'competency_assessment.summary' ? 'active' : '' }}"><a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">End of COMPASS</a></li>
         @endif
-
+        
     </ul>
 </div>
 @yield('compass-content')

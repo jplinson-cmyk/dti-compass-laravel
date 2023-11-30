@@ -169,6 +169,15 @@
                     @endif
                 </div>
 
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="createUserAccount" id="createUserAccount">
+                        <label class="form-check-label" for="createUserAccount">
+                          Create User Account
+                        </label>
+                      </div>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Save employee</button>
                 <a href="{{ route('employees.index') }}" class="btn btn-default">Back</a>
             </form>
