@@ -79,6 +79,7 @@
         <div class="form-group">
             <label for="division">Division</label>
             <select class="form-control form-select" id="division" name="division" disabled>
+                <option value="">None</option>
                 @foreach($divisions as $division)
                     <option value="{{ $division->id }}" {{ $division->id == $employee->division_id ? 'selected' : '' }}>
                         {{ $division->name }}
@@ -86,6 +87,7 @@
                 @endforeach
             </select>
         </div>
+        
         
         <div class="form-group">
             <label for="position">Position</label>
