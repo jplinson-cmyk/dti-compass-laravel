@@ -45,6 +45,11 @@ class EmployeesController extends Controller
 
     public function store(StoreEmployeeRequest $request)
     {
+        $divisionId = $request->input('division_id');
+        $employeeData = $request->all();
+        if (empty($divisionId)) {
+            unset($employeeData['division_id']);
+        }
         $employee = Employee::create($request->all());
         if ($this->userAccountIfExists($employee->id, get_class($employee))) {
             return redirect()->back()->with('error', 'Email already in use.');
