@@ -99,7 +99,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="division_id" class="form-label">Division</label>
-                    <select class="form-select" name="division_id" required>
+                    <select class="form-select" name="division_id">
                         <option value="" {{ is_null($employee->division_id) ? 'selected' : '' }}>None</option>
                         @foreach ($divisions as $division)
                             <option value="{{ $division->id }}" {{ $employee->division_id === $division->id ? 'selected' : '' }}>
