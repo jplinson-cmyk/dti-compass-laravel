@@ -154,7 +154,8 @@ class CompetencyAssessmentController extends Controller
         return view('competency_assessment.closing', compact('employee'));
     }
 
-    private function getLevelText($level) {
+    private function getLevelText($level)
+    {
         switch ($level) {
             case 1:
                 return 'Basic';
@@ -169,7 +170,8 @@ class CompetencyAssessmentController extends Controller
         }
     }
 
-    private function getPerformanceObservation($finalRating) {
+    private function getPerformanceObservation($finalRating)
+    {
         if ($finalRating < 0.99) return "Never";
         if ($finalRating < 1.75) return "Rarely";
         if ($finalRating < 2.5) return "Sometimes";
@@ -177,7 +179,8 @@ class CompetencyAssessmentController extends Controller
         return "Always";
     }
 
-    private function getMasteryLevel($averageRating) {
+    private function getMasteryLevel($averageRating)
+    {
         if ($averageRating < 1) return "No Proficiency";
         if ($averageRating < 2) return "Beginner";
         if ($averageRating < 3) return "Intermediate";
@@ -188,48 +191,47 @@ class CompetencyAssessmentController extends Controller
     public function summary(Employee $employee)
     {
         $this->authenticate($employee);
-    
+
         $selfAssessmentItems = CompetencyAssessment::where('employee_id', $employee->id)
             ->where('session_type', 'self_assessment')
             ->with('items.behavioralIndicator.competency.competencyCategory')
             ->first();
-    
+
         $supervisorAssessmentItems = CompetencyAssessment::where('employee_id', $employee->id)
             ->where('session_type', 'employee_assessment')
             ->with('items.behavioralIndicator.competency.competencyCategory')
             ->first();
-        
+
         $structuredItems = [];
-        
+
         foreach ($selfAssessmentItems->items as $item) {
             $competency = $item->behavioralIndicator->competency;
             $category = $competency->competencyCategory;
-           // $supervisorItem = $supervisorAssessmentItems->items->firstWhere('behavioral_indicator_id', $item->behavioral_indicator_id);
-           
+            // $supervisorItem = $supervisorAssessmentItems->items->firstWhere('behavioral_indicator_id', $item->behavioral_indicator_id);
+
             $selfAssessmentScore = $item->score;
 
-            if ($supervisorAssessmentItems){
-                
-                $supervisorScore=$item->score;
+            if ($supervisorAssessmentItems) {
+
+                $supervisorScore = $item->score;
             }
-            
-            $supervisorScore=NULL;
-            
+
+            $supervisorScore = NULL;
+
             $finalRating = ($selfAssessmentScore * 0.5) + ($supervisorScore * 0.5);
             $levelText = $this->getLevelText($item->behavioralIndicator->level);
             $performanceObservation = $this->getPerformanceObservation($finalRating);
-            
+
             $structuredItems[$category->id]['category_name'] = $category->category_name;
             $structuredItems[$category->id]['competencies'][$competency->id]['name'] = $competency->name;
             $structuredItems[$category->id]['competencies'][$competency->id]['indicators'][] = [
-                'level'=> $levelText,
+                'level' => $levelText,
                 'description' => $item->behavioralIndicator->description,
                 'self_assessment' => $selfAssessmentScore,
                 'supervisor' => $supervisorScore,
                 'final_rating' => $finalRating,
                 'performance_observation' => $performanceObservation
             ];
-
         }
 
         $totalAverageRating = 0;
@@ -242,10 +244,10 @@ class CompetencyAssessmentController extends Controller
                     $totalFinalRating += $indicator['final_rating'];
                     $count++;
                 }
-    
+
                 $averageFinalRating = $count > 0 ? $totalFinalRating / $count : 0;
                 $masteryLevel = $this->getMasteryLevel($averageFinalRating);
-                
+
                 $structuredItems[$categoryId]['competencies'][$competencyId]['average_final_rating'] = $averageFinalRating;
                 $structuredItems[$categoryId]['competencies'][$competencyId]['mastery_level'] = $masteryLevel;
 
@@ -258,7 +260,7 @@ class CompetencyAssessmentController extends Controller
 
         return view('competency_assessment.summary', compact('employee', 'structuredItems', 'overallAverageRating', 'overallMasteryLevel'));
     }
-    
+
 
     private function storeCompetencyAssessmentData($currentPage, Request $request, Employee $employee)
     {
@@ -355,13 +357,11 @@ class CompetencyAssessmentController extends Controller
             'last_review_date' => 'required',
         ]);
 
-
         $employee->update([
             'employment_status_id' => $validatedData['employment_status'],
             'job_level_id' => $validatedData['job_level'],
             'last_review_at' => $validatedData['last_review_date'],
         ]);
-
 
         $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
             ->where('session_type', 'self_assessment')
@@ -380,31 +380,44 @@ class CompetencyAssessmentController extends Controller
 
         $competencySets = $competencySetQuery->get();
 
-        foreach ($competencySets as $competencySet) {
-            $behavioralIndicators = BehavioralIndicator::where('competency_id', $competencySet->competency_id)->get();
+        if (!$competencyAssessment) {
+            $competencyAssessment = new CompetencyAssessment([
+                'employee_id' => $employee->id,
+                'session_type' => 'self_assessment',
+                'assessor_id' => null,
+                'status' => 'in_progress',
+                'current_page' => 'employee_profile',
+                'date_started' => now(),
+            ]);
+    
+            $competencyAssessment->save();
+        }
+       
+            foreach ($competencySets as $competencySet) {
+                $behavioralIndicators = BehavioralIndicator::where('competency_id', $competencySet->competency_id)->get();
 
-            foreach ($behavioralIndicators as $behavioralIndicator) {
+                foreach ($behavioralIndicators as $behavioralIndicator) {
+                    $existingItem = CompetencyAssessmentItem::where('competency_assessment_id', $competencyAssessment->id)
+                        ->where('behavioral_indicator_id', $behavioralIndicator->id)
+                        ->first();
 
-                $existingItem = CompetencyAssessmentItem::where('competency_assessment_id', $competencyAssessment->id)
-                    ->where('behavioral_indicator_id', $behavioralIndicator->id)
-                    ->first();
+                    if (!$existingItem) {
+                        $assessmentItem = new CompetencyAssessmentItem([
+                            'employee_id' => $employee->id,
+                            'competency_assessment_id' => $competencyAssessment->id,
+                            'behavioral_indicator_id' => $behavioralIndicator->id,
+                            'score' => null,
+                            'assessment_type' => 'self_assessment',
+                        ]);
 
-                if (!$existingItem) {
-                    $assessmentItem = new CompetencyAssessmentItem([
-                        'employee_id' => $employee->id,
-                        'competency_assessment_id' => $competencyAssessment->id,
-                        'behavioral_indicator_id' => $behavioralIndicator->id,
-                        'score' => null,
-                        'assessment_type' => 'self_assessment',
-                    ]);
-
-                    $assessmentItem->save();
+                        $assessmentItem->save();
+                    }
                 }
             }
-        }
-
+        
         return $this->storeCompetencyAssessmentData('employee_profile', $request, $employee);
     }
+
 
     public function storeRatingScale(Request $request, Employee $employee)
     {
