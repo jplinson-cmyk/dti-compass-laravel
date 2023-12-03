@@ -38,7 +38,7 @@
                             <span class="text-danger text-left">{{$errors->first()}}</span>
                         @endif
                         <div class="mt-2">
-                            <a href="{{ route('password.request') }}">Forgot Password?</a>
+                            <a class="link-secondary" href="{{ route('password.request') }}">Forgot Password?</a>
                         </div>
                         <button class="w-100 btn btn-lg text-light mt-2" type="submit"  style="background-color:#1E4387;">Login</button>
                     

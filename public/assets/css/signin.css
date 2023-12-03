@@ -6,10 +6,26 @@ body {
 
 .login-form {
     max-width: 400px;
-    /* Adjust as needed */
     margin: auto;
 }
 
 .white-icon {
     color: white;
+}
+
+.bg-brand-color {
+    background-color: #1E4387;
+}
+
+.btn-brand-color {
+    background-color: #1E4387;
+    border-color: #1E4387;
+}
+
+.btn-brand-color:hover {
+    background-color: darken(#1E4387, 10%);
+}
+
+.vh-100 {
+    min-height: 100vh;
 }
