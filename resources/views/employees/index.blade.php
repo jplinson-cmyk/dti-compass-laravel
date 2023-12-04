@@ -59,9 +59,9 @@
             <button type="submit" class="btn btn-primary">Send Password Reset Links</button>
         </form>
 
-        <div class="d-flex">
+        {{-- <div class="d-flex">
             {!! $employees->links() !!}
-        </div>
+        </div> --}}
 
     </div>
   
