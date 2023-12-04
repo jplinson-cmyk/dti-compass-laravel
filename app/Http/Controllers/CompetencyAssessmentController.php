@@ -94,7 +94,13 @@ class CompetencyAssessmentController extends Controller
         return view('competency_assessment.instructions', compact('employee', 'competencyAssessment', 'competencyCategories'));
     }
 
-
+    public function cdp(Employee $employee, $id)
+    {
+        $this->authenticate($employee);
+        $this->checkCompetencyAssessment($employee, $id);
+        $competencyAssessment = CompetencyAssessment::find($id);
+        return view('competency_assessment.cdp', compact('employee', 'competencyAssessment'));
+    }
     public function getEmployeeProfileDetails(Employee $employee)
     {
         $this->authenticate($employee);

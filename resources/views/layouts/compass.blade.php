@@ -33,8 +33,11 @@
                 </li>
             @endif
         @endforeach
+        <li class="{{ $currentRouteName == 'competency_assessment.summary' || $currentRouteName == 'competency_assessment.summary' ? 'active' : '' }}"><a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Summary of Rating</a></li>
 
-        <li class="{{ $currentRouteName == 'competency_assessment.closing' || $currentRouteName == 'competency_assessment.summary' ? 'active' : '' }}"><a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">End of COMPASS</a></li>
+        <li class="{{ $currentRouteName == 'competency_assessment.cdp' || $currentRouteName == 'competency_assessment.cdp' ? 'active' : '' }}"><a href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Career Development Plan</a></li>
+
+        <li class="{{ $currentRouteName == 'competency_assessment.closing' || $currentRouteName == 'competency_assessment.closing' ? 'active' : '' }}"><a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">End of COMPASS</a></li>
         @endif
         
     </ul>

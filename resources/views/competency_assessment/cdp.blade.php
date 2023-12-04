@@ -11,9 +11,6 @@
     </p>
  
 
-    <div class="d-flex justify-content-between">
-        <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}" class="btn btn-outline-primary mt-2">Back to Summary of Rating</a>
-        <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}" class="btn btn-outline-primary mt-2">Save & Submit</a>
-    </div>
+    
 </div>
 @endsection
