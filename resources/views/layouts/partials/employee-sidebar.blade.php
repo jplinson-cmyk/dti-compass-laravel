@@ -60,8 +60,12 @@
                             href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Rating
                             Summary</a>
                     </li>
-                    <li class="list-unstyled"><a href="#">Career Development Plan</a></li>
-                    @endif
+                    <li
+                    class="list-unstyled {{ Request::routeIs('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
+                    <a class="rounded"
+                        href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Career Development Plan
+                        </a>
+                </li>                    @endif
                 </ul>
             </li>
             <li><a class="rounded" href="#">Assessment History</a></li>
@@ -151,7 +155,11 @@
                                         href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Rating
                                         Summary</a>
                                 </li>
-                                <li class="nav-item list-unstyled"><a href="#">Career Development Plan</a></li>
+                                <li
+                                    class="nav-item list-unstyled {{ Request::routeIs('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
+                                    <a class="rounded"
+                                        href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Career Development Plan</a>
+                                </li>
                                 @endif
                             </ul>
                         </li>
