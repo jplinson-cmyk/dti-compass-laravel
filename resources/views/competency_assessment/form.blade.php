@@ -28,11 +28,13 @@
             class="needs-validation" novalidate>
             @csrf
             @php
-
+                $sortedItems = $filteredItemsByCategory->sortBy(function ($item) {
+                    return $item->behavioralIndicator->competency->name;
+                });
                 $levelMapping = ['1' => 'Basic', '2' => 'Intermediate', '3' => 'Advance', '4' => 'Superior'];
             @endphp
 
-            @foreach ($filteredItemsByCategory->groupBy(function ($item) {
+            @foreach ($sortedItems->groupBy(function ($item) {
             return $item->behavioralIndicator->competency_id;
         }) as $key => $items)
                 @php
