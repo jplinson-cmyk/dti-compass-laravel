@@ -64,10 +64,12 @@ class LoginController extends Controller
                         return redirect()->route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => 1]);
                     case 'summary':
                         return redirect()->route('competency_assessment.summary', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                    case 'cdp':
+                            return redirect()->route('competency_assessment.cdp', ['employee' => $employee, 'id' => $competencyAssessment->id]);
                     case 'closing':
                         return redirect()->route('competency_assessment.closing', ['employee' => $employee, 'id' => $competencyAssessment->id]);
                     default:
-                       
+                        return redirect()->route('competency_assessment.about', ['employee' => $employee]);
                 }
            }
         }

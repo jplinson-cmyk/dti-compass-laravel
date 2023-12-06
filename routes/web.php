@@ -194,7 +194,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
                 Route::post('/employee_profile', 'CompetencyAssessmentController@storeEmployeeDetails')->name('competency_assessment.save.employee_profile');
                 Route::post('/instructions', 'CompetencyAssessmentController@storeInstructions')->name('competency_assessment.save.instructions');
                 Route::post('/{id}/categories/{categoryId}', 'CompetencyAssessmentController@storeAssessmentForm')->name('competency_assessment.save.form');
-                Route::post('/summary', 'CompetencyAssessmentController@storeSummary')->name('competency_assessment.save.sumamry');
+                Route::post('/summary', 'CompetencyAssessmentController@storeSummary')->name('competency_assessment.save.summary');
 
             });  
         });
