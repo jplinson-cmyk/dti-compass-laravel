@@ -77,6 +77,7 @@
                                                         id="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}"
                                                         value="{{ $i }}"
                                                         {{ isset($item->score) && $item->score == $i ? 'checked' : '' }}
+                                                        {{$competencyAssessmentCompleted ? 'disabled' : ''}}
                                                         required>
                                                     <label class="form-check-label d-block d-lg-none"
                                                         for="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}">
@@ -102,7 +103,13 @@
                         class="btn btn-outline-secondary mt-2">Back to my Checklist</a>
                 </div>
                 <div class="col text-end">
-                    <button type="submit" class="btn btn-outline-primary">Submit & Continue</button>
+                    @if ($competencyAssessmentCompleted)
+                    <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}"
+                        class="btn btn-outline-primary mt-2">Next</a>
+                    @else
+                        <button type="submit" name="action" value="save" class="btn btn-outline-primary">Save</button>
+                        <button type="submit" class="btn btn-outline-primary">Submit & Continue</button>
+                    @endif
                 </div>
             </div>
         </form>
@@ -116,7 +123,7 @@
             style="position: fixed; bottom: 50px; right: 20px; z-index: 1000;">
             <i class="fa fa-arrow-down"></i>
         </button>
-        <!-- Modal -->
+   
         <div class="modal fade " id="ratingScaleModal" tabindex="-1" aria-labelledby="ratingScaleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">

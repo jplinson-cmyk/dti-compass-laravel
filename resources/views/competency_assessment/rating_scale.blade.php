@@ -50,7 +50,12 @@
         <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="btn btn-outline-secondary">Back</a>
         <form action="{{ route('competency_assessment.save.rating_scale', ['employee' => $employee]) }}" method="post" class="d-inline">
             @csrf
-            <button type="submit" class="btn btn-outline-primary">Continue</button>
+            @if ($employee->competencyAssessments->first()->current_page !='rating_scale')
+                    <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}"
+                        class="btn btn-outline-primary">Next</a>
+                @else
+                    <button type="submit" class="btn btn-outline-primary" >Continue</button>
+            @endif
         </form>
     </div>
 </div>

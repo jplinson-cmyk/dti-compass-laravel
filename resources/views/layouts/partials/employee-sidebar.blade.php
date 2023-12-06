@@ -25,6 +25,8 @@
                                     Profile</a>
                             </li>
                             @if ($employee->competencyAssessments->isNotEmpty())
+                                @if ($competencyAssessmentItemsExist)
+
                                 <li
                                     class="list-unstyled {{ Request::routeIs('competency_assessment.rating_scale', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
                                     <a class="rounded"
@@ -36,9 +38,10 @@
                                     <a class="rounded"
                                         href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Instructions</a>
                                 </li>
+                                @endif
 
                                 @php
-                                    $currentAssessment = $employee->current_competency_assessment;
+                                    $currentAssessment = $employee->competencyAssessments->first();
                                     $currentCategoryId = request()->route('categoryId');
                                 @endphp
                                 @foreach ($categoryIds as $categoryId)
@@ -54,18 +57,22 @@
                                 @endforeach
                         </ul>
                     </li>
-                    <li
-                        class="list-unstyled {{ Request::routeIs('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
-                        <a class="rounded"
-                            href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Rating
-                            Summary</a>
-                    </li>
-                    <li
-                    class="list-unstyled {{ Request::routeIs('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
-                    <a class="rounded"
-                        href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Career Development Plan
-                        </a>
-                </li>                    @endif
+                        @if ($competencyAssessmentCompleted)
+                        <li
+                            class="list-unstyled {{ Request::routeIs('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
+                            <a class="rounded"
+                                href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Rating
+                                Summary</a>
+                        </li>
+                        <li
+                            class="list-unstyled {{ Request::routeIs('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
+                            <a class="rounded"
+                                href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Career
+                                Development Plan
+                            </a>
+                        </li>
+                        @endif
+                    @endif
                 </ul>
             </li>
             <li><a class="rounded" href="#">Assessment History</a></li>
@@ -96,7 +103,8 @@
                         <a class="nav-link" href="{{ route('logout.perform') }}">Logout</a>
                     </li>
                     <div class="competency-assessment-links">
-                        <li class="nav-item {{ Request::is('employees/' . $employee->id . '/competency_assessments*') ? 'active' : '' }}">
+                        <li
+                            class="nav-item {{ Request::is('employees/' . $employee->id . '/competency_assessments*') ? 'active' : '' }}">
                             <a class="rounded" href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
                                 class="dropdown-toggle" aria-controls="homeSubmenu">My Assessment</a>
                             <ul class="collapse list-unstyled show" id="homeSubmenu">
@@ -120,6 +128,8 @@
                                                 Profile</a>
                                         </li>
                                         @if ($employee->competencyAssessments->isNotEmpty())
+                                            @if ($competencyAssessmentItemsExist)
+
                                             <li
                                                 class="nav-item list-unstyled {{ Request::routeIs('competency_assessment.rating_scale', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
                                                 <a class="rounded"
@@ -131,9 +141,10 @@
                                                 <a class="rounded"
                                                     href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Instructions</a>
                                             </li>
-            
+                                            @endif
+
                                             @php
-                                                $currentAssessment = $employee->current_competency_assessment;
+                                                $currentAssessment = $employee->competencyAssessments->first();
                                                 $currentCategoryId = request()->route('categoryId');
                                             @endphp
                                             @foreach ($categoryIds as $categoryId)
@@ -149,22 +160,25 @@
                                             @endforeach
                                     </ul>
                                 </li>
-                                <li
-                                    class="nav-item list-unstyled {{ Request::routeIs('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
-                                    <a class="rounded"
-                                        href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Rating
-                                        Summary</a>
-                                </li>
-                                <li
-                                    class="nav-item list-unstyled {{ Request::routeIs('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
-                                    <a class="rounded"
-                                        href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Career Development Plan</a>
-                                </li>
+                                @if ($competencyAssessmentCompleted)
+                                    <li
+                                        class="nav-item list-unstyled {{ Request::routeIs('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
+                                        <a class="rounded"
+                                            href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Rating
+                                            Summary</a>
+                                    </li>
+                                    <li
+                                        class="nav-item list-unstyled {{ Request::routeIs('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) ? 'active' : '' }}">
+                                        <a class="rounded"
+                                            href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}">Career
+                                            Development Plan</a>
+                                    </li>
+                                @endif
                                 @endif
                             </ul>
                         </li>
                         <li class="nav-item"><a class="rounded" href="#">Assessment History</a></li>
-    
+
                     </div>
                 </ul>
             </div>

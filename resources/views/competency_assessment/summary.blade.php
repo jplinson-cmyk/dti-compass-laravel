@@ -61,5 +61,14 @@
                 </div>
             @endforeach
         </div>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="{{ route('competency_assessment.form', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id, 'categoryId' => $competencyAssessment->items->last()->behavioralIndicator->competency->competency_category_id]) }}"
+                class="btn btn-outline-secondary">Back</a>
+            <form action="{{ route('competency_assessment.save.summary', ['employee' => $employee]) }}" method="post"
+                class="d-inline">
+                @csrf
+                    <button type="submit" class="btn btn-outline-primary">Continue</button>
+            </form>
+        </div>
     </div>
 @endsection

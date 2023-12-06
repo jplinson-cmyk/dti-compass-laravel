@@ -19,7 +19,9 @@
                         <th scope="col">Category / Cluster</th>
                         <th scope="col">Competency Name</th>
                         <th scope="col">Status</th>
+                        @if (!$competencyAssessmentCompleted)
                         <th scope="col">Action</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -42,12 +44,16 @@
                                 </td>
                                 <td>{{ $competencyItems->count() - $competencyItems->whereNull('score')->count() }} /
                                     {{ $competencyItems->count() }}</td>
+                                    @if (!$competencyAssessmentCompleted)
                                 <td>
+                                   
                                     <a href="{{ route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => $competencyItems->first()->behavioralIndicator->competency->competencyCategory->id]) }}#competency-{{ $competencyItems->first()->behavioralIndicator->competency->id }}"
                                         class="btn btn-outline-primary">
                                         <i class="fa fa-pen" aria-hidden="true"></i>
                                     </a>
+                                 
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                     @endforeach
@@ -63,7 +69,13 @@
             <form action="{{ route('competency_assessment.save.instructions', ['employee' => $employee]) }}" method="post"
                 class="d-inline">
                 @csrf
-                <button type="submit" class="btn btn-outline-primary">Continue</button>
+
+                @if ($competencyAssessmentItemsExist)
+                    <a href="{{ route('competency_assessment.form', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id, 'categoryId' => 1]) }}"
+                        class="btn btn-outline-primary">Continue</a>
+                @else
+                    <button type="submit" class="btn btn-outline-primary">Continue</button>
+                @endif
             </form>
         </div>
     </div>
