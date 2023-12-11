@@ -170,35 +170,43 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
         //Employee Competency Assessment Routes
-
+        
         /**
          * Competency Assessment Routes
          */
 
         Route::group(["prefix" => "employees/{employee}"], function(){
             Route::group(['prefix' => 'competency_assessments'], function () {
-                Route::get('/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
-                Route::get('/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
-                Route::get('/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
-                Route::get('/{id}/rating_scale', 'CompetencyAssessmentController@ratingScale')->name('competency_assessment.rating_scale');
-                Route::get('/{id}/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
-                Route::get('/{id}/categories/{categoryId}', 'CompetencyAssessmentController@getAssessmentForm')->name('competency_assessment.form');
-                Route::get('/{id}/cdp', 'CompetencyAssessmentController@cdp')->name('competency_assessment.cdp');
-                Route::get('/{id}/summary', 'CompetencyAssessmentController@summary')->name('competency_assessment.summary');
-                Route::get('/{id}/closing', 'CompetencyAssessmentController@closing')->name('competency_assessment.closing');
+                Route::get('{session_type}/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
+                Route::get('{session_type}/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
+                Route::get('{session_type}/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
+                Route::get('{session_type}/{id}/rating_scale', 'CompetencyAssessmentController@ratingScale')->name('competency_assessment.rating_scale');
+                Route::get('{session_type}/{id}/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
+                Route::get('{session_type}/{id}/categories/{categoryId}', 'CompetencyAssessmentController@getAssessmentForm')->name('competency_assessment.form');
+                Route::get('{session_type}/{id}/cdp', 'CompetencyAssessmentController@cdp')->name('competency_assessment.cdp');
+                Route::get('{session_type}/{id}/summary', 'CompetencyAssessmentController@summary')->name('competency_assessment.summary');
+                Route::get('{session_type}/{id}/closing', 'CompetencyAssessmentController@closing')->name('competency_assessment.closing');
 
                 
-                Route::post('/about', 'CompetencyAssessmentController@storeAboutAssessment')->name('competency_assessment.save.about');
-                Route::post('/dictionary', 'CompetencyAssessmentController@storeDictionary')->name('competency_assessment.save.dictionary');
-                Route::post('/rating_scale', 'CompetencyAssessmentController@storeRatingScale')->name('competency_assessment.save.rating_scale');
-                Route::post('/employee_profile', 'CompetencyAssessmentController@storeEmployeeDetails')->name('competency_assessment.save.employee_profile');
-                Route::post('/instructions', 'CompetencyAssessmentController@storeInstructions')->name('competency_assessment.save.instructions');
-                Route::post('/{id}/categories/{categoryId}', 'CompetencyAssessmentController@storeAssessmentForm')->name('competency_assessment.save.form');
-                Route::post('/summary', 'CompetencyAssessmentController@storeSummary')->name('competency_assessment.save.summary');
+                Route::post('{session_type}/about', 'CompetencyAssessmentController@storeAboutAssessment')->name('competency_assessment.save.about');
+                Route::post('{session_type}/dictionary', 'CompetencyAssessmentController@storeDictionary')->name('competency_assessment.save.dictionary');
+                Route::post('{session_type}/rating_scale', 'CompetencyAssessmentController@storeRatingScale')->name('competency_assessment.save.rating_scale');
+                Route::post('{session_type}/employee_profile', 'CompetencyAssessmentController@storeEmployeeDetails')->name('competency_assessment.save.employee_profile');
+                Route::post('{session_type}/instructions', 'CompetencyAssessmentController@storeInstructions')->name('competency_assessment.save.instructions');
+                Route::post('{session_type}/{id}/categories/{categoryId}', 'CompetencyAssessmentController@storeAssessmentForm')->name('competency_assessment.save.form');
+                Route::post('{session_type}/summary', 'CompetencyAssessmentController@storeSummary')->name('competency_assessment.save.summary');
+            
+            
+                Route::get('{session_type}/dashboard', 'CompetencyAssessmentController@employeeAssessment')->name('competency_assessment.employee_assessment');
 
+            
             });  
+
+          
+       
+
         });
-    
+
 
 
         /**

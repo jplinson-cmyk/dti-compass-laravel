@@ -2,12 +2,6 @@ h1 {
     color: #1E4387;
 }
 
-.wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
-}
-
 a[data-toggle="collapse"] {
     position: relative;
 }
@@ -19,7 +13,6 @@ body {
 }
 
 p {
-    font-family: 'Helvetica', sans-serif;
     font-size: 1.1em;
     font-weight: 300;
     line-height: 1.7em;
@@ -137,14 +130,6 @@ ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: #fff;
-}
-
-.dropdown-toggle::after {
-    display: block;
-    position: absolute;
-    top: 50%;
-    right: 20px;
-    transform: translateY(-50%);
 }
 
 .compass-breadcrumb {

@@ -24,7 +24,7 @@
             <span class="mx-2">Always</span>
         </div>
         <form method="post"
-            action="{{ route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => $competencyCategory->id]) }}"
+            action="{{ route('competency_assessment.form', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => $competencyCategory->id]) }}"
             class="needs-validation" novalidate>
             @csrf
             @php
@@ -99,12 +99,12 @@
             @endforeach
             <div class="row">
                 <div class="col">
-                    <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}"
+                    <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
                         class="btn btn-outline-secondary mt-2">Back to my Checklist</a>
                 </div>
                 <div class="col text-end">
                     @if ($competencyAssessmentCompleted)
-                    <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}"
+                    <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
                         class="btn btn-outline-primary mt-2">Next</a>
                     @else
                         <button type="submit" name="action" value="save" class="btn btn-outline-primary">Save</button>

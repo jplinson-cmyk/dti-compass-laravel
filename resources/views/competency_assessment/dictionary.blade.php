@@ -43,13 +43,13 @@
         </div>
 
         <div class="d-flex justify-content-between">
-            <a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}"
+            <a href="{{ route('competency_assessment.about', ['employee' => $employee, 'session_type' => $session_type]) }}"
                 class="btn btn-outline-secondary mt-2">Back</a>
-            <form action="{{ route('competency_assessment.save.dictionary', ['employee' => $employee]) }}" method="post"
+            <form action="{{ route('competency_assessment.save.dictionary', ['employee' => $employee, 'session_type' => $session_type]) }}" method="post"
                 class="mt-2">
                 @csrf
                 @if ($competencyAssessmentExist)
-                <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}"
+                <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"
                     class="btn btn-outline-primary">Next</a>
                 @else
                     <button type="submit" class="btn btn-outline-primary">Continue</button>

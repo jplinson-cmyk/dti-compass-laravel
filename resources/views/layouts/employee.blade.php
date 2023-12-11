@@ -32,8 +32,9 @@
                 <span id="toggleButton" style="font-size:30px;cursor:pointer" onclick="toggleNav()">&times;</span>
                 @yield('content')
             </main>
-
         </div>
+
+        
     </div>
 
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
