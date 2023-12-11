@@ -51,11 +51,11 @@
                 </p>
                 <div class="row">
                     <div class="col mt-8 mb-4 text-end">
-                        <form action="{{ route('competency_assessment.save.about', ['employee' => $employee]) }}"
+                        <form action="{{ route('competency_assessment.save.about', ['employee' => $employee, 'session_type' => $session_type]) }}"
                             method="post">
                             @csrf
                             @if ($competencyAssessmentExist)
-                                <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}"
+                                <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee, 'session_type' => $session_type]) }}"
                                     class="btn btn-outline-primary mt-2">Next</a>
                             @else
                                 <button type="submit" class="btn btn-outline-primary">Start Assessment</button>

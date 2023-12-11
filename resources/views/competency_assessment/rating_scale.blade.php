@@ -47,11 +47,11 @@
     </div>
 
     <div class="d-flex justify-content-between mt-4">
-        <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}" class="btn btn-outline-secondary">Back</a>
-        <form action="{{ route('competency_assessment.save.rating_scale', ['employee' => $employee]) }}" method="post" class="d-inline">
+        <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}" class="btn btn-outline-secondary">Back</a>
+        <form action="{{ route('competency_assessment.save.rating_scale', ['employee' => $employee, 'session_type' => $session_type]) }}" method="post" class="d-inline">
             @csrf
-            @if ($employee->competencyAssessments->first()->current_page !='rating_scale')
-                    <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}"
+            @if ($competencyAssessment->current_page !='rating_scale')
+                    <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
                         class="btn btn-outline-primary">Next</a>
                 @else
                     <button type="submit" class="btn btn-outline-primary" >Continue</button>

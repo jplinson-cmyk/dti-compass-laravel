@@ -6,7 +6,7 @@
         <p class="text-center mb-4">Please provide all the required information below to complete your assessment profile.
         </p>
 
-        <form method="post" action="{{ route('competency_assessment.save.employee_profile', ['employee' => $employee]) }}"
+        <form method="post" action="{{ route('competency_assessment.save.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"
             class="card p-4">
             @csrf
 
@@ -145,10 +145,10 @@
             </div>
 
             <div class="d-flex justify-content-between mt-4">
-                <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}"
+                <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee, 'session_type' => $session_type]) }}"
                     class="btn btn-outline-secondary mt-2">Back</a>
                 @if ($competencyAssessmentItemsExist)
-                    <a href="{{ route('competency_assessment.rating_scale', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id]) }}"
+                    <a href="{{ route('competency_assessment.rating_scale', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
                         class="btn btn-outline-primary mt-2">Next</a>
                 @else
                 <button type="submit" class="btn btn-outline-primary" >Save and Continue</button>

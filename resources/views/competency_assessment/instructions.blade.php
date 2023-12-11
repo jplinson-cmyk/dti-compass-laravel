@@ -47,7 +47,7 @@
                                     @if (!$competencyAssessmentCompleted)
                                 <td>
                                    
-                                    <a href="{{ route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => $competencyItems->first()->behavioralIndicator->competency->competencyCategory->id]) }}#competency-{{ $competencyItems->first()->behavioralIndicator->competency->id }}"
+                                    <a href="{{ route('competency_assessment.form', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => $competencyItems->first()->behavioralIndicator->competency->competencyCategory->id]) }}#competency-{{ $competencyItems->first()->behavioralIndicator->competency->id }}"
                                         class="btn btn-outline-primary">
                                         <i class="fa fa-pen" aria-hidden="true"></i>
                                     </a>
@@ -64,14 +64,14 @@
         </div>
 
         <div class="d-flex justify-content-between mt-4">
-            <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}"
+            <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"
                 class="btn btn-outline-secondary">Back</a>
-            <form action="{{ route('competency_assessment.save.instructions', ['employee' => $employee]) }}" method="post"
+            <form action="{{ route('competency_assessment.save.instructions', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" method="post"
                 class="d-inline">
                 @csrf
 
                 @if ($competencyAssessmentItemsExist)
-                    <a href="{{ route('competency_assessment.form', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id, 'categoryId' => 1]) }}"
+                    <a href="{{ route('competency_assessment.form', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => 1]) }}"
                         class="btn btn-outline-primary">Continue</a>
                 @else
                     <button type="submit" class="btn btn-outline-primary">Continue</button>

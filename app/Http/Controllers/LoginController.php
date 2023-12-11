@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Employee;
+use App\Models\CompetencyAssessment;
 class LoginController extends Controller
 {
 
@@ -44,32 +45,32 @@ class LoginController extends Controller
         
 
         if($employee instanceof Employee){
-           $competencyAssessment = $employee->last_competency_assessment;
-          
+            $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
+            ->first();
            if(!$competencyAssessment){
-             return redirect()->route('competency_assessment.about', ['employee' => $employee->id]);
+             return redirect()->route('competency_assessment.about', ['employee' => $employee, 'session_type' => 'self_assessment']);
            } else{
                 switch ($competencyAssessment->current_page) {
                     case 'about':
-                        return redirect()->route('competency_assessment.about', ['employee' => $employee]);
+                        return redirect()->route('competency_assessment.about', ['employee' => $employee, 'session_type' => 'self_assessment']);
                     case 'dictionary':
-                        return redirect()->route('competency_assessment.dictionary', ['employee' => $employee]);
+                        return redirect()->route('competency_assessment.dictionary', ['employee' => $employee, 'session_type' => 'self_assessment']);
                     case 'employee_profile':
-                        return redirect()->route('competency_assessment.employee_profile', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                        return redirect()->route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id]);
                     case 'rating_scale':
-                        return redirect()->route('competency_assessment.rating_scale', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                        return redirect()->route('competency_assessment.rating_scale', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id]);
                     case 'instructions':
-                        return redirect()->route('competency_assessment.instructions', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                        return redirect()->route('competency_assessment.instructions', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id]);
                     case 'form':
-                        return redirect()->route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => 1]);
+                        return redirect()->route('competency_assessment.form', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id, 'categoryId' => 1]);
                     case 'summary':
-                        return redirect()->route('competency_assessment.summary', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                        return redirect()->route('competency_assessment.summary', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id]);
                     case 'cdp':
-                            return redirect()->route('competency_assessment.cdp', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                            return redirect()->route('competency_assessment.cdp', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id]);
                     case 'closing':
-                        return redirect()->route('competency_assessment.closing', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                        return redirect()->route('competency_assessment.closing', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id]);
                     default:
-                        return redirect()->route('competency_assessment.about', ['employee' => $employee]);
+                        return redirect()->route('competency_assessment.about', ['employee' => $employee, 'session_type' => 'self_assessment']);
                 }
            }
         }

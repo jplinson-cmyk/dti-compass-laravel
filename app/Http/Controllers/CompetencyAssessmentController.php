@@ -21,24 +21,33 @@ use Illuminate\Support\Facades\Auth;
 class CompetencyAssessmentController extends Controller
 {
 
-    private function authenticate(Employee $employee)
+    private function authenticate(Employee $employee, $session_type)
     {
         $user = Auth::user();
-        if (!$user->userable_id || !($employee instanceof Employee) || $user->userable->id != $employee->id) {
+
+        if ($session_type == 'self_assessment' && (!$user->userable_id || $user->userable->id != $employee->id)) {
+            abort(403);
+        }
+
+        if ($session_type == 'employee_assessment' && !$user->userable->supervisedEmployees->contains($employee->id)) {
             abort(403);
         }
 
         return true;
     }
 
-    private function checkCompetencyAssessment(Employee $employee, $competencyAssessmentId)
+    private function checkCompetencyAssessment(Employee $employee, $id, $session_type)
     {
-        $competencyAssessment = $employee->competencyAssessments->where("employee_id", $employee->id)->first();
+        $competencyAssessment = $employee->competencyAssessments
+            ->where("id", $id)
+            ->where("session_type", $session_type)
+            ->first();
 
-        if ($competencyAssessment->id != $competencyAssessmentId) {
-            abort(403);
+        if (!$competencyAssessment) {
+            abort(403, 'Competency Assessment not found or access denied.');
         }
     }
+
 
     private function checkCategory($categoryId)
     {
@@ -48,19 +57,18 @@ class CompetencyAssessmentController extends Controller
         }
     }
 
-    private function checkIfCompetencyAssessmentExists(Employee $employee)
+    private function checkIfCompetencyAssessmentExists(Employee $employee, $session_type)
     {
         $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
-            ->where('session_type', 'self_assessment')
+            ->where('session_type', $session_type)
             ->first();
-
         return $competencyAssessment !== null;
     }
 
-    private function checkIfCompetencyAssessmentItemScored(Employee $employee)
+    private function checkIfCompetencyAssessmentItemScored(Employee $employee, $session_type)
     {
         $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
-            ->where('session_type', 'self_assessment')
+            ->where('session_type', $session_type)
             ->with('items')
             ->first();
 
@@ -73,24 +81,24 @@ class CompetencyAssessmentController extends Controller
         return false;
     }
 
-    private function checkIfCompetencyAssessmentItemExists(Employee $employee)
+    private function checkIfCompetencyAssessmentItemExists(Employee $employee, $session_type)
     {
         $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
-            ->where('session_type', 'self_assessment')
+            ->where('session_type', $session_type)
             ->with('items')
             ->first();
-    
+
         if ($competencyAssessment && $competencyAssessment->items->isNotEmpty()) {
             return true;
         }
-    
+
         return false;
     }
 
-    private function checkIfCompetencyAssessmentComplete(Employee $employee)
+    private function checkIfCompetencyAssessmentComplete(Employee $employee, $session_type)
     {
         $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
-            ->where('session_type', 'self_assessment')
+            ->where('session_type', $session_type)
             ->where('status', 'completed')
             ->first();
 
@@ -101,91 +109,138 @@ class CompetencyAssessmentController extends Controller
         return false;
     }
 
-    public function about(Employee $employee) {
-        $this->authenticate($employee);
+    private function validateSessionType($session_type)
+    {
+        if (!in_array($session_type, ['self_assessment', 'employee_assessment'])) {
+            abort(404);
+        }
+    }
+    public function about(Employee $employee, $session_type)
+    {
+        $this->authenticate($employee, $session_type);
+        $this->validateSessionType($session_type);
         $categories = CompetencyCategory::all();
-        $competencyAssessmentExist = $this->checkIfCompetencyAssessmentExists($employee);
-    
+        $competencyAssessmentExist = $this->checkIfCompetencyAssessmentExists($employee, $session_type);
+
         $competencyAssessmentItemsExist = false;
         $competencyAssessmentItemsScored = false;
         $competencyAssessmentCompleted = false;
-    
+
         if ($competencyAssessmentExist) {
-            $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee);
-            $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee);
-            $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee);
+            $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
+            $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
+            $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
         }
-    
+
         return view('competency_assessment.about', compact(
-            'employee', 
-            'categories', 
-            'competencyAssessmentExist', 
-            'competencyAssessmentItemsExist', 
-            'competencyAssessmentCompleted', 
-            'competencyAssessmentItemsScored'
+            'employee',
+            'categories',
+            'competencyAssessmentExist',
+            'competencyAssessmentItemsExist',
+            'competencyAssessmentCompleted',
+            'competencyAssessmentItemsScored',
+            'session_type'
         ));
     }
 
-    public function dictionary(Employee $employee)
+    public function dictionary(Employee $employee, $session_type)
     {
-        $this->authenticate($employee);
+        $this->authenticate($employee, $session_type);
         $competencyCategories = CompetencyCategory::all();
         $competencies = Competency::all();
         $competencyAssessmentItemsExist = false;
         $competencyAssessmentItemsScored = false;
         $competencyAssessmentCompleted = false;
-        $competencyAssessmentExist = $this->checkIfCompetencyAssessmentExists($employee);
+        $competencyAssessmentExist = $this->checkIfCompetencyAssessmentExists($employee, $session_type);
         if ($competencyAssessmentExist) {
-            $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee);
-            $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee);
-            $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee);
+            $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
+            $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
+            $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
         }
-        return view('competency_assessment.dictionary', compact('competencyCategories', 'competencies', 'employee', 'competencyAssessmentExist', 'competencyAssessmentItemsExist', 'competencyAssessmentCompleted', 'competencyAssessmentItemsScored'));
+        return view('competency_assessment.dictionary', compact(
+            'competencyCategories',
+            'competencies',
+            'employee',
+            'session_type',
+            'competencyAssessmentExist',
+            'competencyAssessmentItemsExist',
+            'competencyAssessmentCompleted',
+            'competencyAssessmentItemsScored'
+        ));
     }
 
-    public function ratingScale(Employee $employee, $id)
+    public function ratingScale(Employee $employee, $session_type, $id)
     {
-        $this->authenticate($employee);
-        $competencyAssessment = CompetencyAssessment::find($id);
-        $competencyAssessmentItemsExist = false;
-        $competencyAssessmentItemsScored = false;
-        $competencyAssessmentCompleted = false;
-        $competencyAssessmentExist = $this->checkIfCompetencyAssessmentExists($employee);
-        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee);
-        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee);
-        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee);
-        return view('competency_assessment.rating_scale', compact('employee', 'competencyAssessment', 'competencyAssessmentExist', 'competencyAssessmentItemsExist', 'competencyAssessmentCompleted', 'competencyAssessmentItemsScored'));
+        $this->authenticate($employee, $session_type);
+        $competencyAssessment = CompetencyAssessment::where('id', $id)
+            ->where('employee_id', $employee->id)
+            ->where('session_type', $session_type)
+            ->first();
+
+        $competencyAssessmentExist = $this->checkIfCompetencyAssessmentExists($employee, $session_type);
+        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
+        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
+        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
+
+        return view('competency_assessment.rating_scale', compact(
+            'employee',
+            'session_type',
+            'competencyAssessment',
+            'competencyAssessmentExist',
+            'competencyAssessmentItemsExist',
+            'competencyAssessmentCompleted',
+            'competencyAssessmentItemsScored'
+        ));
     }
 
-    public function instructions(Employee $employee, $id)
+    public function instructions(Employee $employee, $session_type, $id)
     {
-        $this->authenticate($employee);
-        $this->checkCompetencyAssessment($employee, $id);
-        $competencyAssessment = $employee->competencyAssessments->where("id", $id)->first();
+        $this->authenticate($employee, $session_type);
+
+        $competencyAssessment = CompetencyAssessment::where('id', $id)
+            ->where('employee_id', $employee->id)
+            ->where('session_type', $session_type)
+            ->first();
+
         $competencyCategories = CompetencyCategory::all();
-        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee);
-        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee);
-        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee);
 
+        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
+        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
+        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
 
-
-        return view('competency_assessment.instructions', compact('employee', 'competencyAssessment', 'competencyCategories', 'competencyAssessmentItemsExist', 'competencyAssessmentCompleted', 'competencyAssessmentItemsScored'));
+        return view('competency_assessment.instructions', compact(
+            'employee',
+            'session_type',
+            'competencyAssessment',
+            'competencyCategories',
+            'competencyAssessmentItemsExist',
+            'competencyAssessmentCompleted',
+            'competencyAssessmentItemsScored'
+        ));
     }
 
-    public function cdp(Employee $employee, $id)
+
+    public function cdp(Employee $employee, $session_type, $id)
     {
-        $this->authenticate($employee);
-        $this->checkCompetencyAssessment($employee, $id);
+        $this->authenticate($employee, $session_type);
+        $this->checkCompetencyAssessment($employee, $id, $session_type);
         $competencyAssessment = CompetencyAssessment::find($id);
-        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee);
-        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee);
-        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee);
+        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
+        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
+        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
 
-        return view('competency_assessment.cdp', compact('employee', 'competencyAssessment', 'competencyAssessmentItemsScored', 'competencyAssessmentCompleted', 'competencyAssessmentItemsExist'));
+        return view('competency_assessment.cdp', compact(
+            'employee',
+            'session_type',
+            'competencyAssessment',
+            'competencyAssessmentItemsScored',
+            'competencyAssessmentCompleted',
+            'competencyAssessmentItemsExist'
+        ));
     }
-    public function getEmployeeProfileDetails(Employee $employee)
+    public function getEmployeeProfileDetails(Employee $employee, $session_type)
     {
-        $this->authenticate($employee);
+        $this->authenticate($employee, $session_type);
 
 
         $employmentStatuses = EmploymentStatus::all();
@@ -194,17 +249,22 @@ class CompetencyAssessmentController extends Controller
         $divisions = Division::all();
         $positions = Position::all();
         $jobLevels = JobLevel::all();
+        $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
+            ->where('session_type', $session_type)
+            ->first();
         $competencyAssessmentItemsExist = false;
         $competencyAssessmentItemsScored = false;
         $competencyAssessmentCompleted = false;
-        $competencyAssessmentExist = $this->checkIfCompetencyAssessmentExists($employee);
+
+        $competencyAssessmentExist = $this->checkIfCompetencyAssessmentExists($employee, $session_type);
         if ($competencyAssessmentExist) {
-            $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee);
-            $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee);
-            $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee);
+            $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
+            $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
+            $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
         }
 
         return view('competency_assessment.employee_profile', compact(
+            'competencyAssessment',
             'employmentStatuses',
             'functionalGroups',
             'bureauOffices',
@@ -212,6 +272,7 @@ class CompetencyAssessmentController extends Controller
             'positions',
             'jobLevels',
             'employee',
+            'session_type',
             'competencyAssessmentItemsExist',
             'competencyAssessmentCompleted',
             'competencyAssessmentItemsScored'
@@ -219,15 +280,18 @@ class CompetencyAssessmentController extends Controller
     }
 
 
-    public function getAssessmentForm(Employee $employee, $id, $categoryId)
+    public function getAssessmentForm(Employee $employee, $session_type, $id, $categoryId)
     {
-        $this->authenticate($employee);
-        $this->checkCompetencyAssessment($employee, $id);
+        $this->authenticate($employee, $session_type);
+        $this->checkCompetencyAssessment($employee, $id, $session_type);
         $this->checkCategory($categoryId);
-        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee);
-        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee);
-        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee);
-        $competencyAssessment = $employee->competencyAssessments->where("id", $id)->first();
+        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
+        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
+        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
+        $competencyAssessment = CompetencyAssessment::where('id', $id)
+            ->where('employee_id', $employee->id)
+            ->where('session_type', $session_type)
+            ->first();
         $competencyCategory = CompetencyCategory::find($categoryId);
 
         $filteredItemsByCategory = $competencyAssessment->items->filter(function ($item) use ($categoryId) {
@@ -235,6 +299,7 @@ class CompetencyAssessmentController extends Controller
         })->map(function ($item) {
             $existingItem = CompetencyAssessmentItem::where([
                 'employee_id' => $item->employee_id,
+                'assessment_type' => $item->assessment_type,
                 'behavioral_indicator_id' => $item->behavioral_indicator_id
             ])->first();
 
@@ -243,18 +308,18 @@ class CompetencyAssessmentController extends Controller
         });
 
         if ($filteredItemsByCategory->isEmpty()) {
-            return redirect()->route('competency_assessment.form', ['employee' => $employee->id, 'id' => $employee->competencyAssessments->first()->id, 'categoryId' => $categoryId + 1]);
+            return redirect()->route('competency_assessment.form', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => $categoryId + 1]);
         }
 
-        return view('competency_assessment.form', compact('employee', 'filteredItemsByCategory', 'competencyCategory', 'competencyAssessment', 'competencyAssessmentItemsScored', 'competencyAssessmentCompleted', 'competencyAssessmentItemsExist'));
+        return view('competency_assessment.form', compact('employee', 'session_type', 'filteredItemsByCategory', 'competencyCategory', 'competencyAssessment', 'competencyAssessmentItemsScored', 'competencyAssessmentCompleted', 'competencyAssessmentItemsExist'));
     }
 
-    public function closing(Employee $employee, $id)
+    public function closing(Employee $employee, $id, $session_type)
     {
-        $this->authenticate($employee);
-        $this->checkCompetencyAssessment($employee, $id);
-        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee);
-        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee);
+        $this->authenticate($employee,  $session_type);
+        $this->checkCompetencyAssessment($employee, $id, $session_type);
+        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
+        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
         return view('competency_assessment.closing', compact('employee', 'competencyAssessmentCompleted', 'competencyAssessmentItemsExist'));
     }
 
@@ -292,46 +357,49 @@ class CompetencyAssessmentController extends Controller
         return "Superior";
     }
 
-    public function summary(Employee $employee, $id)
+    public function summary(Employee $employee, $session_type, $id)
     {
-        $this->authenticate($employee);
-        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee);
+        $this->authenticate($employee, $session_type);
+        $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
         $competencyAssessment = $employee->competencyAssessments->where("id", $id)->first();
-        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee);
-        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee);
-
+        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
+        $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
+    
         $selfAssessmentItems = CompetencyAssessment::where('employee_id', $employee->id)
             ->where('session_type', 'self_assessment')
             ->with('items.behavioralIndicator.competency.competencyCategory')
             ->first();
-
+    
         $supervisorAssessmentItems = CompetencyAssessment::where('employee_id', $employee->id)
             ->where('session_type', 'employee_assessment')
             ->with('items.behavioralIndicator.competency.competencyCategory')
             ->first();
-
+    
         $structuredItems = [];
-
-
-
+    
         foreach ($selfAssessmentItems->items as $item) {
             $competency = $item->behavioralIndicator->competency;
             $category = $competency->competencyCategory;
-            // $supervisorItem = $supervisorAssessmentItems->items->firstWhere('behavioral_indicator_id', $item->behavioral_indicator_id);
-
+    
             $selfAssessmentScore = $item->score;
-
+    
+            $supervisorScore = null;
+    
             if ($supervisorAssessmentItems) {
-
-                $supervisorScore = $item->score;
+                $supervisorItem = $supervisorAssessmentItems->items->first(function ($supItem) use ($item) {
+                    return $supItem->behavioral_indicator_id == $item->behavioral_indicator_id;
+                });
+    
+                if ($supervisorItem) {
+                    $supervisorScore = $supervisorItem->score;
+                }
             }
-
-            $supervisorScore = NULL;
-
+    
             $finalRating = ($selfAssessmentScore * 0.5) + ($supervisorScore * 0.5);
+    
             $levelText = $this->getLevelText($item->behavioralIndicator->level);
             $performanceObservation = $this->getPerformanceObservation($finalRating);
-
+    
             $structuredItems[$category->id]['category_name'] = $category->category_name;
             $structuredItems[$category->id]['competencies'][$competency->id]['name'] = $competency->name;
             $structuredItems[$category->id]['competencies'][$competency->id]['indicators'][] = [
@@ -343,7 +411,7 @@ class CompetencyAssessmentController extends Controller
                 'performance_observation' => $performanceObservation
             ];
         }
-
+    
         $totalAverageRating = 0;
         $competencyCount = 0;
         foreach ($structuredItems as $categoryId => $category) {
@@ -354,41 +422,47 @@ class CompetencyAssessmentController extends Controller
                     $totalFinalRating += $indicator['final_rating'];
                     $count++;
                 }
-
+    
                 $averageFinalRating = $count > 0 ? $totalFinalRating / $count : 0;
                 $masteryLevel = $this->getMasteryLevel($averageFinalRating);
-
+    
                 $structuredItems[$categoryId]['competencies'][$competencyId]['average_final_rating'] = $averageFinalRating;
                 $structuredItems[$categoryId]['competencies'][$competencyId]['mastery_level'] = $masteryLevel;
-
-                $totalAverageRating += $structuredItems[$categoryId]['competencies'][$competencyId]['average_final_rating'];
+    
+                $totalAverageRating += $averageFinalRating;
                 $competencyCount++;
             }
         }
+    
         $overallAverageRating = $competencyCount > 0 ? $totalAverageRating / $competencyCount : 0;
         $overallMasteryLevel = $this->getMasteryLevel($overallAverageRating);
-
-        return view('competency_assessment.summary', compact('employee', 'structuredItems', 'overallAverageRating', 'overallMasteryLevel', 'competencyAssessmentCompleted', 'competencyAssessment', 'competencyAssessmentItemsScored', 'competencyAssessmentItemsExist'));
+    
+        return view('competency_assessment.summary', compact('employee', 'session_type', 'structuredItems', 'overallAverageRating', 'overallMasteryLevel', 'competencyAssessmentCompleted', 'competencyAssessment', 'competencyAssessmentItemsScored', 'competencyAssessmentItemsExist'));
     }
+    
 
 
-    private function storeCompetencyAssessmentData($currentPage, Request $request, Employee $employee)
+    private function storeCompetencyAssessmentData($currentPage, Request $request, Employee $employee, $session_type)
     {
         $existingAssessment = CompetencyAssessment::where('employee_id', $employee->id)
-            ->where('session_type', 'self_assessment')
+            ->where('session_type', $session_type)
             ->first();
 
         if ($existingAssessment) {
             $nextPage = $this->getNextPage($currentPage);
             $existingAssessment->update(['current_page' => $nextPage]);
+            return $this->getViewForPage($currentPage, $employee, $session_type);
+        }
 
-            return $this->getViewForPage($currentPage, $employee);
+        $assessor_id = null;
+        if ($session_type == 'employee_assessment') {
+            $assessor_id = Auth::user()->userable_id;
         }
 
         $competency_assessment = new CompetencyAssessment([
             'employee_id' => $employee->id,
-            'session_type' => 'self_assessment',
-            'assessor_id' => null,
+            'session_type' => $session_type,
+            'assessor_id' => $assessor_id,
             'status' => 'in_progress',
             'current_page' => $currentPage,
             'date_started' => now(),
@@ -397,9 +471,10 @@ class CompetencyAssessmentController extends Controller
         if ($competency_assessment->save()) {
             $nextPage = $this->getNextPage($currentPage);
             $competency_assessment->update(['current_page' => $nextPage]);
-            return $this->getViewForPage($currentPage, $employee);
+            return $this->getViewForPage($currentPage, $employee, $session_type);
         }
     }
+
 
     private function getNextPage($currentPage)
     {
@@ -425,48 +500,45 @@ class CompetencyAssessmentController extends Controller
         }
     }
 
-    private function getViewForPage($currentPage, Employee $employee)
+    private function getViewForPage($currentPage, Employee $employee, $session_type)
     {
-        $competencyAssessment = $employee->competencyAssessments->where('employee_id', $employee->id)->first();
-
+        $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
+        ->where('session_type', $session_type)
+        ->first();
         switch ($currentPage) {
             case 'about':
-                return redirect()->route('competency_assessment.dictionary', ['employee' => $employee]);
+                return redirect()->route('competency_assessment.dictionary', ['employee' => $employee, 'session_type' => $session_type]);
             case 'dictionary':
-                return redirect()->route('competency_assessment.employee_profile', ['employee' => $employee]);
+                return redirect()->route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]);
             case 'employee_profile':
-                return redirect()->route('competency_assessment.rating_scale', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                return redirect()->route('competency_assessment.rating_scale', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id]);
             case 'rating_scale':
-                return redirect()->route('competency_assessment.instructions', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                return redirect()->route('competency_assessment.instructions', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id]);
             case 'instructions':
-                return redirect()->route('competency_assessment.form', ['employee' => $employee, 'id' => $competencyAssessment->id, 'categoryId' => 1]);
+                return redirect()->route('competency_assessment.form', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => 1]);
             case 'form':
-                return redirect()->route('competency_assessment.summary', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                return redirect()->route('competency_assessment.summary', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id]);
             case 'summary':
-                return redirect()->route('competency_assessment.cdp', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                return redirect()->route('competency_assessment.cdp', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id]);
             case 'cdp':
-                return redirect()->route('competency_assessment.closing', ['employee' => $employee, 'id' => $competencyAssessment->id]);
+                return redirect()->route('competency_assessment.closing', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id]);
             default:
                 abort(404);
         }
     }
 
-    public function storeAboutAssessment(Request $request, Employee $employee)
+
+    public function storeAboutAssessment(Request $request, Employee $employee, $session_type)
     {
-        return $this->storeCompetencyAssessmentData('about', $request, $employee);
+        return $this->storeCompetencyAssessmentData('about', $request, $employee, $session_type);
     }
 
-    public function storeInstructionsAssessment(Request $request, Employee $employee)
+    public function storeDictionary(Request $request, Employee $employee, $session_type)
     {
-        return $this->storeCompetencyAssessmentData('instructions', $request, $employee);
+        return $this->storeCompetencyAssessmentData('dictionary', $request, $employee, $session_type);
     }
 
-    public function storeDictionary(Request $request, Employee $employee)
-    {
-        return $this->storeCompetencyAssessmentData('dictionary', $request, $employee);
-    }
-
-    public function storeEmployeeDetails(Request $request, Employee $employee)
+    public function storeEmployeeDetails(Request $request, Employee $employee, $session_type)
     {
         $validatedData = $request->validate([
             'employment_status' => 'required',
@@ -481,14 +553,14 @@ class CompetencyAssessmentController extends Controller
         ]);
 
         $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
-            ->where('session_type', 'self_assessment')
+            ->where('session_type', $session_type)
             ->where('status', 'in_progress')
             ->first();
 
         if (!$competencyAssessment) {
             $competencyAssessment = new CompetencyAssessment([
                 'employee_id' => $employee->id,
-                'session_type' => 'self_assessment',
+                'session_type' => $session_type,
                 'status' => 'in_progress',
                 'current_page' => 'employee_profile',
                 'date_started' => now(),
@@ -516,55 +588,55 @@ class CompetencyAssessmentController extends Controller
                         'competency_assessment_id' => $competencyAssessment->id,
                         'behavioral_indicator_id' => $behavioralIndicator->id,
                         'score' => null,
-                        'assessment_type' => 'self_assessment',
+                        'assessment_type' => $session_type,
                     ]);
                     $assessmentItem->save();
                 }
             }
         }
 
-        return $this->storeCompetencyAssessmentData('employee_profile', $request, $employee);
+        return $this->storeCompetencyAssessmentData('employee_profile', $request, $employee, $session_type);
     }
 
-    public function storeRatingScale(Request $request, Employee $employee)
+    public function storeRatingScale(Request $request, Employee $employee, $session_type)
     {
-        return $this->storeCompetencyAssessmentData('rating_scale', $request, $employee);
+        return $this->storeCompetencyAssessmentData('rating_scale', $request, $employee, $session_type);
     }
 
-    public function storeInstructions(Request $request, Employee $employee)
+    public function storeInstructions(Request $request, Employee $employee, $session_type)
     {
-        return $this->storeCompetencyAssessmentData('instructions', $request, $employee);
+        return $this->storeCompetencyAssessmentData('instructions', $request, $employee, $session_type);
     }
 
-    public function storeSummary(Request $request, Employee $employee)
+    public function storeSummary(Request $request, Employee $employee, $session_type)
     {
-        return $this->storeCompetencyAssessmentData('summary', $request, $employee);
+        return $this->storeCompetencyAssessmentData('summary', $request, $employee, $session_type);
     }
 
-    public function storeCDP(Request $request, Employee $employee)
+    public function storeCDP(Request $request, Employee $employee, $session_type)
     {
-        return $this->storeCompetencyAssessmentData('cdp', $request, $employee);
+        return $this->storeCompetencyAssessmentData('cdp', $request, $employee, $session_type);
     }
 
-    public function storeAssessmentForm(Request $request, Employee $employee, $competencyAssessmentId, $currentCategoryId)
+    public function storeAssessmentForm(Request $request, Employee $employee, $session_type, $competencyAssessmentId, $currentCategoryId)
     {
         $action = $request->input('action', 'submit');
         $ratings = $request->input('rating', []);
-
 
         foreach ($ratings as $behavioralIndicatorId => $score) {
             CompetencyAssessmentItem::where([
                 'employee_id' => $employee->id,
                 'behavioral_indicator_id' => $behavioralIndicatorId,
-                'assessment_type' => 'self_assessment'
+                'assessment_type' => $session_type
             ])->update(['score' => $score]);
         }
+
 
         if ($action === 'save') {
             return back()->with('status', 'Scores saved successfully.');
         }
 
-        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee);
+        $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
         $allCategoryIds = CompetencyCategory::orderBy('id')->pluck('id')->toArray();
         $currentIndex = array_search($currentCategoryId, $allCategoryIds);
         $isLastCategory = !isset($allCategoryIds[$currentIndex + 1]);
@@ -574,14 +646,36 @@ class CompetencyAssessmentController extends Controller
             if ($competencyAssessment) {
                 $competencyAssessment->update(['status' => 'completed']);
             }
-            return $this->storeCompetencyAssessmentData('form', $request, $employee);
+            return $this->storeCompetencyAssessmentData('form', $request, $employee, $session_type);
         } else {
             if ($isLastCategory) {
-                return redirect()->route('competency_assessment.instructions', ['employee' => $employee->id, 'id' => $competencyAssessmentId]);
+                return redirect()->route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessmentId]);
             } else {
                 $nextCategoryId = $allCategoryIds[$currentIndex + 1];
-                return redirect()->route('competency_assessment.form', ['employee' => $employee->id, 'id' => $competencyAssessmentId, 'categoryId' => $nextCategoryId]);
+                return redirect()->route('competency_assessment.form', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessmentId, 'categoryId' => $nextCategoryId]);
             }
         }
+    }
+
+    //Supervisor Employee Assessment
+    public function employeeAssessment($session_type)
+    {
+        $supervisorId = auth()->user()->userable_id;
+        $supervisor = Employee::find($supervisorId);
+        $employee = $supervisor;
+        $supervisedEmployees = $supervisor->supervisedEmployees()->get();
+        $competencyAssessmentExist = false;
+        $competencyAssessmentItemsExist = false;
+        $competencyAssessmentItemsScored = false;
+        $competencyAssessmentCompleted = false;
+        return view('competency_assessment.employee_assessment', compact(
+            'employee',
+            'session_type',
+            'supervisedEmployees',
+            'competencyAssessmentExist',
+            'competencyAssessmentItemsExist',
+            'competencyAssessmentCompleted',
+            'competencyAssessmentItemsScored'
+        ));
     }
 }
