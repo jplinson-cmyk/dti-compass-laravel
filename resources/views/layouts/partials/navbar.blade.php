@@ -71,7 +71,7 @@
             @auth
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="{{ route('profile.index') }}" class="nav-link text-white">{{ auth()->user()->firstname }}
+                        <a href="{{ route('profile.index', ['user' => auth()->user()->id]) }}">{{ auth()->user()->firstname }}" class="nav-link text-white">{{ auth()->user()->firstname }}
                             {{ auth()->user()->lastname }}</a>
                     </li>
                     <li class="nav-item">
