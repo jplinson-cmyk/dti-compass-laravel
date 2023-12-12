@@ -364,42 +364,42 @@ class CompetencyAssessmentController extends Controller
         $competencyAssessment = $employee->competencyAssessments->where("id", $id)->first();
         $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
         $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
-    
+
         $selfAssessmentItems = CompetencyAssessment::where('employee_id', $employee->id)
             ->where('session_type', 'self_assessment')
             ->with('items.behavioralIndicator.competency.competencyCategory')
             ->first();
-    
+
         $supervisorAssessmentItems = CompetencyAssessment::where('employee_id', $employee->id)
             ->where('session_type', 'employee_assessment')
             ->with('items.behavioralIndicator.competency.competencyCategory')
             ->first();
-    
+
         $structuredItems = [];
-    
+
         foreach ($selfAssessmentItems->items as $item) {
             $competency = $item->behavioralIndicator->competency;
             $category = $competency->competencyCategory;
-    
+
             $selfAssessmentScore = $item->score;
-    
+
             $supervisorScore = null;
-    
+
             if ($supervisorAssessmentItems) {
                 $supervisorItem = $supervisorAssessmentItems->items->first(function ($supItem) use ($item) {
                     return $supItem->behavioral_indicator_id == $item->behavioral_indicator_id;
                 });
-    
+
                 if ($supervisorItem) {
                     $supervisorScore = $supervisorItem->score;
                 }
             }
-    
+
             $finalRating = ($selfAssessmentScore * 0.5) + ($supervisorScore * 0.5);
-    
+
             $levelText = $this->getLevelText($item->behavioralIndicator->level);
             $performanceObservation = $this->getPerformanceObservation($finalRating);
-    
+
             $structuredItems[$category->id]['category_name'] = $category->category_name;
             $structuredItems[$category->id]['competencies'][$competency->id]['name'] = $competency->name;
             $structuredItems[$category->id]['competencies'][$competency->id]['indicators'][] = [
@@ -411,7 +411,7 @@ class CompetencyAssessmentController extends Controller
                 'performance_observation' => $performanceObservation
             ];
         }
-    
+
         $totalAverageRating = 0;
         $competencyCount = 0;
         foreach ($structuredItems as $categoryId => $category) {
@@ -422,24 +422,24 @@ class CompetencyAssessmentController extends Controller
                     $totalFinalRating += $indicator['final_rating'];
                     $count++;
                 }
-    
+
                 $averageFinalRating = $count > 0 ? $totalFinalRating / $count : 0;
                 $masteryLevel = $this->getMasteryLevel($averageFinalRating);
-    
+
                 $structuredItems[$categoryId]['competencies'][$competencyId]['average_final_rating'] = $averageFinalRating;
                 $structuredItems[$categoryId]['competencies'][$competencyId]['mastery_level'] = $masteryLevel;
-    
+
                 $totalAverageRating += $averageFinalRating;
                 $competencyCount++;
             }
         }
-    
+
         $overallAverageRating = $competencyCount > 0 ? $totalAverageRating / $competencyCount : 0;
         $overallMasteryLevel = $this->getMasteryLevel($overallAverageRating);
-    
+
         return view('competency_assessment.summary', compact('employee', 'session_type', 'structuredItems', 'overallAverageRating', 'overallMasteryLevel', 'competencyAssessmentCompleted', 'competencyAssessment', 'competencyAssessmentItemsScored', 'competencyAssessmentItemsExist'));
     }
-    
+
 
 
     private function storeCompetencyAssessmentData($currentPage, Request $request, Employee $employee, $session_type)
@@ -503,8 +503,8 @@ class CompetencyAssessmentController extends Controller
     private function getViewForPage($currentPage, Employee $employee, $session_type)
     {
         $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
-        ->where('session_type', $session_type)
-        ->first();
+            ->where('session_type', $session_type)
+            ->first();
         switch ($currentPage) {
             case 'about':
                 return redirect()->route('competency_assessment.dictionary', ['employee' => $employee, 'session_type' => $session_type]);
@@ -657,25 +657,39 @@ class CompetencyAssessmentController extends Controller
         }
     }
 
-    //Supervisor Employee Assessment
     public function employeeAssessment($session_type)
     {
         $supervisorId = auth()->user()->userable_id;
         $supervisor = Employee::find($supervisorId);
         $employee = $supervisor;
         $supervisedEmployees = $supervisor->supervisedEmployees()->get();
-        $competencyAssessmentExist = false;
-        $competencyAssessmentItemsExist = false;
-        $competencyAssessmentItemsScored = false;
-        $competencyAssessmentCompleted = false;
+
+        foreach ($supervisedEmployees as $supervisedEmployee) {
+            $selfAssessment = CompetencyAssessment::where('employee_id', $supervisedEmployee->id)
+                ->where('session_type', 'self_assessment')
+                ->first();
+
+            $employeeAssessment = CompetencyAssessment::where('employee_id', $supervisedEmployee->id)
+                ->where('session_type', 'employee_assessment')
+                ->first();
+                
+            $supervisedEmployee->competencyAssessmentId = $employeeAssessment ? $employeeAssessment->id : null;
+
+            if ($selfAssessment && $selfAssessment->status == 'completed' && (!$employeeAssessment || $employeeAssessment->status != 'completed')) {
+                $supervisedEmployee->assessment_status = 'for evaluation';
+            } elseif ($employeeAssessment && $employeeAssessment->status == 'in_progress') {
+                $supervisedEmployee->assessment_status = 'continue';
+            } elseif ($selfAssessment && $selfAssessment->status == 'completed' && $employeeAssessment && $employeeAssessment->status == 'completed') {
+                $supervisedEmployee->assessment_status = 'completed';
+            } else {
+                $supervisedEmployee->assessment_status = 'pending';
+            }
+        }
+
         return view('competency_assessment.employee_assessment', compact(
             'employee',
             'session_type',
-            'supervisedEmployees',
-            'competencyAssessmentExist',
-            'competencyAssessmentItemsExist',
-            'competencyAssessmentCompleted',
-            'competencyAssessmentItemsScored'
+            'supervisedEmployees'
         ));
     }
 }
