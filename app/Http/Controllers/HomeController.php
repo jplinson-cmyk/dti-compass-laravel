@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Employee;
 use App\Models\Competency;
 use App\Models\CompetencyCategory;
-
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     // public function index() 
@@ -25,10 +25,15 @@ class HomeController extends Controller
     public function index(){
 
         $categories = CompetencyCategory::all();
-        $employee = Employee::all();
-        return view("home.index", [
-            "categories" => $categories,
-            "employee" => $employee
-        ]);
+        $user = auth()->user();
+
+        $employee = $user->userable;
+
+        if($user->hasRole('admin')){
+            return redirect()->route('users.index');
+        }else {
+            return redirect()->route('competency_assessment.about', ['employee' => $employee, 'session_type' => 'self_assessment']);
+        }
+   
         }
 }

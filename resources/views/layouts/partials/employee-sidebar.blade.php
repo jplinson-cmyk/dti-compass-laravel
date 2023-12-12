@@ -133,7 +133,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-black" href="{{ route('profile.index') }}">{{ auth()->user()->firstname }}
+                    <a class="nav-link text-black" href="{{ route('profile.index', ['user' => auth()->user()->id]) }}">{{ auth()->user()->firstname }}
                         {{ auth()->user()->lastname }}</a>
                 </li>
                 <li class="nav-item">

@@ -62,7 +62,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/{userId}/send-password-link', 'UsersController@sendPasswordLink')->name('users.send_password_link');
         });
 
-        Route::group(['prefix' => 'profile'], function () {
+        Route::group(['prefix' => '/{user}/profile'], function () {
             Route::get('/', 'ProfileController@index')->name('profile.index');
         });
 
