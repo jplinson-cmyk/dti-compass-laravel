@@ -32,6 +32,7 @@
                                             <th>Level of Mastery</th>
                                             <th>Overall Competency Level</th>
                                             <th>Level of Mastery</th>
+                                            <th>Competency Standard</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,6 +52,7 @@
                                                 <td>
                                                     {{ $overallMasteryLevel }}              
                                                 </td>
+                                                <td>{{ $indicator['standard'] }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

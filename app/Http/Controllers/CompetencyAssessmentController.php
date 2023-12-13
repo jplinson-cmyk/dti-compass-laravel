@@ -296,7 +296,14 @@ class CompetencyAssessmentController extends Controller
 
         $filteredItemsByCategory = $competencyAssessment->items->filter(function ($item) use ($categoryId) {
             return $item->behavioralIndicator->competency->competency_category_id == $categoryId;
-        })->map(function ($item) {
+        })->map(function ($item) use ($employee) {
+
+            $selfAssessmentItem = CompetencyAssessmentItem::where([
+                'employee_id' => $employee->id,
+                'assessment_type' => 'self_assessment',
+                'behavioral_indicator_id' => $item->behavioral_indicator_id
+            ])->first();
+
             $existingItem = CompetencyAssessmentItem::where([
                 'employee_id' => $item->employee_id,
                 'assessment_type' => $item->assessment_type,
@@ -304,6 +311,8 @@ class CompetencyAssessmentController extends Controller
             ])->first();
 
             $item->score = $existingItem ? $existingItem->score : null;
+            $item->selfAssessmentScore = $selfAssessmentItem ? $selfAssessmentItem->score : null;
+
             return $item;
         });
 
@@ -314,13 +323,15 @@ class CompetencyAssessmentController extends Controller
         return view('competency_assessment.form', compact('employee', 'session_type', 'filteredItemsByCategory', 'competencyCategory', 'competencyAssessment', 'competencyAssessmentItemsScored', 'competencyAssessmentCompleted', 'competencyAssessmentItemsExist'));
     }
 
-    public function closing(Employee $employee, $id, $session_type)
+    public function closing(Employee $employee, $session_type, $id)
     {
         $this->authenticate($employee,  $session_type);
+        
         $this->checkCompetencyAssessment($employee, $id, $session_type);
+        $competencyAssessment = CompetencyAssessment::find($id);
         $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
         $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
-        return view('competency_assessment.closing', compact('employee', 'competencyAssessmentCompleted', 'competencyAssessmentItemsExist'));
+        return view('competency_assessment.closing', compact('employee', 'session_type', 'competencyAssessment', 'competencyAssessmentCompleted', 'competencyAssessmentItemsExist'));
     }
 
     private function getLevelText($level)
@@ -402,13 +413,17 @@ class CompetencyAssessmentController extends Controller
 
             $structuredItems[$category->id]['category_name'] = $category->category_name;
             $structuredItems[$category->id]['competencies'][$competency->id]['name'] = $competency->name;
+
+            $competencyStandard = $this->getCompetencyStandard($competency->id);
+
             $structuredItems[$category->id]['competencies'][$competency->id]['indicators'][] = [
                 'level' => $levelText,
                 'description' => $item->behavioralIndicator->description,
                 'self_assessment' => $selfAssessmentScore,
                 'supervisor' => $supervisorScore,
                 'final_rating' => $finalRating,
-                'performance_observation' => $performanceObservation
+                'performance_observation' => $performanceObservation,
+                'standard' => $competencyStandard
             ];
         }
 
@@ -439,7 +454,12 @@ class CompetencyAssessmentController extends Controller
 
         return view('competency_assessment.summary', compact('employee', 'session_type', 'structuredItems', 'overallAverageRating', 'overallMasteryLevel', 'competencyAssessmentCompleted', 'competencyAssessment', 'competencyAssessmentItemsScored', 'competencyAssessmentItemsExist'));
     }
-
+    
+    protected function getCompetencyStandard($competencyId)
+    {
+        $competencySet = CompetencySet::where('competency_id', $competencyId)->first();
+        return $competencySet ? $competencySet->standard : null;
+    }
 
 
     private function storeCompetencyAssessmentData($currentPage, Request $request, Employee $employee, $session_type)

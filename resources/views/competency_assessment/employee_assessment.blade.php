@@ -40,12 +40,12 @@
                                             <li><a class="dropdown-item"
                                                     href="{{ route('competency_assessment.about', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment']) }}">Assess</a>
                                             </li>
-                                            <li><a class="dropdown-item" href="#">View Profile</a></li>
+                                            {{-- <li><a class="dropdown-item" href="#">View Profile</a></li> --}}
                                             @if ($supervisedEmployee->assessment_status == 'completed')
                                                 <li><a class="dropdown-item"
                                                         href="{{ route('competency_assessment.summary', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">View
                                                         Summary of Rating</a></li>
-                                                <li><a class="dropdown-item" href="#">Career Development Plan</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('competency_assessment.cdp', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">Career Development Plan</a></li>
                                             @else
                                                 <li class="dropdown-item disabled">Summary of Rating (Unavailable)</li>
                                                 <li class="dropdown-item disabled">Career Development Plan (Unavailable)</li>

@@ -15,12 +15,16 @@
         @if (!$isDashboardPage)
             <li class="{{ Request::is('employees/' . $employee->id . '/competency_assessments*') ? 'active' : '' }}">
                 @if ($sessionType === 'employee_assessment')
-                    <a class="rounded"
-                        href="{{ route('competency_assessment.about', ['employee' => $userLoggedIn->userable_id, 'session_type' => 'self_assessment']) }}">My
+                <li>
+                    <a  href="{{ route('competency_assessment.about', ['employee' => $userLoggedIn->userable_id, 'session_type' => 'self_assessment']) }}">My
                         Assesssment</a>
-
+                </li>
+                   
+                <li class="active">
                     <a class="rounded" href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle" aria-controls="homeSubmenu">Employee Assessment</a>
+                    class="dropdown-toggle" aria-controls="homeSubmenu">Employee Assessment</a>
+                </li>
+                    
                 @else
                     <a class="rounded" href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
                         class="dropdown-toggle" aria-controls="homeSubmenu">My Assessment</a>
