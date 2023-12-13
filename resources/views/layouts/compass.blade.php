@@ -5,9 +5,32 @@
     @php 
         $currentRouteName = Request::route()->getName();
         $currentCompetencyAssessment = $employee->competencyAssessments->where('session_type', $session_type)->first();
+        $user = auth()->user();
         
     @endphp
+    @if($user->hasRole('supervisor') && $session_type == 'employee_assessment')  
+    <header>
+        <div class="row">
+            <div class="col-md-6">
+                <h6>
+                    <strong>Employee Name:</strong> 
+                    <p>
+                        {{$employee->firstname}} {{$employee->lastname}}
+                    </p> 
+                </h6>
+            </div>
+            <div class="col-md-6">
+                <h6>
+                    <strong> Email: </strong> 
+                    <p>
+                        {{$employee->email}} 
+                    </p> 
+                </h6>
 
+            </div>
+        </div>
+    </header>
+    @endif
     <ul class="compass-breadcrumb py-2 border-bottom">
         
         <li class="{{ $currentRouteName == 'competency_assessment.about' ? 'active' : '' }}"><a href="{{ route('competency_assessment.about', ['employee' => $employee, 'session_type' => $session_type]) }}">About</a></li>

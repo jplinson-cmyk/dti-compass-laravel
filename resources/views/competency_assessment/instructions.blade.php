@@ -2,6 +2,35 @@
 
 @section('compass-content')
     <div class="container my-5">
+        @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+        <div class="mb-4">
+            <h1 class="text-center">EMPLOYEE ASSESSMENT</h1>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <p>Employee Name: {{$employee->firstname}} {{$employee->lastname}}</p>
+                                </div>
+                                <div class="col">
+                                    <p>Email: {{$employee->email}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p>Position: {{$employee->position->name}}</p>
+                                </div>
+                                <div class="col">
+                                    <p>Division:{{$employee->division->name}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
         <h1 class="text-center mb-4">INSTRUCTIONS</h1>
         <p class="mb-3">Provided in the table below are the competencies per category that are identified based on your
             position and functions. Please rate per competency and the corresponding behaviors according to the frequency of

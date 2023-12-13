@@ -22,6 +22,9 @@
             <span class="mx-2">Sometimes</span>
             <span class="mx-2">Frequently</span>
             <span class="mx-2">Always</span>
+            @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+            <span class="mx-2">Self-Assessment Score</span>
+            @endif
         </div>
         <form method="post"
             action="{{ route('competency_assessment.form', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => $competencyCategory->id]) }}"
@@ -88,6 +91,11 @@
                                                 </div>
                                             </div>
                                         @endfor
+                                        @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+                                        <div class="col">
+                                            <span>{{ $item->selfAssessmentScore }}</span>
+                                        </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
