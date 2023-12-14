@@ -16,14 +16,26 @@
 
         </div>
 
-        <div class="d-none d-lg-block text-end">
-            <span class="mx-2">Never</span>
-            <span class="mx-2">Rarely</span>
-            <span class="mx-2">Sometimes</span>
-            <span class="mx-2">Frequently</span>
-            <span class="mx-2">Always</span>
+        <div class="rating-labels d-flex justify-content-end">
+            <span class="rating-label mx-2">
+                0-Never
+            </span>
+            <span class="rating-label mx-2">
+                1-Rarely
+            </span>
+            <span class="rating-label mx-2">
+                2-Sometimes
+            </span>
+            <span class="rating-label mx-2">
+                3-Frequently
+            </span>
+            <span class="rating-label mx-2">
+                4-Always
+            </span>
             @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-            <span class="mx-2">Self-Assessment Score</span>
+                <span class="rating-label mx-2">
+                     Self-Assessment Score
+                </span>
             @endif
         </div>
         <form method="post"
@@ -34,7 +46,7 @@
                 $sortedItems = $filteredItemsByCategory->sortBy(function ($item) {
                     return $item->behavioralIndicator->competency->name;
                 });
-                $levelMapping = ['1' => 'Basic', '2' => 'Intermediate', '3' => 'Advance', '4' => 'Superior'];
+                $levelMapping = ['1' => 'Basic', '2' => 'Intermediate', '3' => 'Advanced', '4' => 'Superior'];
             @endphp
 
             @foreach ($sortedItems->groupBy(function ($item) {
@@ -74,7 +86,7 @@
                                     <div class="row">
                                         @for ($i = 0; $i < 5; $i++)
                                             <div class="col">
-                                                <div class="form-check">
+                                                <div class="form-check">{{$i}}
                                                     <input class="form-check-input" type="radio"
                                                         name="rating[{{ $item->behavioralIndicator->id }}]"
                                                         id="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}"

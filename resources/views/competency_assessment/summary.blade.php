@@ -31,7 +31,7 @@
                                             <th>Average Rating</th>
                                             <th>Level of Mastery</th>
                                             <th>Overall Competency Level</th>
-                                            <th>Level of Mastery</th>
+                                            <th>Overall Level of Mastery</th>
                                             <th>Competency Standard</th>
                                         </tr>
                                     </thead>

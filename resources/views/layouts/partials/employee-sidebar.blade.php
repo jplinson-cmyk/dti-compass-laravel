@@ -15,89 +15,88 @@
         @if (!$isDashboardPage)
             <li class="{{ Request::is('employees/' . $employee->id . '/competency_assessments*') ? 'active' : '' }}">
                 @if ($sessionType === 'employee_assessment')
-                <li>
-                    <a  href="{{ route('competency_assessment.about', ['employee' => $userLoggedIn->userable_id, 'session_type' => 'self_assessment']) }}">My
-                        Assesssment</a>
-                </li>
-                   
-                <li class="active">
-                    <a class="rounded" href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
+            <li>
+                <a
+                    href="{{ route('competency_assessment.about', ['employee' => $userLoggedIn->userable_id, 'session_type' => 'self_assessment']) }}">My
+                    Assesssment</a>
+            </li>
+
+            <li class="active">
+                <a class="rounded" href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
                     class="dropdown-toggle" aria-controls="homeSubmenu">Employee Assessment</a>
-                </li>
-                    
-                @else
-                    <a class="rounded" href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
-                        class="dropdown-toggle" aria-controls="homeSubmenu">My Assessment</a>
-                @endif
-                <ul class="collapse list-unstyled show" id="homeSubmenu">
-                    <li>
-                        <ul class="collapse show" id="assessmentSubmenn">
-                            <li
-                                class="list-unstyled {{ Request::routeIs('competency_assessment.about', ['employee' => $employee->id, 'session_type' => $session_type]) ? 'active' : '' }}">
-                                <a class="rounded"
-                                    href="{{ route('competency_assessment.about', ['employee' => $employee->id, 'session_type' => $session_type]) }}">About</a>
-                            </li>
-                            <li
-                                class="list-unstyled {{ Request::routeIs('competency_assessment.dictionary', ['employee' => $employee->id, 'session_type' => $session_type]) ? 'active' : '' }}">
-                                <a class="rounded"
-                                    href="{{ route('competency_assessment.dictionary', ['employee' => $employee->id, 'session_type' => $session_type]) }}">Competency
-                                    Dictionary</a>
-                            </li>
-                            <li
-                                class="list-unstyled {{ Request::routeIs('competency_assessment.employee_profile', ['employee' => $employee->id, 'session_type' => $session_type]) ? 'active' : '' }}">
-                                <a class="rounded"
-                                    href="{{ route('competency_assessment.employee_profile', ['employee' => $employee->id, 'session_type' => $session_type]) }}">Employee
-                                    Profile</a>
-                            </li>
-                            @if ($currentCompetencyAssessment)
-                                @if ($competencyAssessmentItemsExist)
-                                    <li
-                                        class="list-unstyled {{ Request::routeIs('competency_assessment.rating_scale', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) ? 'active' : '' }}">
-                                        <a class="rounded"
-                                            href="{{ route('competency_assessment.rating_scale', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Rating
-                                            Scale</a>
-                                    </li>
-                                    <li
-                                        class="list-unstyled {{ Request::routeIs('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) ? 'active' : '' }}">
-                                        <a class="rounded"
-                                            href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Instructions</a>
-                                    </li>
-                                @endif
-
-                                @php
-
-                                    $currentCategoryId = request()->route('categoryId');
-                                @endphp
-                                @foreach ($categoryIds as $categoryId)
-                                    @if (isset($categories[$categoryId]))
-                                        <li
-                                            class="list-unstyled {{ $currentCategoryId == $categoryId ? 'active' : '' }}">
-                                            <a class="rounded"
-                                                href="{{ route('competency_assessment.form', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id, 'categoryId' => $categoryId]) }}">
-                                                {{ $categories[$categoryId]->category_name }}
-                                            </a>
-                                        </li>
-                                    @endif
-                                @endforeach
-                        </ul>
+            </li>
+        @else
+            <a class="rounded" href="#homeSubmenu" data-bs-toggle="collapse" aria-expanded="false"
+                class="dropdown-toggle" aria-controls="homeSubmenu">My Assessment</a>
+        @endif
+        <ul class="collapse list-unstyled show" id="homeSubmenu">
+            <li>
+                <ul class="collapse show" id="assessmentSubmenn">
+                    <li
+                        class="list-unstyled {{ Request::routeIs('competency_assessment.about', ['employee' => $employee->id, 'session_type' => $session_type]) ? 'active' : '' }}">
+                        <a class="rounded"
+                            href="{{ route('competency_assessment.about', ['employee' => $employee->id, 'session_type' => $session_type]) }}">About</a>
                     </li>
-                    @if ($competencyAssessmentCompleted)
-                        <li
-                            class="list-unstyled {{ Request::routeIs('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) ? 'active' : '' }}">
-                            <a class="rounded"
-                                href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Rating
-                                Summary</a>
-                        </li>
-                        <li
-                            class="list-unstyled {{ Request::routeIs('competency_assessment.cdp', ['employee' => $employee->id, $session_type => 'self_assessment', 'id' => $currentCompetencyAssessment->id]) ? 'active' : '' }}">
-                            <a class="rounded"
-                                href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Career
-                                Development Plan
-                            </a>
-                        </li>
-                    @endif
+                    <li
+                        class="list-unstyled {{ Request::routeIs('competency_assessment.dictionary', ['employee' => $employee->id, 'session_type' => $session_type]) ? 'active' : '' }}">
+                        <a class="rounded"
+                            href="{{ route('competency_assessment.dictionary', ['employee' => $employee->id, 'session_type' => $session_type]) }}">Competency
+                            Dictionary</a>
+                    </li>
+                    <li
+                        class="list-unstyled {{ Request::routeIs('competency_assessment.employee_profile', ['employee' => $employee->id, 'session_type' => $session_type]) ? 'active' : '' }}">
+                        <a class="rounded"
+                            href="{{ route('competency_assessment.employee_profile', ['employee' => $employee->id, 'session_type' => $session_type]) }}">Employee
+                            Profile</a>
+                    </li>
+                    @if ($currentCompetencyAssessment)
+                        @if ($competencyAssessmentItemsExist)
+                            <li
+                                class="list-unstyled {{ Request::routeIs('competency_assessment.rating_scale', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) ? 'active' : '' }}">
+                                <a class="rounded"
+                                    href="{{ route('competency_assessment.rating_scale', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Rating
+                                    Scale</a>
+                            </li>
+                            <li
+                                class="list-unstyled {{ Request::routeIs('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) ? 'active' : '' }}">
+                                <a class="rounded"
+                                    href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Instructions</a>
+                            </li>
+                        @endif
+
+                        @php
+
+                            $currentCategoryId = request()->route('categoryId');
+                        @endphp
+                        @foreach ($categoryIds as $categoryId)
+                            @if (isset($categories[$categoryId]))
+                                <li class="list-unstyled {{ $currentCategoryId == $categoryId ? 'active' : '' }}">
+                                    <a class="rounded"
+                                        href="{{ route('competency_assessment.form', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id, 'categoryId' => $categoryId]) }}">
+                                        {{ $categories[$categoryId]->category_name }}
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
                 </ul>
             </li>
+            @if ($competencyAssessmentCompleted)
+                <li
+                    class="list-unstyled {{ Request::routeIs('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) ? 'active' : '' }}">
+                    <a class="rounded"
+                        href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Rating
+                        Summary</a>
+                </li>
+                <li
+                    class="list-unstyled {{ Request::routeIs('competency_assessment.cdp', ['employee' => $employee->id, $session_type => 'self_assessment', 'id' => $currentCompetencyAssessment->id]) ? 'active' : '' }}">
+                    <a class="rounded"
+                        href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Career
+                        Development Plan
+                    </a>
+                </li>
+            @endif
+        </ul>
+        </li>
         @endif
     @else
         <li class="nav-item">
@@ -105,7 +104,7 @@
                 href="{{ route('competency_assessment.about', ['employee' => $employee->id, 'session_type' => 'self_assessment']) }}">My
                 Assessment</a>
         </li>
-        @endif
+    @endif
         @if ($isSupervisor)
             <li
                 class="{{ Request::routeIs('competency_assessment.employee_assessment', ['employee' => $employee->id, 'session_type' => 'employee_assessment']) ? 'active' : '' }}">
@@ -114,9 +113,8 @@
                     Assessment</a>
             </li>
         @endif
-
     </ul>
-
+ 
 
 
 </div>
@@ -137,7 +135,8 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-black" href="{{ route('profile.index', ['user' => auth()->user()->id]) }}">{{ auth()->user()->firstname }}
+                    <a class="nav-link text-black"
+                        href="{{ route('profile.index', ['user' => auth()->user()->id]) }}">{{ auth()->user()->firstname }}
                         {{ auth()->user()->lastname }}</a>
                 </li>
                 <li class="nav-item">
