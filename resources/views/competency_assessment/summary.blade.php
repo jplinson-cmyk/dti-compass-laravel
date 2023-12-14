@@ -44,7 +44,7 @@
                                                 <td>{{ $indicator['supervisor'] }}</td>
                                                 <td>{{ $indicator['final_rating'] }}</td>
                                                 <td>{{ $indicator['performance_observation'] }}</td>
-                                                <td>{{ number_format($competency['average_final_rating'],2) }}</td>
+                                                <td>{{ number_format($competency['levels'][$indicator['level']]['average_rating'], 2) }}</td>
                                                 <td>{{ $competency['mastery_level'] }}</td>
                                                 <td>
                                                     {{ number_format($overallAverageRating, 2) }}                                      

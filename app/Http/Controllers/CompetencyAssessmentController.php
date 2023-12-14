@@ -326,7 +326,7 @@ class CompetencyAssessmentController extends Controller
     public function closing(Employee $employee, $session_type, $id)
     {
         $this->authenticate($employee,  $session_type);
-        
+
         $this->checkCompetencyAssessment($employee, $id, $session_type);
         $competencyAssessment = CompetencyAssessment::find($id);
         $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
@@ -370,52 +370,55 @@ class CompetencyAssessmentController extends Controller
 
     public function summary(Employee $employee, $session_type, $id)
     {
+        // Existing authentication and setup code
         $this->authenticate($employee, $session_type);
         $competencyAssessmentCompleted = $this->checkIfCompetencyAssessmentComplete($employee, $session_type);
         $competencyAssessment = $employee->competencyAssessments->where("id", $id)->first();
         $competencyAssessmentItemsScored = $this->checkIfCompetencyAssessmentItemScored($employee, $session_type);
         $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);
-
+    
+        // Fetch self-assessment and supervisor assessment items
         $selfAssessmentItems = CompetencyAssessment::where('employee_id', $employee->id)
             ->where('session_type', 'self_assessment')
             ->with('items.behavioralIndicator.competency.competencyCategory')
             ->first();
-
+    
         $supervisorAssessmentItems = CompetencyAssessment::where('employee_id', $employee->id)
             ->where('session_type', 'employee_assessment')
             ->with('items.behavioralIndicator.competency.competencyCategory')
             ->first();
-
+    
+        // Initialize structured items array
         $structuredItems = [];
-
+    
         foreach ($selfAssessmentItems->items as $item) {
+            // Process each item to extract necessary data
             $competency = $item->behavioralIndicator->competency;
             $category = $competency->competencyCategory;
-
             $selfAssessmentScore = $item->score;
-
             $supervisorScore = null;
-
+    
+            // Get supervisor score if available
             if ($supervisorAssessmentItems) {
                 $supervisorItem = $supervisorAssessmentItems->items->first(function ($supItem) use ($item) {
                     return $supItem->behavioral_indicator_id == $item->behavioral_indicator_id;
                 });
-
+    
                 if ($supervisorItem) {
                     $supervisorScore = $supervisorItem->score;
                 }
             }
-
+    
+            // Calculate final rating and other relevant details
             $finalRating = ($selfAssessmentScore * 0.5) + ($supervisorScore * 0.5);
-
             $levelText = $this->getLevelText($item->behavioralIndicator->level);
             $performanceObservation = $this->getPerformanceObservation($finalRating);
-
+            $competencyStandard = CompetencySet::where('competency_id', $competency->id)
+                                ->first()->standard ?? null;
+    
+            // Add item to structuredItems array
             $structuredItems[$category->id]['category_name'] = $category->category_name;
             $structuredItems[$category->id]['competencies'][$competency->id]['name'] = $competency->name;
-
-            $competencyStandard = $this->getCompetencyStandard($competency->id);
-
             $structuredItems[$category->id]['competencies'][$competency->id]['indicators'][] = [
                 'level' => $levelText,
                 'description' => $item->behavioralIndicator->description,
@@ -426,35 +429,61 @@ class CompetencyAssessmentController extends Controller
                 'standard' => $competencyStandard
             ];
         }
-
-        $totalAverageRating = 0;
-        $competencyCount = 0;
+    
+        // Calculate average rating per level and overall average for each competency
         foreach ($structuredItems as $categoryId => $category) {
             foreach ($category['competencies'] as $competencyId => $competency) {
-                $totalFinalRating = 0;
-                $count = 0;
+                $levelRatings = []; // Sum of ratings for each level
+                $levelCounts = []; // Count of indicators for each level
+    
+                // Calculate sum and count for each level
                 foreach ($competency['indicators'] as $indicator) {
-                    $totalFinalRating += $indicator['final_rating'];
-                    $count++;
+                    $level = $indicator['level'];
+                    $rating = $indicator['final_rating'];
+    
+                    if (!isset($levelRatings[$level])) {
+                        $levelRatings[$level] = 0;
+                        $levelCounts[$level] = 0;
+                    }
+    
+                    $levelRatings[$level] += $rating;
+                    $levelCounts[$level]++;
                 }
-
-                $averageFinalRating = $count > 0 ? $totalFinalRating / $count : 0;
-                $masteryLevel = $this->getMasteryLevel($averageFinalRating);
-
-                $structuredItems[$categoryId]['competencies'][$competencyId]['average_final_rating'] = $averageFinalRating;
+    
+                // Calculate average rating for each level
+                foreach ($levelRatings as $level => $sumRating) {
+                    $averageRating = $levelCounts[$level] > 0 ? $sumRating / $levelCounts[$level] : 0;
+                    $structuredItems[$categoryId]['competencies'][$competencyId]['levels'][$level]['average_rating'] = $averageRating;
+                }
+    
+                // Calculate overall average for the competency
+                $totalRating = array_sum($levelRatings);
+                $totalCount = array_sum($levelCounts);
+                $overallAverage = $totalCount > 0 ? $totalRating / $totalCount : 0;
+                $masteryLevel = $this->getMasteryLevel($overallAverage);
+                $structuredItems[$categoryId]['competencies'][$competencyId]['overall_average_rating'] = $overallAverage;
                 $structuredItems[$categoryId]['competencies'][$competencyId]['mastery_level'] = $masteryLevel;
-
-                $totalAverageRating += $averageFinalRating;
+            }
+        }
+    
+        // Calculate the overall average rating across all competencies
+        $totalAverageRating = 0;
+        $competencyCount = 0;
+        foreach ($structuredItems as $category) {
+            foreach ($category['competencies'] as $competency) {
+                $totalAverageRating += $competency['overall_average_rating'];
                 $competencyCount++;
             }
         }
-
         $overallAverageRating = $competencyCount > 0 ? $totalAverageRating / $competencyCount : 0;
         $overallMasteryLevel = $this->getMasteryLevel($overallAverageRating);
-
+    
+        // Return the view with all the calculated data
         return view('competency_assessment.summary', compact('employee', 'session_type', 'structuredItems', 'overallAverageRating', 'overallMasteryLevel', 'competencyAssessmentCompleted', 'competencyAssessment', 'competencyAssessmentItemsScored', 'competencyAssessmentItemsExist'));
     }
     
+
+
     protected function getCompetencyStandard($competencyId)
     {
         $competencySet = CompetencySet::where('competency_id', $competencyId)->first();
@@ -692,7 +721,7 @@ class CompetencyAssessmentController extends Controller
             $employeeAssessment = CompetencyAssessment::where('employee_id', $supervisedEmployee->id)
                 ->where('session_type', 'employee_assessment')
                 ->first();
-                
+
             $supervisedEmployee->competencyAssessmentId = $employeeAssessment ? $employeeAssessment->id : null;
 
             if ($selfAssessment && $selfAssessment->status == 'completed' && (!$employeeAssessment || $employeeAssessment->status != 'completed')) {
