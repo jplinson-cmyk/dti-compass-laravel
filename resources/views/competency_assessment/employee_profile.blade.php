@@ -3,7 +3,7 @@
 @section('compass-content')
     <div class="container my-5">
         <h1 class="text-center mb-3">EMPLOYEE PROFILE</h1>
-        <p class="text-center mb-4">Please provide all the required information below to complete your assessment profile.
+        <p class="text-center mb-4">Please provide all the required information below to complete the assessment profile.
         </p>
 
         <form method="post" action="{{ route('competency_assessment.save.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"
@@ -123,17 +123,17 @@
             <div class="form-check mt-3">
                 @if ($competencyAssessmentItemsExist)
                     <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy" checked  disabled>
-                    <label class="form-check-label" for="privacy_policy">I confirm that all of my profile information displayed
+                    <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information displayed
                         above is accurate and correct.</label>
                 @else
                 <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy"  required>
-                <label class="form-check-label" for="privacy_policy">I confirm that all of my profile information displayed
+                <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information displayed
                     above is accurate and correct.</label>
                 @endif
             </div>
 
             <div class="alert alert-warning mt-3">
-                <i class="fa fa-exclamation-triangle"></i> If any of your profile information is incorrect, please DO NOT
+                <i class="fa fa-exclamation-triangle"></i> If any of the profile information is incorrect, please DO NOT
                 proceed to the Competency Assessment. Kindly report the error/s to the DTI COMPASS system administrators
                 through the help desk widget found in the lower-left corner of the screen. You will be notified via email
                 once your profile has been updated.
