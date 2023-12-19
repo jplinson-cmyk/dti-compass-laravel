@@ -46,6 +46,7 @@ class LoginController extends Controller
 
         if($employee instanceof Employee){
             $competencyAssessment = CompetencyAssessment::where('employee_id', $employee->id)
+            ->where('session_type', 'self_assessment')
             ->first();
            if(!$competencyAssessment){
              return redirect()->route('competency_assessment.about', ['employee' => $employee, 'session_type' => 'self_assessment']);
