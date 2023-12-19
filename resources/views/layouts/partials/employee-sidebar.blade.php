@@ -61,8 +61,18 @@
                             <a class="rounded"
                                 href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Instructions</a>
                         </li>
+                    @else
+                        <li class="list-unstyled">
+                            <a class="rounded text-secondary" href="#">Rating
+                                Scale</a>
+                        </li>
+                        <li class="list-unstyled">
+                            <a class="rounded text-secondary" href="#">Instructions</a>
+                        </li>
+                        <li class="list-unstyled">
+                            <a class="rounded text-secondary" href="#">Competency Forms</a>
+                        </li>   
                     @endif
-
                     @php
                         $currentCategoryId = request()->route('categoryId');
                     @endphp
@@ -76,16 +86,6 @@
                             </li>
                         @endif
                     @endforeach
-                    <li class="list-unstyled">
-                        <a class="rounded text-secondary" href="#">Rating
-                            Scale</a>
-                    </li>
-                    <li class="list-unstyled">
-                        <a class="rounded text-secondary" href="#">Instructions</a>
-                    </li>
-                    <li class="list-unstyled">
-                        <a class="rounded text-secondary" href="#">Competency Forms</a>
-                    </li>
                 @else
                     <li class="list-unstyled">
                         <a class="rounded text-secondary" href="#">Rating
