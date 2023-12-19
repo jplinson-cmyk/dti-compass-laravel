@@ -66,10 +66,23 @@
             <li class="{{ $currentRouteName == 'competency_assessment.cdp' || $currentRouteName == 'competency_assessment.cdp' ? 'active' : '' }}"><a href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Career Development Plan</a></li>
 
             <li class="{{ $currentRouteName == 'competency_assessment.closing' || $currentRouteName == 'competency_assessment.closing' ? 'active' : '' }}"><a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">End of COMPASS</a></li>
-            @else
 
             @endif
+            <li><a class="text-secondary" href="#">Rating Scale</a></li>
+            <li><a class="text-secondary" href="#">Instructions</a></li>
+            <li><a class="text-secondary" href="#">Competency Forms</a></li>
+            <li><a class="text-secondary" href="#">Summary of Rating</a></li>
+            <li><a class="text-secondary" href="#">Career Development Plan</a></li>
+            <li><a class="text-secondary" href="#">End of COMPASS</a></li>
+        @else
+        <li><a class="text-secondary" href="#">Rating Scale</a></li>
+        <li><a class="text-secondary" href="#">Instructions</a></li>
+        <li><a class="text-secondary" href="#">Competency Forms</a></li>
+        <li><a class="text-secondary" href="#">Summary of Rating</a></li>
+        <li><a class="text-secondary" href="#">Career Development Plan</a></li>
+        <li><a class="text-secondary" href="#">End of COMPASS</a></li>
         @endif
+
         
     </ul>
 </div>
