@@ -76,6 +76,16 @@
                             </li>
                         @endif
                     @endforeach
+                    <li class="list-unstyled">
+                        <a class="rounded text-secondary" href="#">Rating
+                            Scale</a>
+                    </li>
+                    <li class="list-unstyled">
+                        <a class="rounded text-secondary" href="#">Instructions</a>
+                    </li>
+                    <li class="list-unstyled">
+                        <a class="rounded text-secondary" href="#">Competency Forms</a>
+                    </li>
                 @else
                     <li class="list-unstyled">
                         <a class="rounded text-secondary" href="#">Rating
