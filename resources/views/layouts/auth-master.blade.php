@@ -14,13 +14,14 @@
     <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
     <link href="{!! url('assets/css/signin.css') !!}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&family=Lato:wght@300&family=Poppins:wght@100;400&display=swap" rel="stylesheet">
     {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
 
     
 
 </head>
-<body class="text-center">
+<body>
     
     <main class="form-signin">
 

@@ -2,21 +2,33 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row align-items-center">
-        <div class="col-md-6">
-            <div class="d-flex justify-content-center">
-                <div class="login-form mt-4">
-                    <form method="post" action="{{ route('login.perform') }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
-                        <img class="mb-4" src="{!! url('/images/login_logo.png') !!}" alt="" width="70%" height="auto">
+    <div class="row vh-100 align-items-center">
+        <div class="login-form col-md-6 d-none d-md-flex h-100 align-items-center justify-content-center">
+                <form method="post" action="{{ route('login.perform') }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                    <div class="logo-title row align-items-end">
+                        <div class="col-md-6">
+                            <img src="{!! url('/images/login_logo.png') !!}" alt="" class="img-fluid" style="max-width: 100%; height: 210px;">
+                        </div>
+                        <div class="col-md-6">
+                            <h1 class="fw-bolder" style="color:#1E4387">COMPASS</h1>
+                            <p class="fw-bolder">COMPETENCY ASSESSMENT</p>
+                        </div>
+                    </div>
+                    <div class="row pt-4">
+                        <div class="col">
+                            <p class="text-center text-secondary fw-bolder mb-3">Log into your account</p>
+                        </div>
+                    </div>
 
-                        <h1 class="h3 mb-3 fw-normal fw-bold">COMPASS</h1>
-
-                        @include('layouts.partials.messages')
-
-                        <div class="form-group form-floating mb-3">
+                    @include('layouts.partials.messages')
+                    <div class="login-form-content">
+                        <div class="text-left mb-3 fw-bolder">
+                            <label for="username" class="text-left">Email</label>
+                        </div>
+                        <div class="form-group mb-3">
                             <div class="input-group">
-                                <input type="text" class="form-control" name="username" value="{{ old('username') }}" placeholder="Email" required="required" autofocus>
+                                <input type="text" class="form-control" name="username" id="username" value="{{ old('username') }}" placeholder="jdelacruz@email.com" required="required" autofocus>
                                 <span class="input-group-text" style="background-color:#1E4387;"><i class="fa fa-envelope white-icon"></i></span>
                             </div>
                             @if ($errors->has('username'))
@@ -24,9 +36,12 @@
                             @endif
                         </div>
 
-                        <div class="form-group form-floating mb-3">
+                        <div class="text-left mb-3 fw-bolder">
+                            <label for="password">Password</label>
+                        </div>
+                        <div class="form-group mb-3">
                             <div class="input-group">
-                                <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password" required="required">
+                                <input type="password" class="form-control" name="password" id="password" value="{{ old('password') }}" placeholder="Enter your Password" required="required">
                                 <span class="input-group-text" style="background-color:#1E4387;"><i class="fa fa-lock white-icon"></i></span>
                             </div>
                             @if ($errors->has('password'))
@@ -37,20 +52,24 @@
                         @if(Session::has('errors'))
                             <span class="text-danger text-left">{{$errors->first()}}</span>
                         @endif
-                        <div class="mt-2">
-                            <a class="link-secondary" href="{{ route('password.request') }}">Forgot Password?</a>
+                        <div class="mt-2 mb-3">
+                            <a class="link-primary" href="{{ route('password.request') }}">Forgot password?</a>
                         </div>
-                        <button class="w-100 btn btn-lg text-light mt-2" type="submit"  style="background-color:#1E4387;">Login</button>
+                        <button class="w-100 btn btn-lg text-light mt-2 mb-3" type="submit" style="background-color:#1E4387;">Login</button>
                     
-                        @include('auth.partials.copy')
-                    </form>
-                </div>
-            </div>
+                        
+                    </div>
+
+                </form>
         </div>
 
-        <div class="col-md-6 d-none d-md-block" style="background-color:#f1f3f6;">
-            <img src="{!! url('/images/login_img.png') !!}" alt="Your Image Description" class="img-fluid">
+        <div class="col-md-6 d-none d-md-flex h-100 align-items-center justify-content-center" style="background-color:#f1f3f6;">
+            <img src="{!! url('/images/login_img.png') !!}" alt="Your Image Description" width="50%" class="mx-auto d-block">
         </div>
+      
+    </div>
+    <div class="row">
+         @include('auth.partials.footer')
     </div>
 </div>
 @endsection
