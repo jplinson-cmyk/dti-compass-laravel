@@ -1,11 +1,31 @@
 html,
 body {
     height: 100%;
-    font-family: 'Inter';
+    font-family: 'Poppins', sans-serif;
 }
 
-.login-form {
+.login-left {
+    background-image: url("/images/login_page_bg_design.png");
+    background-size: contain;
+    /* Adjusts the size to fit within the container */
+    background-repeat: no-repeat;
+    background-position: bottom;
+    /* Centers the background image */
+    background-attachment: scroll;
+    /* Avoid fixed attachment for better control */
+}
+
+.login-form-content {
     max-width: 400px;
+    /* Adjusted for better control on larger screens */
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+}
+
+.logo-title {
+    max-width: 650px;
     margin: auto;
 }
 
@@ -20,12 +40,45 @@ body {
 .btn-brand-color {
     background-color: #1E4387;
     border-color: #1E4387;
+    transition: background-color 0.3s ease;
 }
 
 .btn-brand-color:hover {
-    background-color: darken(#1E4387, 10%);
+    background-color: #16325c;
+    /* Darker shade for hover */
 }
 
-.vh-100 {
-    min-height: 100vh;
+
+/* Adjustments for Tablets */
+
+@media (max-width: 992px) {
+    .login-form {
+        background-size: 100% 100%;
+    }
+    .login-form-content {
+        padding: 15px;
+        margin: 15px;
+    }
+}
+
+
+/* Adjustments for Mobile Devices */
+
+@media (max-width: 768px) {
+    .login-form,
+    .logo-title {
+        max-width: 100%;
+        padding: 15px;
+    }
+    .login-form-content,
+    .logo-title {
+        margin: 10px;
+    }
+    .col-md-6 {
+        width: 100%;
+        max-width: 100%;
+    }
+    .footer {
+        display: none;
+    }
 }
