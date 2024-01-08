@@ -46,7 +46,7 @@
                             <label for="password" class="form-label">Password</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" name="password" id="password"
-                                    placeholder="Your Password" required>
+                                    placeholder="Enter your password" required>
                                 <span class="input-group-text" style="background-color:#1E4387"><i class="fa fa-lock white-icon"></i></span>
                             </div>
                             @if ($errors->has('password'))
