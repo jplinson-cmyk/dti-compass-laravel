@@ -25,7 +25,19 @@
                             <p class="text-secondary fw-bolder">Log into your account</p>
                         </div>
 
-                        @include('layouts.partials.messages')
+                        @if (session('status'))
+                            <div class="alert alert-success fade show" role="alert" id="status-alert">
+                                {{ session('status') }}
+                            </div>
+
+                            <script>
+                                setTimeout(function() {
+                                    document.getElementById('status-alert').style.display = 'none';
+                                }, 3000);
+                            </script>
+                        @endif
+
+
 
                         <!-- Email Field -->
                         <div class="mb-3">
@@ -33,7 +45,8 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" name="username" id="username"
                                     value="{{ old('username') }}" placeholder="jdelacruz@email.com" required autofocus>
-                                <span class="input-group-text" style="background-color:#1E4387"><i class="fa fa-envelope  white-icon"></i></span>
+                                <span class="input-group-text" style="background-color:#1E4387"><i
+                                        class="fa fa-envelope  white-icon"></i></span>
                             </div>
                             @if ($errors->has('username'))
                                 <span class="text-danger text-left">{{ $errors->first('username') }}</span>
@@ -47,7 +60,8 @@
                             <div class="input-group">
                                 <input type="password" class="form-control" name="password" id="password"
                                     placeholder="Enter your password" required>
-                                <span class="input-group-text" style="background-color:#1E4387"><i class="fa fa-lock white-icon"></i></span>
+                                <span class="input-group-text" style="background-color:#1E4387"><i
+                                        class="fa fa-lock white-icon"></i></span>
                             </div>
                             @if ($errors->has('password'))
                                 <span class="text-danger text-left">{{ $errors->first('password') }}</span>
