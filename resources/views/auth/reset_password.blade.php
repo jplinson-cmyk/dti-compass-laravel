@@ -1,9 +1,9 @@
 @extends('layouts.auth-master')
 
 @section('content')
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="row">
-        <div class="col-md-12">
+<div class="container">
+    <div class="row justify-content-center align-items-center min-vh-100">
+        <div class="col-md-8">
             <div class="card border-0 shadow">
                 <div class="card-header bg-brand-color text-white text-center">{{ __('Reset Password') }}</div>
 
@@ -31,6 +31,9 @@
                         </div>
 
                         <div class="form-group mb-3">
+                            <div class="alert alert-info">
+                                <p>Your new password must have at least 8 characters, with 1 number, 1 lowercase letter, 1 uppercase letter, and 1 special character (options are: ! @ # $ % &).</p>
+                            </div>
                             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required placeholder="{{ __('New Password') }}">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
