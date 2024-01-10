@@ -7,8 +7,8 @@
     <p class="mb-4">Using the rating scale below, please select the appropriate rating for each behavioral indicator that you are going to assess based on how you see yourself. Once you are done reading the guidelines below, click "Continue" to proceed to the next page of this evaluation.</p>
     
     <h4 class="text-center mb-3">RATING SCALE</h4>
-    <div class="table-responsive">
-        <table class="table table-bordered">
+    <div class="table-responsive fw-bold rounded">
+        <table class="table table-striped table-bordered ">
             <thead>
                 <tr>
                     <th scope="col">RATING</th>
@@ -46,7 +46,7 @@
         </table>
     </div>
 
-    <div class="d-flex justify-content-between mt-4">
+    <div class="d-flex justify-content-between mt-4 ">
         <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}" class="btn btn-lg mt-2 btn-outline-dark">Back</a>
         <form action="{{ route('competency_assessment.save.rating_scale', ['employee' => $employee, 'session_type' => $session_type]) }}" method="post" class="d-inline">
             @csrf
