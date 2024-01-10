@@ -5,7 +5,7 @@
         <h1 class="mb-4">ABOUT COMPASS</h1>
         <div class="row">
             <div class="col-md-6 mb-4">
-                <p>
+                <p class="text-dark">
                     This competency assessment encompasses all the capabilities of an individual that are necessary to
                     perform the job effectively. All of which are important for the overall success of an organization. The
                     competencies displayed on your assessment are categorized based on your job family, competency profiles,

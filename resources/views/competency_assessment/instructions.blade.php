@@ -31,26 +31,25 @@
             </div>
         </div>
         @endif
-        <h1 class="text-center mb-4">INSTRUCTIONS</h1>
-        <p class="mb-3">Provided in the table below are the competencies per category that are identified based on your
-            position and functions. Please rate per competency and the corresponding behaviors according to the frequency of
-            demonstration and level of supervision using the rating scale presented in the previous page.</p>
-        <p class="mb-4">To begin with the assessment, you can click on the pencil icon under the ‘Action’ column, or click
-            on the ‘Continue’ button to proceed in the order that they appear in the table below. Should you need to pause,
-            you can simply log back in, return to this page for your checklist, check the status in the table below, and
-            click on the pencil icon to resume answering the competency forms that you have not yet completed.</p>
-
+        <div class="container">
+            <h1 class="text-center mb-4">INSTRUCTIONS</h1>
+            <p class="mb-3">Provided in the table below are the competencies per category that are identified based on your
+                position and functions. Please rate per competency and the corresponding behaviors according to the frequency of
+                demonstration and level of supervision using the rating scale presented in the previous page.</p>
+            <p class="mb-4">To begin with the assessment, you can click on the pencil icon under the <strong>‘Action’</strong> column, or click
+                on the <strong>‘Continue’</strong> button to proceed in the order that they appear in the table below. Should you need to pause,
+                you can simply log back in, return to this page for your checklist, check the status in the table below, and
+                click on the pencil icon to resume answering the competency forms that you have not yet completed.</p>
+        </div>
         <h2 class="text-center mb-3">MY SELF-ASSESSMENT CHECKLIST</h2>
-        <div class="table-responsive">
-            <table class="table table-striped ">
+        <div class="container table-responsive">
+            <table class="table table-bordered table-striped ">
                 <thead>
-                    <tr class="table-primary">
-                        <th scope="col">Category / Cluster</th>
+                    <tr class="bg-light">
+                        <th scope="col">Competency Cluster</th>
                         <th scope="col">Competency Name</th>
                         <th scope="col">Status</th>
-                        @if (!$competencyAssessmentCompleted)
                         <th scope="col">Action</th>
-                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -63,34 +62,50 @@
                                 return $item->behavioralIndicator->competency->competencyCategory->category_name;
                             });
                     @endphp
-
+        
                     @foreach ($groupedAndSorted as $categoryName => $items)
                         @foreach ($items->groupBy('behavioralIndicator.competency.name') as $competencyName => $competencyItems)
+                            @php
+                                $completed = $competencyItems->count() - $competencyItems->whereNull('score')->count();
+                                $total = $competencyItems->count();
+                                $percentage = ($completed / $total) * 100;
+                                $statusBadge = '';
+                                if ($completed == 0) {
+                                    $statusBadge = '<span class="badge bg-warning text-dark">FOR EVALUATION</span>';
+                                } elseif ($completed < $total) {
+                                    $statusBadge = '<span class="badge bg-primary">CONTINUE</span>';
+                                } elseif ($completed == $total) {
+                                    $statusBadge = '<span class="badge bg-success">COMPLETE</span>';
+                                }
+                            @endphp
                             <tr>
-                                <td>{{ $categoryName }}</td>
+                                <td>{{ str_replace('ies', 'y', $categoryName) }}</td>
                                 <td id="competency-{{ $competencyItems->first()->behavioralIndicator->competency->id }}">
                                     {{ $competencyName }}
                                 </td>
-                                <td>{{ $competencyItems->count() - $competencyItems->whereNull('score')->count() }} /
-                                    {{ $competencyItems->count() }}</td>
-                                    @if (!$competencyAssessmentCompleted)
+                                <td>{!! $statusBadge !!}</td>
+                                @if (!$competencyAssessmentCompleted)
                                 <td>
-                                   
                                     <a href="{{ route('competency_assessment.form', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => $competencyItems->first()->behavioralIndicator->competency->competencyCategory->id]) }}#competency-{{ $competencyItems->first()->behavioralIndicator->competency->id }}"
-                                        class="btn btn-outline-primary">
+                                        class="btn btn-primary btn-sm">
                                         <i class="fa fa-pen" aria-hidden="true"></i>
                                     </a>
-                                 
+                                </td>
+                                @else
+                                <td>
+                                    <button class="btn btn-secondary btn-sm" disabled>
+                                        <i class="fa fa-pen" aria-hidden="true"></i>
+                                    </button>
                                 </td>
                                 @endif
                             </tr>
                         @endforeach
                     @endforeach
-
                 </tbody>
-
             </table>
         </div>
+        
+        
 
         <div class="d-flex justify-content-between mt-4">
             <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"

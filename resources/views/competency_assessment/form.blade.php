@@ -3,7 +3,7 @@
 @section('compass-content')
     <div class="container-fluid mt-2 p-5 bg-light rounded">
         <div class="text-center mb-5">
-            <h1 class="mb-3">{{ $competencyCategory->category_name }}</h1>
+            <h1 class="mb-3">{{ str_replace('ies', 'y',$competencyCategory->category_name) }}</h1>
             <p class="text-muted">Complete the form by selecting your rating. All questions are required and must be
                 answered.</p>
 
