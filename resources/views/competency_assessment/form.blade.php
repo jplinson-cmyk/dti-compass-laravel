@@ -3,33 +3,36 @@
 @section('compass-content')
     <div class="container-fluid mt-2 p-5 bg-light rounded">
         <div class="text-center mb-5">
-            <h1 class="mb-3">{{ str_replace('ies', 'y',$competencyCategory->category_name) }}</h1>
-            <p class="text-muted">Complete the form by selecting your rating. All questions are required and must be
-                answered.</p>
+            @if($competencyCategory->category_name == 'Core Competencies')
+                <h1 class="mb-3">Organizational / {{ str_replace('ies', 'y',$competencyCategory->category_name) }}</h1>
+            @else
+                <h1 class="mb-3">{{ str_replace('ies', 'y',$competencyCategory->category_name) }}</h1>
+            @endif
+            <p class="text-muted">Complete the form by clicking on the button to the left of your selected rating. All questions are required and must be answered.</p>
 
             <div class="text-end">
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
+                <a id="ratingScaleInfo" class="btn text-light"  data-bs-toggle="modal"
                     data-bs-target="#ratingScaleModal">
                     <i class="fas fa-info-circle"></i> Rating Scale
-                </button>
+                </a>
             </div>
 
         </div>
 
         <div class="rating-labels d-flex justify-content-end">
-            <span class="rating-label mx-2">
+            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
                 0-Never
             </span>
-            <span class="rating-label mx-2">
+            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
                 1-Rarely
             </span>
-            <span class="rating-label mx-2">
+            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
                 2-Sometimes
             </span>
-            <span class="rating-label mx-2">
+            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
                 3-Frequently
             </span>
-            <span class="rating-label mx-2">
+            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
                 4-Always
             </span>
             @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
@@ -56,11 +59,10 @@
                     $displayedLevels = [];
                 @endphp
                 <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h3 class="card-title mb-0"
+                    <div class="card-header text-center" >
+                        <h3 class="card-title"
                             id="competency-{{ $items->first()->behavioralIndicator->competency->id }}">
                             {{ $items->first()->behavioralIndicator->competency->name }}</h3>
-
                     </div>
                     <div class="card-body">
 
@@ -71,7 +73,10 @@
                             @if (!in_array($currentLevel, $displayedLevels))
                                 <div class="row">
                                     <div class="col">
-                                        <h4 class="text-primary">{{ $levelMapping[$currentLevel] ?? 'Unknown Level' }}</h4>
+                                        @if($currentLevel!=1)
+                                        <hr style="border-top: 4px solid #1E4387;">
+                                        @endif
+                                        <h4 style="color:#1E4387;">{{ $levelMapping[$currentLevel] ?? 'Unknown Level' }}</h4>
                                     </div>
                                 </div>
                                 @php
@@ -86,7 +91,7 @@
                                     <div class="row">
                                         @for ($i = 0; $i < 5; $i++)
                                             <div class="col">
-                                                <div class="form-check">{{$i}}
+                                                <div class="form-check fw-bold">{{$i}}
                                                     <input class="form-check-input" type="radio"
                                                         name="rating[{{ $item->behavioralIndicator->id }}]"
                                                         id="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}"
