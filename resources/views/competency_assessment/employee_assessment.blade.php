@@ -1,7 +1,9 @@
+
 @extends('layouts.compass')
 
-@section('content')
-    <div class="container-fluid mt-5">
+@section('compass-content')
+<div class="container-fluid">
+    <div class="employee-assessment" >
         <h1 class="mb-4">Employee Assessment</h1>
         <div class="row">
             <div class="col-12">
@@ -70,4 +72,5 @@
             </div>
         </div>
     </div>
+</div>
 @endsection

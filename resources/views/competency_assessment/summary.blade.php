@@ -1,9 +1,8 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <h2 class="text-center">SUMMARY OF RATING</h2>
-
-    <div class="container">
+    <div class="container-fluid mt-2 p-5 bg-light rounded">
+        <h2 class="text-center">SUMMARY OF RATING</h2>
         <div class="accordion" id="summaryAccordion">
             @foreach ($structuredItems as $categoryId => $category)
                 <div class="accordion-item">
@@ -44,13 +43,14 @@
                                                 <td>{{ $indicator['supervisor'] }}</td>
                                                 <td>{{ $indicator['final_rating'] }}</td>
                                                 <td>{{ $indicator['performance_observation'] }}</td>
-                                                <td>{{ number_format($competency['levels'][$indicator['level']]['average_rating'], 2) }}</td>
+                                                <td>{{ number_format($competency['levels'][$indicator['level']]['average_rating'], 2) }}
+                                                </td>
                                                 <td>{{ $competency['mastery_level'] }}</td>
                                                 <td>
-                                                    {{ number_format($overallAverageRating, 2) }}                                      
+                                                    {{ number_format($overallAverageRating, 2) }}
                                                 </td>
                                                 <td>
-                                                    {{ $overallMasteryLevel }}              
+                                                    {{ $overallMasteryLevel }}
                                                 </td>
                                                 <td>{{ $indicator['standard'] }}</td>
                                             </tr>
@@ -66,10 +66,11 @@
         <div class="d-flex justify-content-between mt-4">
             <a href="{{ route('competency_assessment.form', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => $competencyAssessment->items->last()->behavioralIndicator->competency->competency_category_id]) }}"
                 class="btn btn-outline-secondary">Back</a>
-            <form action="{{ route('competency_assessment.save.summary', ['employee' => $employee, 'session_type' => $session_type]) }}" method="post"
-                class="d-inline">
+            <form
+                action="{{ route('competency_assessment.save.summary', ['employee' => $employee, 'session_type' => $session_type]) }}"
+                method="post" class="d-inline">
                 @csrf
-                    <button type="submit" class="btn btn-outline-primary">Continue</button>
+                <button type="submit" class="btn btn-outline-primary">Continue</button>
             </form>
         </div>
     </div>
