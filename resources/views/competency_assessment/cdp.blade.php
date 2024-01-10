@@ -579,10 +579,10 @@
 
         <div class="d-flex justify-content-between">
         
-            <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" class="btn btn-outline-secondary mt-2">Back to Summary of Rating</a>
+            <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" class="btn btn-lg mt-2 btn-outline-dark">Back to Summary of Rating</a>
             <div>
-                <a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" class="btn btn-outline-primary mt-2">Save</a>
-                <a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" class="btn btn-outline-primary mt-2">Submit and Continue</a>    
+                <a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Save</a>
+                <a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Submit and Continue</a>    
             </div>
     
         </div>
