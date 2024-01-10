@@ -76,7 +76,7 @@
                                         @if($currentLevel!=1)
                                         <hr style="border-top: 4px solid #1E4387;">
                                         @endif
-                                        <h4 style="color:#1E4387;">{{ $levelMapping[$currentLevel] ?? 'Unknown Level' }}</h4>
+                                        <h4>{{ $items->first()->behavioralIndicator->competency->name }} ({{ $levelMapping[$currentLevel] ?? 'Unknown Level' }})</h4>
                                     </div>
                                 </div>
                                 @php
@@ -125,7 +125,7 @@
             <div class="row">
                 <div class="col">
                     <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
-                        class="btn btn-lg btn-outline-dark mt-2">Back to my Checklist</a>
+                        class="btn btn-lg btn-outline-dark mt-2">Submit & go back to My Checklist</a>
                 </div>
                 <div class="col text-end">
                     @if ($competencyAssessmentCompleted)
