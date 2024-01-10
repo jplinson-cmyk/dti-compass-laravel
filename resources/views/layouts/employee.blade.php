@@ -13,40 +13,33 @@
     <!-- Bootstrap core CSS -->
     <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
 
-     <link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
+    <link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-    <div class="d-flex" id="wrapper">
-
+    <div class="d-flex" >
         <div class="mt-5">
             @include('layouts.partials.employee-sidebar')
         </div>
 
         <div id="content" class="page-content-wrapper">
             <main class="container-fluid mt-5">
-                <span id="toggleButton" style="font-size:30px;cursor:pointer" onclick="toggleNav()">&times;</span>
+                @include('layouts.partials.banner')
+
                 @yield('content')
             </main>
+            <div class="footer">
+                @include('auth.partials.footer')
+            </div>
         </div>
-
-        
     </div>
 
-    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-md-4 d-flex align-items-center">
-            <a href="/" class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1">
-                <svg class="bi" width="30" height="24">
-                    <use xlink:href="#bootstrap"></use>
-                </svg>
-            </a>
-            <span class="mb-3 mb-md-0 text-body-secondary">© 2023 DTI COMPASS</span>
-        </div>
-    </footer>
+ 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
@@ -66,23 +59,24 @@
         }
 
         function openNav() {
-            document.getElementById("sidebar").style.width = "250px";
-            document.getElementById("content").style.marginLeft = "250px";
-            document.getElementById("toggleButton").innerHTML = "&times;";
+            document.getElementById("sidebar").style.width = "300px";
+            document.getElementById("content").style.marginLeft = "300px";
+            document.getElementById("toggleButton").innerHTML = '<i class="fas fa-arrow-left"></i>'; // Right arrow icon
             isOpen = true;
         }
 
         function closeNav() {
             document.getElementById("sidebar").style.width = "0";
             document.getElementById("content").style.marginLeft = "0";
-            document.getElementById("toggleButton").innerHTML = "&#9776;";
+            document.getElementById("toggleButton").innerHTML = '<i class="fas fa-arrow-right"></i>'; // Left arrow icon
             isOpen = false;
         }
 
-        document.getElementById("toggleButton").innerHTML = "&times;";
+        document.getElementById("toggleButton").innerHTML = '<i class="fas fa-arrow-left"></i>';
 
         document.getElementById("toggleButton").onclick = toggleNav;
     </script>
+
     <!--Start of Tawk.to Script-->
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {},

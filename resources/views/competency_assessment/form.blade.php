@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <div class="container">
+    <div class="container-fluid mt-2 p-5 bg-light rounded">
         <div class="text-center mb-5">
             <h1 class="mb-3">{{ $competencyCategory->category_name }}</h1>
             <p class="text-muted">Complete the form by selecting your rating. All questions are required and must be
@@ -120,27 +120,27 @@
             <div class="row">
                 <div class="col">
                     <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
-                        class="btn btn-outline-secondary mt-2">Back to my Checklist</a>
+                        class="btn btn-lg btn-outline-dark mt-2">Back to my Checklist</a>
                 </div>
                 <div class="col text-end">
                     @if ($competencyAssessmentCompleted)
                     <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
-                        class="btn btn-outline-primary mt-2">Next</a>
+                        class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Next</a>
                     @else
-                        <button type="submit" name="action" value="save" class="btn btn-outline-primary">Save</button>
-                        <button type="submit" class="btn btn-outline-primary">Submit & Continue</button>
+                        <button type="submit" name="action" value="save" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Save</button>
+                        <button type="submit" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Submit & Continue</button>
                     @endif
                 </div>
             </div>
         </form>
 
-        <button onclick="scrollToTop()" class="btn btn-outline-primary"
-            style="position: fixed; bottom: 100px; right: 20px; z-index: 1000;">
+        <button onclick="scrollToTop()" class="btn btn-lg btn-outline-primary"
+            style="position: fixed; bottom: 100px; right: 20px; z-index: 2000;">
             <i class="fa fa-arrow-up"></i>
         </button>
 
-        <button onclick="scrollToBottom()" class="btn btn-outline-primary"
-            style="position: fixed; bottom: 50px; right: 20px; z-index: 1000;">
+        <button onclick="scrollToBottom()" class="btn btn-lg btn-outline-primary"
+            style="position: fixed; bottom: 50px; right: 20px; z-index: 2000;">
             <i class="fa fa-arrow-down"></i>
         </button>
    

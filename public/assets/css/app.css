@@ -1,15 +1,17 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #e4e4e4;
+}
+
 h1 {
     color: #1E4387;
 }
 
 a[data-toggle="collapse"] {
     position: relative;
-}
-
-@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
-body {
-    font-family: 'Poppins', sans-serif;
-    background: #fafafa;
 }
 
 p {
@@ -30,11 +32,24 @@ a:focus {
 #content {
     transition: margin-left .3s;
     padding: 16px;
-    margin-left: 250px;
+    margin-left: 300px;
+    margin-bottom: 75px;
+}
+
+.banner {
+    background: radial-gradient(circle, #789fe7, #1E4387);
+    border-bottom-left-radius: 6px;
+    padding: 10px;
+    font-family: 'Poppins', sans-serif;
 }
 
 .competency-assessment-links {
     display: none;
+}
+
+.employee-assessment {
+    width: 100vw !important;
+    max-width: 100% !important;
 }
 
 @media (max-width: 768px) {
@@ -71,15 +86,22 @@ a:focus {
     }
 }
 
+@media (max-width: 992px) {
+    /* Adjusts for large screens, e.g., LG breakpoint in Bootstrap */
+    #toggleButton {
+        display: none;
+        /* larger margin for larger screens */
+    }
+}
+
 .sidenav {
     height: 100%;
-    width: 250px;
+    width: 300px;
     position: fixed;
     z-index: 999;
     top: 0;
     left: 0;
     overflow-x: hidden;
-    overflow-y: hidden;
     transition: 0.3s;
     padding-top: 60px;
 }
@@ -106,7 +128,6 @@ a:focus {
 }
 
 #sidebar ul.components li {
-    background: #edf3fe;
     border-top: 1px solid #ddd;
 }
 
@@ -118,13 +139,22 @@ a:focus {
 }
 
 #sidebar ul.components li a:hover {
-    color: #7386D5;
+    color: #1E4387;
     background: #fff;
 }
 
 #sidebar ul.components li.active>a {
     color: #fff;
     background: #1E4387;
+}
+
+#toggleButton {
+    font-size: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: #1E4387;
+    margin-left: 250px;
 }
 
 ul ul a {
@@ -135,34 +165,64 @@ ul ul a {
 
 .compass-breadcrumb {
     list-style: none;
-    overflow: hidden;
-    font: 14px Helvetica, Arial, Sans-Serif;
+    display: flex;
+    /* Flexbox layout */
+    flex-wrap: nowrap;
+    /* Prevent wrapping */
+    overflow-x: auto;
+    /* Horizontal scrollbar if needed */
+    font: 12px 'Poppins', Sans-Serif;
     margin: 0;
     padding: 0;
+    align-items: center;
+    /* Align items vertically */
+    scrollbar-width: thin;
+    /* For Firefox */
+    scrollbar-color: #1E4387 #f0f0f0;
+    /* For Firefox */
+}
+
+
+/* For Webkit (Chrome, Safari, etc.) */
+
+.compass-breadcrumb::-webkit-scrollbar {
+    height: 8px;
+}
+
+.compass-breadcrumb::-webkit-scrollbar-track {
+    background: #f0f0f0;
+}
+
+.compass-breadcrumb::-webkit-scrollbar-thumb {
+    background-color: #1E4387;
+    border-radius: 4px;
 }
 
 .compass-breadcrumb li {
-    float: left;
-    position: relative;
     background: #fff;
-    margin: 0 5px 10px;
+    position: relative;
+    margin-right: 6px;
+    /* Adjust margin as needed */
+}
+
+
+/* Remove margin for the last item */
+
+.compass-breadcrumb li:last-child {
+    margin-right: 0;
 }
 
 .compass-breadcrumb li a {
     border: 1px solid #1E4387;
     color: var(--bs-body-color);
     text-decoration: none;
-    padding: 8px 10px 10px 32px;
-    position: relative;
-    display: block;
-    z-index: 99;
-    font-weight: bold;
-    max-height: 33px;
-    min-height: 33px;
+    padding: 18px 30px;
+    display: flex;
+    white-space: nowrap;
 }
 
 .compass-breadcrumb li:first-child a {
-    padding-left: 10px;
+    padding-left: auto;
     border-right: none;
 }
 
@@ -175,25 +235,26 @@ ul ul a {
 .compass-breadcrumb li::after {
     content: " ";
     display: block;
-    width: 1.62em;
-    height: 1.62em;
+    width: 3.2em;
+    height: 3.4em;
     border-top: 1px solid transparent;
     border-bottom: 1px solid #1E4387;
     border-right: 1px solid #1E4387;
+    border-radius: 1px;
     position: absolute;
-    top: 0.33em;
+    top: 0.6em;
     z-index: -1;
-    background: #fff;
+    background: white;
     transform: rotate(-45deg);
     -moz-transform: rotate(-45deg);
 }
 
 .compass-breadcrumb li:before {
-    right: -1.39em;
+    right: -2.1em;
 }
 
 .compass-breadcrumb li:after {
-    right: -.79em;
+    right: -1.6em;
 }
 
 .compass-breadcrumb li:before,
@@ -201,16 +262,9 @@ ul ul a {
     z-index: 1;
 }
 
-.compass-breadcrumb li:last-child:before {
-    display: none;
-}
-
+.compass-breadcrumb li:last-child:before,
 .compass-breadcrumb li:last-child:after {
     display: none;
-}
-
-.compass-breadcrumb li:last-child {
-    border-right: 1px solid #1E4387;
 }
 
 .compass-breadcrumb li:hover:after,
@@ -218,14 +272,20 @@ ul ul a {
 .compass-breadcrumb li.active,
 .compass-breadcrumb li.active:after {
     background: #1E4387;
+    border-radius: 2px;
 }
 
 .compass-breadcrumb li:hover a,
 .compass-breadcrumb li.active a {
     border-color: transparent;
+    color: #fff;
 }
 
-.compass-breadcrumb li:hover a,
-.compass-breadcrumb li.active a {
-    color: #fff;
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    z-index: 1030;
 }

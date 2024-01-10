@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <div class="container my-5">
+    <div class="container-fluid mt-2 p-5 bg-light rounded">
         @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
         <div class="mb-4">
             <h1 class="text-center">EMPLOYEE ASSESSMENT</h1>
@@ -94,16 +94,16 @@
 
         <div class="d-flex justify-content-between mt-4">
             <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"
-                class="btn btn-outline-secondary">Back</a>
+                class="btn btn-lg mt-2 btn-outline-dark">Back</a>
             <form action="{{ route('competency_assessment.save.instructions', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" method="post"
                 class="d-inline">
                 @csrf
 
                 @if ($competencyAssessmentItemsExist)
                     <a href="{{ route('competency_assessment.form', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => 1]) }}"
-                        class="btn btn-outline-primary">Continue</a>
+                        class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Continue</a>
                 @else
-                    <button type="submit" class="btn btn-outline-primary">Continue</button>
+                    <button type="submit" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Continue</button>
                 @endif
             </form>
         </div>
