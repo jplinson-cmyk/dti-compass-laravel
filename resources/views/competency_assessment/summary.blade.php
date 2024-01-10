@@ -65,12 +65,12 @@
         </div>
         <div class="d-flex justify-content-between mt-4">
             <a href="{{ route('competency_assessment.form', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => $competencyAssessment->items->last()->behavioralIndicator->competency->competency_category_id]) }}"
-                class="btn btn-outline-secondary">Back</a>
+                class="btn btn-lg mt-2 btn-outline-dark">Back</a>
             <form
                 action="{{ route('competency_assessment.save.summary', ['employee' => $employee, 'session_type' => $session_type]) }}"
                 method="post" class="d-inline">
                 @csrf
-                <button type="submit" class="btn btn-outline-primary">Continue</button>
+                <button type="submit" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Continue</button>
             </form>
         </div>
     </div>

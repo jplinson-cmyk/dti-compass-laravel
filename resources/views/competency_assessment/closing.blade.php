@@ -14,11 +14,5 @@
         and continuously update your Career Development Plan.
     </p>
 
-    <div class="d-flex justify-content-between">
-        
-        <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" class="btn btn-outline-primary mt-2">View Summary of Rating</a>
-        <a href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}" class="btn btn-outline-primary mt-2">Manage Career Development Plan</a>
-
-    </div>
 </div>
 @endsection

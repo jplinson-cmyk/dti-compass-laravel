@@ -212,13 +212,80 @@ ul ul a {
     margin-right: 0;
 }
 
-.compass-breadcrumb li a {
+
+/* .compass-breadcrumb li a {
     border: 1px solid #1E4387;
     color: var(--bs-body-color);
     text-decoration: none;
     padding: 18px 30px;
     display: flex;
     white-space: nowrap;
+} */
+
+.compass-breadcrumb li a {
+    border: 1px solid #1E4387;
+    color: var(--bs-body-color);
+    /* Make sure this variable is defined or use a fallback color */
+    text-decoration: none;
+    padding: 5px 15px 5px 35px;
+    /* Increased top/bottom padding for more space */
+    display: flex;
+    align-items: center;
+    /* Center items vertically */
+    justify-content: center;
+    /* Center text horizontally */
+    white-space: normal;
+    /* Allow wrapping */
+    text-align: center;
+    min-width: 100px;
+    /* Set a min-width for smaller screens */
+    max-width: 200px;
+    /* Set a max-width for larger screens */
+    min-height: 55px;
+    max-height: 55px;
+    /* Set a min-height for enough vertical space */
+    z-index: 3;
+    position: relative;
+    font-size: 12px;
+    /* Adjust font size if necessary */
+}
+
+
+/* Media query for tablets */
+
+@media (max-width: 1440) {
+    .compass-breadcrumb li a {
+        padding: 10px 10px;
+        /* Adjust padding for tablet devices */
+        font-size: 10px;
+        /* Adjust font size for tablet devices */
+    }
+}
+
+
+/* Media query for tablets */
+
+@media (max-width: 768px) {
+    .compass-breadcrumb li a {
+        padding: auto;
+        /* Adjust padding for tablet devices */
+        font-size: 8px;
+        /* Adjust font size for tablet devices */
+    }
+}
+
+
+/* Media query for mobile devices */
+
+@media (max-width: 576px) {
+    .compass-breadcrumb li a {
+        padding: auto;
+        /* Adjust padding for mobile devices */
+        font-size: 8px;
+        /* Adjust font size for mobile devices */
+        max-width: none;
+        /* Allow full width on small screens */
+    }
 }
 
 .compass-breadcrumb li:first-child a {

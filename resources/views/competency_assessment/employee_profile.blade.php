@@ -11,28 +11,38 @@
             @csrf
 
             <div class="row">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-12 mb-3">
                     <label for="employee_number" class="form-label">Employee Number</label>
                     <input type="text" class="form-control" id="employee_number" value="{{ $employee->employee_id }}"
                         name="employee_number" disabled>
                 </div>
-
-                <div class="col-md-4 mb-3">
-                    <label for="employee_firstname" class="form-label">First Name</label>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="employee_firstname" class="form-label">Employee First Name</label>
                     <input type="text" class="form-control" id="employee_firstname" value="{{ $employee->firstname }}"
                         name="employee_firstname" disabled>
                 </div>
+            </div>
 
-                <div class="col-md-4 mb-3">
-                    <label for="employee_lastname" class="form-label">First Name</label>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="employee_lastname" class="form-label">Employee Last Name</label>
                     <input type="text" class="form-control" id="employee_lastname" value="{{ $employee->lastname }}"
                         name="employee_lastname" disabled>
                 </div>
             </div>
 
-            <!-- Repeated pattern for other form fields -->
             <div class="row">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-12 mb-3">
+                    <label for="employee_lastname" class="form-label">Gender</label>
+                    <input type="text" class="form-control" id="employee_lastname" value="{{ $employee->gender }}"
+                        name="employee_lastname" disabled>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 mb-3">
                     <label for="employment_status" class="form-label">Employment Status</label>
                     <select class="form-control form-select" id="employment_status" name="employment_status" required>
                         <option value="">Select Employment Status</option>
@@ -44,8 +54,9 @@
                         @endforeach
                     </select>
                 </div>
-
-                <div class="col-md-4 mb-3">
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
                     <label for="job_level" class="form-label">Job Level</label>
                     <select class="form-control form-select" id="job_level" name="job_level" required>
                         @foreach ($jobLevels as $level)
@@ -55,13 +66,9 @@
                             </option>
                         @endforeach
                     </select>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <label for="last_review_date" class="form-label">Last Review Date</label>
-                    <input type="text" class="form-control" id="last_review_date"
-                        value="{{ $employee->last_review_at }}" name="last_review_date" required>
-                </div>
+                </div>             
             </div>
+       
             <div class="form-group">
                 <label for="functional_group">Functional Group</label>
                 <select class="form-control form-select" id="functional_group" name="functional_group" disabled>
@@ -120,27 +127,30 @@
                 </div>
             </div>
 
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="last_review_date" class="form-label">Date of Last Review</label>
+                    <input type="text" class="form-control" id="last_review_date"
+                        value="{{ $employee->last_review_at }}" name="last_review_date" required>
+                </div>
+            </div>
+
             <div class="form-check mt-3">
                 @if ($competencyAssessmentItemsExist)
                     <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy" checked  disabled>
-                    <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information displayed
-                        above is accurate and correct.</label>
+                    <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information displayed above are accurate and correct.</label>
                 @else
                 <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy"  required>
-                <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information displayed
-                    above is accurate and correct.</label>
+                <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information displayed above are accurate and correct.</label>
                 @endif
             </div>
 
             <div class="alert alert-warning mt-3">
-                <i class="fa fa-exclamation-triangle"></i> If any of the profile information is incorrect, please DO NOT
-                proceed to the Competency Assessment. Kindly report the error/s to the DTI COMPASS system administrators
-                through the help desk widget found in the lower-left corner of the screen. You will be notified via email
-                once your profile has been updated.
+                <i class="fa fa-exclamation-triangle"></i> If any of your profile information is incorrect, please DO NOT proceed to the Competency Assessment. Kindly report the error/s to the DTI COMPASS system administrators through the help desk widget found in the lower-left corner of the screen. You will be notified via email once your profile has been updated.
             </div>
 
             <div class="text-center mt-3">
-                By clicking <strong>"Save and Continue"</strong>, you agree to the Data Privacy Policy and Terms of Use of
+                By clicking <strong>"Save and Continue"</strong>, you agree to the <span><a class="text-primary" href="#">Data Privacy Policy</a></span> and Terms of Use of
                 this DTI COMPASS System.
             </div>
 
