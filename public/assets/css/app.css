@@ -358,3 +358,7 @@ footer {
 #ratingScaleInfo {
     background-color: #212529;
 }
+
+.no-striping {
+    background-color: white !important;
+}
