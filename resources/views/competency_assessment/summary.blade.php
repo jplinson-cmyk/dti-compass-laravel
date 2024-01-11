@@ -1,11 +1,14 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <div class="container-fluid mt-2 p-5 bg-light rounded">
-        <h2 class="text-center">SUMMARY OF RATING</h2>
+    <div class="container-fluid mt-2 p-5 bg-light rounded ">
+        <h1 class="text-center">SUMMARY OF RATING</h1>
+        <div class="text-end mb-4">
+            <button type="button" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Export As PDF</button>
+        </div>
         <div class="accordion" id="summaryAccordion">
             @foreach ($structuredItems as $categoryId => $category)
-                <div class="accordion-item">
+                <div class="accordion-item mb-4 shadow-lg">
                     <h2 class="accordion-header" id="heading{{ $categoryId }}">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapse{{ $categoryId }}" aria-expanded="true"
@@ -13,12 +16,25 @@
                             {{ $category['category_name'] }}
                         </button>
                     </h2>
-                    <div id="collapse{{ $categoryId }}" class="accordion-collapse collapse"
+                    <div id="collapse{{ $categoryId }}" class="accordion-collapse collapse "
                         aria-labelledby="heading{{ $categoryId }}" data-bs-parent="#summaryAccordion">
                         <div class="accordion-body">
                             @foreach ($category['competencies'] as $competencyId => $competency)
                                 <h5>{{ $competency['name'] }}</h5>
-                                <table class="table table-bordered">
+                                @php
+                                    $competencyRowCount = count($competency['indicators']);
+                                @endphp
+                                @php
+                                    $levelRowCount = [];
+                                    foreach ($competency['indicators'] as $indicator) {
+                                        $level = $indicator['level'];
+                                        if (!isset($levelRowCount[$level])) {
+                                            $levelRowCount[$level] = 0;
+                                        }
+                                        $levelRowCount[$level]++;
+                                    }
+                                @endphp
+                                <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>Level</th>
@@ -35,7 +51,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($competency['indicators'] as $indicator)
+                                        @foreach ($competency['indicators'] as $key => $indicator)
                                             <tr>
                                                 <td>{{ $indicator['level'] }}</td>
                                                 <td>{{ $indicator['description'] }}</td>
@@ -43,21 +59,32 @@
                                                 <td>{{ $indicator['supervisor'] }}</td>
                                                 <td>{{ $indicator['final_rating'] }}</td>
                                                 <td>{{ $indicator['performance_observation'] }}</td>
-                                                <td>{{ number_format($competency['levels'][$indicator['level']]['average_rating'], 2) }}
-                                                </td>
-                                                <td>{{ $competency['mastery_level'] }}</td>
-                                                <td>
+                                                @if ($key === 0 || !isset($previousLevel) || $previousLevel !== $indicator['level'])
+                                                    @php
+                                                        $previousLevel = $indicator['level'];
+                                                        $rowSpanCount = $levelRowCount[$indicator['level']] ?? 1;
+                                                    @endphp
+                                                    <td class="fw-bolder no-striping" rowspan="{{ $rowSpanCount }}">
+                                                        {{ number_format($competency['levels'][$indicator['level']]['average_rating'], 2) }}
+                                                    </td>
+                                                    <td class="fw-bolder" rowspan="{{ $rowSpanCount }}">{{ $competency['mastery_level'] }}</td>
+                                                @endif
+                                               
+                                                @if ($key === 0)
+                                                <td class="fw-bolder no-striping" rowspan="{{ $competencyRowCount }}" >
                                                     {{ number_format($overallAverageRating, 2) }}
                                                 </td>
-                                                <td>
-                                                    {{ $overallMasteryLevel }}
-                                                </td>
+                                                    <td class="fw-bolder no-striping" rowspan="{{ $competencyRowCount }}">
+                                                        {{ $overallMasteryLevel }}
+                                                    </td>
+                                                @endif
                                                 <td>{{ $indicator['standard'] }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
                             @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -70,7 +97,8 @@
                 action="{{ route('competency_assessment.save.summary', ['employee' => $employee, 'session_type' => $session_type]) }}"
                 method="post" class="d-inline">
                 @csrf
-                <button type="submit" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Continue</button>
+                <button type="submit" class="btn btn-lg mt-2 text-light"
+                    style="background-color:#1E4387;">Continue</button>
             </form>
         </div>
     </div>
