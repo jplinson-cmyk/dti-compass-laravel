@@ -56,9 +56,9 @@
                             @csrf
                             @if ($competencyAssessmentExist)
                                 <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee, 'session_type' => $session_type]) }}"
-                                    class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Next</a>
+                                    class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Next</a>
                             @else
-                                <button type="submit" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Start Assessment</button>
+                                <button type="submit" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Start Assessment</button>
                             @endif
                         </form>
                     </div>

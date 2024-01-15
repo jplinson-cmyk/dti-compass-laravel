@@ -156,12 +156,12 @@
 
             <div class="d-flex justify-content-between mt-4">
                 <a href="{{ route('competency_assessment.dictionary', ['employee' => $employee, 'session_type' => $session_type]) }}"
-                    class="btn btn-lg mt-2 btn-outline-dark">Back</a>
+                    class="btn btn-md mt-2 btn-outline-dark">Back</a>
                 @if ($competencyAssessmentItemsExist)
                     <a href="{{ route('competency_assessment.rating_scale', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
-                        class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Next</a>
+                        class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Next</a>
                 @else
-                <button type="submit" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Save and Continue</button>
+                <button type="submit" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Save and Continue</button>
 
                 @endif
             </div>

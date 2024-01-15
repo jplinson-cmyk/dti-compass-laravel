@@ -125,26 +125,26 @@
             <div class="row">
                 <div class="col">
                     <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
-                        class="btn btn-lg btn-outline-dark mt-2">Submit & go back to My Checklist</a>
+                        class="btn btn-md btn-outline-dark mt-2">Submit & go back to My Checklist</a>
                 </div>
                 <div class="col text-end">
                     @if ($competencyAssessmentCompleted)
                     <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
-                        class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Next</a>
+                        class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Next</a>
                     @else
-                        <button type="submit" name="action" value="save" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Save</button>
-                        <button type="submit" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Submit & Continue</button>
+                        <button type="submit" name="action" value="save" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Save</button>
+                        <button type="submit" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Submit & Continue</button>
                     @endif
                 </div>
             </div>
         </form>
 
-        <button onclick="scrollToTop()" class="btn btn-lg btn-outline-primary"
+        <button onclick="scrollToTop()" class="btn btn-md btn-outline-primary"
             style="position: fixed; bottom: 100px; right: 20px; z-index: 2000;">
             <i class="fa fa-arrow-up"></i>
         </button>
 
-        <button onclick="scrollToBottom()" class="btn btn-lg btn-outline-primary"
+        <button onclick="scrollToBottom()" class="btn btn-md btn-outline-primary"
             style="position: fixed; bottom: 50px; right: 20px; z-index: 2000;">
             <i class="fa fa-arrow-down"></i>
         </button>
