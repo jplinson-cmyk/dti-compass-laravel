@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-<div class="container-fluid mt-2 p-5 bg-light rounded">
+<div class="container-fluid mt-2 p-5 bg-white rounded">
     <h1 class="text-center mb-4">COMPETENCY ASSESSMENT</h1>
     <p class="mb-3">As we strive to continuously provide programs that will cater to the specific needs of the DTI employees, please allow us to conduct a competency assessment to evaluate your current competency levels and determine your training needs in preparation for the 2024 competency-based training programs. The result will also be used in developing a 3-year DTI Academy Training Plan which will have a series of recommended training courses for employees to attend to per competency, depending on the overall result of this evaluation.</p>
     <p class="mb-4">Using the rating scale below, please select the appropriate rating for each behavioral indicator that you are going to assess based on how you see yourself. Once you are done reading the guidelines below, click "Continue" to proceed to the next page of this evaluation.</p>

@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <div class="container-fluid mt-2 p-5 bg-light rounded ">
+    <div class="container-fluid mt-2 p-5 bg-white rounded ">
         <h1 class="text-center">SUMMARY OF RATING</h1>
         <div class="text-end mb-4">
             <button type="button" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Export As PDF</button>

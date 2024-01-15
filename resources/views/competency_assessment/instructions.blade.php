@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <div class="container-fluid mt-2 p-5 bg-light rounded">
+    <div class="container-fluid mt-2 p-5 bg-white rounded">
         @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
         <div class="mb-4">
             <h1 class="text-center">EMPLOYEE ASSESSMENT</h1>

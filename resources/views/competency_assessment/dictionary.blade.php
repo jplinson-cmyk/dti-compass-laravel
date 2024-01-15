@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-<div class="container-fluid mt-2 p-5 bg-light rounded">
+<div class="container-fluid mt-2 p-5 bg-white rounded">
     <h1 class="text-center mb-4">THE DTI COMPETENCY DICTIONARY</h1>
         <p class="text-left mb-4">For your reference, here is your complete guide to the DTI Competency Dictionary. If you
             wish to view the competency descriptions prior to beginning the assessment, you may scroll down and browse

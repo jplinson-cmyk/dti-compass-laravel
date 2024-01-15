@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <div class="container-fluid mt-2 p-5 bg-light rounded">
+    <div class="container-fluid mt-2 p-5 bg-white rounded">
         <div class="text-center mb-5">
             @if($competencyCategory->category_name == 'Core Competencies')
                 <h1 class="mb-3">Organizational / {{ str_replace('ies', 'y',$competencyCategory->category_name) }}</h1>

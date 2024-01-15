@@ -126,8 +126,10 @@ a:focus {
 }
 
 #sidebar ul.components li a {
+    margin-left: 10px;
+    margin-right: 10px;
     padding: 10px;
-    font-size: 1.1em;
+    font-size: .8em;
     display: block;
     color: #212529;
 }
@@ -152,7 +154,7 @@ a:focus {
 }
 
 ul ul a {
-    font-size: 0.9em !important;
+    font-size: 0.8em !important;
     padding-left: 30px !important;
     background: #fff;
 }
@@ -361,4 +363,17 @@ footer {
 
 .no-striping {
     background-color: white !important;
+}
+
+.bdr {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.bg-orange {
+    background-color: #ff8b49;
+}
+
+p {
+    font-size: 14px;
 }

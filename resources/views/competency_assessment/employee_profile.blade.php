@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <div class="container-fluid mt-2 p-5 bg-light rounded">
+    <div class="container-fluid mt-2 p-5 bg-white rounded">
         <h1 class="text-center mb-3">EMPLOYEE PROFILE</h1>
         <p class="text-center mb-4">Please provide all the required information below to complete the assessment profile.
         </p>

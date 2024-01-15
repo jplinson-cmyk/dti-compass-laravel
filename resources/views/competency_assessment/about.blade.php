@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-    <div class="container-fluid mt-2 p-5 bg-light rounded">
+    <div class="container-fluid mt-2 p-5 bg-white rounded">
         <h1 class="mb-4">ABOUT COMPASS</h1>
         <div class="row">
             <div class="col-md-6 mb-4">
