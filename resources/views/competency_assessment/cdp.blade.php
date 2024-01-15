@@ -295,6 +295,8 @@
                         <th>By whom</th>
                         <th>Status</th>
                         <th>Supervisor Notes</th>
+                        <th>Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -305,6 +307,8 @@
                         <td>Juan Dela Cruz</td>
                         <td><span class="badge bg-success text-dark p-2">Done</span></td>
                         <td>Text here</td>
+                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+
                     </tr>
                     <tr>
                         <td>Exposure to others (20%)</td>
@@ -313,6 +317,8 @@
                         <td>Text here</td>
                         <td><span class="badge bg-orange text-dark p-2">On Going</span></td>
                         <td>Text here</td>
+                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+
                     </tr>
                     <tr>
                         <td>Education and Formal Training (10%)</td>
@@ -321,6 +327,8 @@
                         <td>Text here</td>
                         <td><span class="badge bg-success text-dark p-2">Done</span></td>
                         <td>Text here</td>
+                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+
                     </tr>
 
                 </tbody>
@@ -333,7 +341,7 @@
 
             <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
             <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Public Speaking</option>
+                <option selected>Select</option>
 
             </select>
 
@@ -346,11 +354,8 @@
                         <th>By whom</th>
                         <th>Status</th>
                         <th>Supervisor Notes</th>
-                        <th scope="col">Action<button type="button" class="btn" data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="To unlock the text boxes for editing and to lock it again after editing, click on the icon under Actions adjacent to the row that you wish to edit.">
-                                <i class="fa fa-question-circle"></i>
-                            </button></th>
+                        <th>Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -420,7 +425,7 @@
 
             <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
             <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Public Speaking</option>
+                <option selected>Select</option>
 
             </select>
 
@@ -433,11 +438,7 @@
                         <th>By whom</th>
                         <th>Status</th>
                         <th>Supervisor Notes</th>
-                        <th scope="col">Action<button type="button" class="btn" data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="To unlock the text boxes for editing and to lock it again after editing, click on the icon under Actions adjacent to the row that you wish to edit.">
-                                <i class="fa fa-question-circle"></i>
-                            </button></th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -503,7 +504,7 @@
 
             <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
             <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Public Speaking</option>
+                <option selected>Select</option>
 
             </select>
 
@@ -516,11 +517,8 @@
                         <th>By whom</th>
                         <th>Status</th>
                         <th>Supervisor Notes</th>
-                        <th scope="col">Action<button type="button" class="btn" data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="To unlock the text boxes for editing and to lock it again after editing, click on the icon under Actions adjacent to the row that you wish to edit.">
-                                <i class="fa fa-question-circle"></i>
-                            </button></th>
+                        <th>Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -586,7 +584,7 @@
 
             <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
             <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Public Speaking</option>
+                <option selected>Select</option>
 
             </select>
 
@@ -599,11 +597,8 @@
                         <th>By whom</th>
                         <th>Status</th>
                         <th>Supervisor Notes</th>
-                        <th scope="col">Action<button type="button" class="btn" data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="To unlock the text boxes for editing and to lock it again after editing, click on the icon under Actions adjacent to the row that you wish to edit.">
-                                <i class="fa fa-question-circle"></i>
-                            </button></th>
+                        <th>Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -669,7 +664,7 @@
 
             <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
             <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Public Speaking</option>
+                <option selected>Select</option>
 
             </select>
 
@@ -682,11 +677,8 @@
                         <th>By whom</th>
                         <th>Status</th>
                         <th>Supervisor Notes</th>
-                        <th scope="col">Action<button type="button" class="btn" data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="To unlock the text boxes for editing and to lock it again after editing, click on the icon under Actions adjacent to the row that you wish to edit.">
-                                <i class="fa fa-question-circle"></i>
-                            </button></th>
+                        <th>Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -752,7 +744,7 @@
 
             <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
             <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Public Speaking</option>
+                <option selected>Select</option>
 
             </select>
 
@@ -765,11 +757,8 @@
                         <th>By whom</th>
                         <th>Status</th>
                         <th>Supervisor Notes</th>
-                        <th scope="col">Action<button type="button" class="btn" data-bs-toggle="tooltip"
-                                data-bs-placement="top"
-                                title="To unlock the text boxes for editing and to lock it again after editing, click on the icon under Actions adjacent to the row that you wish to edit.">
-                                <i class="fa fa-question-circle"></i>
-                            </button></th>
+                        <th>Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
