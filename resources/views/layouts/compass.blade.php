@@ -71,12 +71,12 @@
                 @if ($competencyAssessmentCompleted)
                 <li class="{{ $currentRouteName == 'competency_assessment.summary' || $currentRouteName == 'competency_assessment.summary' ? 'active' : '' }}"><a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Summary of Rating</a></li>
     
-                <li class="{{ $currentRouteName == 'competency_assessment.cdp' || $currentRouteName == 'competency_assessment.cdp' ? 'active' : '' }}"><a href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Career Development Plan</a></li>
+                <li class="{{ $currentRouteName == 'competency_assessment.cdp' || $currentRouteName == 'competency_assessment.cdp' ? 'active' : '' }}"><a href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Career Development</a></li>
     
                 <li class="{{ $currentRouteName == 'competency_assessment.closing' || $currentRouteName == 'competency_assessment.closing' ? 'active' : '' }}"><a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">End of COMPASS</a></li>
                 @else
                 <li><a class="text-secondary" href="#">Summary of Rating</a></li>
-                <li><a class="text-secondary" href="#">Career Development Plan</a></li>
+                <li><a class="text-secondary" href="#">Career Development</a></li>
                 <li><a class="text-secondary" href="#">End of COMPASS</a></li>
                 @endif
             @else
@@ -86,7 +86,7 @@
             <li><a class="text-secondary" href="#">Technical Competencies</a></li>
             <li><a class="text-secondary" href="#">Leadership Competencies</a></li>
             <li><a class="text-secondary" href="#">Summary of Rating</a></li>
-            <li><a class="text-secondary" href="#">Career Development Plan</a></li>
+            <li><a class="text-secondary" href="#">Career Development</a></li>
             <li><a class="text-secondary" href="#">End of COMPASS</a></li>
             @endif
     

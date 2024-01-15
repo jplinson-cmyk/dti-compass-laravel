@@ -1,7 +1,7 @@
 @extends('layouts.compass')
 
 @section('compass-content')
-<div class="container-fluid mt-2 p-5 bg-light rounded">
+<div class="container-fluid mt-2 p-5 bg-white rounded">
     <h1 class="text-center mb-4">THE DTI COMPETENCY DICTIONARY</h1>
         <p class="text-left mb-4">For your reference, here is your complete guide to the DTI Competency Dictionary. If you
             wish to view the competency descriptions prior to beginning the assessment, you may scroll down and browse
@@ -44,16 +44,16 @@
 
         <div class="d-flex justify-content-between">
             <a href="{{ route('competency_assessment.about', ['employee' => $employee, 'session_type' => $session_type]) }}"
-                class="btn btn-lg mt-2 btn-outline-dark">Back</a>
+                class="btn btn-md mt-2 btn-outline-dark">Back</a>
 
             <form action="{{ route('competency_assessment.save.dictionary', ['employee' => $employee, 'session_type' => $session_type]) }}" method="post"
                 >
                 @csrf
                 @if ($competencyAssessmentExist)
                 <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"
-                    class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Next</a>
+                    class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Next</a>
                 @else
-                    <button type="submit" class="btn btn-lg mt-2 text-light" style="background-color:#1E4387;">Continue</button>
+                    <button type="submit" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Continue</button>
                 @endif
             </form>
         </div>
