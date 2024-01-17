@@ -56,7 +56,7 @@
                                     @elseif ($supervisedEmployee->assessment_status == 'continue')
                                         <span class="badge bg-warning text-dark p-2 w-100 text-uppercase text-center"
                                             style="border-radius: 10px;">Continue</span>
-                                    @elseif ($supervisedEmployee->assessment_status == 'complete')
+                                    @elseif ($supervisedEmployee->assessment_status == 'completed')
                                         <span class="badge bg-success text-dark p-2 w-100 text-uppercase text-center"
                                             style="border-radius: 10px;">Complete</span>
                                     @else
