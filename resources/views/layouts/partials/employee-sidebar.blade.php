@@ -169,9 +169,9 @@
         @endif
         @if ($isSupervisor)
             <li
-                class="{{ Request::routeIs('competency_assessment.employee_assessment', ['employee' => $employee->id, 'session_type' => 'employee_assessment']) ? 'active' : '' }}">
+                class="{{ Request::routeIs('competency_assessment.employee_assessment', ['employee' => $userLoggedIn->userable_id, 'session_type' => 'employee_assessment']) ? 'active' : '' }}">
                 <a class="rounded fw-bolder"
-                    href="{{ route('competency_assessment.employee_assessment', ['employee' => $employee->id, 'session_type' => 'employee_assessment']) }}"><i
+                    href="{{ route('competency_assessment.employee_assessment', ['employee' => $userLoggedIn->userable_id, 'session_type' => 'employee_assessment']) }}"><i
                         class="fa fa fa-user-tie" aria-hidden="true"></i> Employee
                     Assessments</a>
             </li>
