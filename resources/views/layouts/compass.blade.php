@@ -31,7 +31,6 @@
         </div>
     </header>
     @endif
-    @if(!request()->routeIs('competency_assessment.employee_assessment'))
     <div class="container-fluid">
         <ul class="compass-breadcrumb py-2 px-2 border-bottom">
         
@@ -94,12 +93,6 @@
         </ul>
         
     </div>
-      
-  
-     
-    
-    @endif
-    
 </div>
 @yield('compass-content')
 @endsection

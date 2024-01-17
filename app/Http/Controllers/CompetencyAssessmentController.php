@@ -36,6 +36,17 @@ class CompetencyAssessmentController extends Controller
         return true;
     }
 
+    private function checkEmployee($employee)
+    {
+        $user = Auth::user();
+
+        if ($user->userable->id != $employee) {
+            abort(403);
+        }
+
+        return true;
+    }
+
     private function checkCompetencyAssessment(Employee $employee, $id, $session_type)
     {
         $competencyAssessment = $employee->competencyAssessments
@@ -681,7 +692,7 @@ class CompetencyAssessmentController extends Controller
         if ($competencyAssessmentItemsScored) {
             $competencyAssessment->update([
                 'status' => 'completed',
-                'date_completed' => now() // Set current timestamp
+                'date_completed' => now() 
             ]);
 
             $otherSessionType = $session_type == 'self_assessment' ? 'employee_assessment' : 'self_assessment';
@@ -709,13 +720,27 @@ class CompetencyAssessmentController extends Controller
     }
 
 
-    public function employeeAssessment($session_type)
+    public function employeeAssessment($employee, $session_type, Request $request)
     {
+        
+        $this->checkEmployee($employee);
         $supervisorId = auth()->user()->userable_id;
         $supervisor = Employee::find($supervisorId);
         $employee = $supervisor;
-        $supervisedEmployees = $supervisor->supervisedEmployees()->get();
-
+        
+        $searchEmployee = $request->searchEmployee;
+        $query = $supervisor->supervisedEmployees();
+        
+        if($searchEmployee){
+            //$query = $query->where("firstname","like","%" . $searchEmployee . "%")->orWhere("lastname","like","%" . $searchEmployee . "%");
+            $query=$query->where(function($query) use ($searchEmployee){
+                $query->where("firstname","like","%" . $searchEmployee . "%")->orWhere("lastname","like","%" . $searchEmployee . "%");
+                
+            });
+        }
+        
+        $supervisedEmployees = $query->paginate(1);
+        
         foreach ($supervisedEmployees as $supervisedEmployee) {
             $selfAssessment = CompetencyAssessment::where('employee_id', $supervisedEmployee->id)
                 ->where('session_type', 'self_assessment')
