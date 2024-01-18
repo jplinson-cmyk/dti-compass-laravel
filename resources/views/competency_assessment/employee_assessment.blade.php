@@ -4,7 +4,7 @@
     <div class="container-xxl mt-2 p-5 bg-white rounded" >
         <div class="employee-assessment">
             <h1 class="mb-4 text-center">EMPLOYEE ASSESSMENT</h1>
-            <p class="mb-4">Listed below are the Employees that must be assessed by you as their Supervisor. To begin your assessment, click on the three dots found in the rightmost column of the table to open the expandable menu, and click ‘Assess.’ After completing the assessment, use the same menu to access and view the Employee’s Career Development Plan.</p>
+            <p class="mb-4 text-center">Listed below are the Employees that must be assessed by you as their Supervisor. To begin your assessment, click on the three dots found in the rightmost column of the table to open the expandable menu, and click ‘Assess.’ After completing the assessment, use the same menu to access and view the Employee’s Career Development Plan.</p>
             <div class="row mb-2">
                 <div class="col-md-8">
                 </div>
@@ -31,11 +31,11 @@
                 <table class="table table-striped shadow-lg bdr">
                     <thead style="background-color:#F1F3F9;">
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Employee ID</th>
+                            {{-- <th scope="col">#</th> --}}
+                            <th scope="col">Employee Number</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
-                            <th scope="col">Email</th>
+                            {{-- <th scope="col">Email</th> --}}
                             <th scope="col" class="text-center">Status</th>
                             <th scope="col">Date Submitted</th>
                             <th scope="col">Actions</th>
@@ -44,11 +44,11 @@
                     <tbody>
                         @forelse($supervisedEmployees as $supervisedEmployee)
                             <tr>
-                                <th scope="row">{{ $supervisedEmployee->id }}</th>
+                                {{-- <th scope="row">{{ $supervisedEmployee->id }}</th> --}}
                                 <td>{{ $supervisedEmployee->employee_id }}</td>
                                 <td>{{ $supervisedEmployee->firstname }}</td>
                                 <td>{{ $supervisedEmployee->lastname }}</td>
-                                <td>{{ $supervisedEmployee->email }}</td>
+                                {{-- <td>{{ $supervisedEmployee->email }}</td> --}}
                                 <td class="text-center">
                                     @if ($supervisedEmployee->assessment_status == 'for evaluation')
                                         <span class="badge bg-orange text-dark p-2 w-100 text-uppercase text-center"
@@ -88,13 +88,13 @@
                                                         href="{{ route('competency_assessment.summary', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">View
                                                         Summary of Rating</a></li>
                                                 <li><a class="dropdown-item"
-                                                        href="{{ route('competency_assessment.cdp', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">Career
+                                                        href="{{ route('competency_assessment.cdp', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">View Career
                                                         Development Plan</a></li>
                                             @else
                                                 <li><a class="dropdown-item" href="#">View Profile</a></li>
 
-                                                <li class="dropdown-item disabled">Summary of Rating (Unavailable)</li>
-                                                <li class="dropdown-item disabled">Career Development Plan (Unavailable)
+                                                <li class="dropdown-item disabled">View Summary of Rating (Unavailable)</li>
+                                                <li class="dropdown-item disabled">View Career Development Plan (Unavailable)
                                                 </li>
                                             @endif
                                         </ul>
