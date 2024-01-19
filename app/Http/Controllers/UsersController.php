@@ -76,6 +76,7 @@ class UsersController extends Controller
 
     public function sendPasswordLink($userId)
     {
+        dd("test");
         $user = User::find($userId);
        
         $status = Password::sendResetLink(

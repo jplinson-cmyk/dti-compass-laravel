@@ -21,6 +21,7 @@ class PasswordResetController extends Controller
             $request->only('email')
         );
 
+
         if ($request->ajax()) {
             return response()->json(['status' => 'success']);
         } else {

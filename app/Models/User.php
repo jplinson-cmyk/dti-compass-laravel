@@ -9,6 +9,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Notifications\ResetPasswordNotification;
 
 class User extends Authenticatable
 {
@@ -75,6 +76,12 @@ class User extends Authenticatable
         return $this->morphToMany(Employee::class, 'model', 'model_has_users', 'user_id', 'model_id');
     }
 
- 
+    public function sendPasswordResetNotification($token)
+    {
+        $url = route("password.reset", $token);
+     
+        $this->notify(new ResetPasswordNotification($url));
+    }
+
     
 }

@@ -25,6 +25,9 @@ class HomeController extends Controller
     }
     public function test(){
 
+
+        $url = route("password.reset","asdfasdgadsgasdgasghasdhadshash");
+        dd($url);
         $categories = CompetencyCategory::all();
 
         return view("home.test")->with("categories",$categories);
