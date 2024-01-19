@@ -2,17 +2,34 @@
 
 @section('compass-content')
     <div class="container-fluid mt-2 p-5 bg-white rounded">
+        @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+            <div class="container-fluid rounded p-4 mb-4 text-white" style="background-color: #1E4387;">
+                <h6>
+                    <strong>You are currently evaluating:</strong>
+                    <span>
+                        {{ $employee->firstname }} {{ $employee->lastname }}
+                    </span>
+                </h6>
+                <h6>
+                    <strong>Employee's Position:</strong>
+                    <span>
+                        {{ $employee->position->name }}
+                    </span>
+                    </strong>
+                </h6>
+            </div>
+        @endif
         <div class="text-center mb-5">
-            @if($competencyCategory->category_name == 'Core Competencies')
-                <h1 class="mb-3">Organizational / {{ str_replace('ies', 'y',$competencyCategory->category_name) }}</h1>
+            @if ($competencyCategory->category_name == 'Core Competencies')
+                <h1 class="mb-3">Organizational / {{ str_replace('ies', 'y', $competencyCategory->category_name) }}</h1>
             @else
-                <h1 class="mb-3">{{ str_replace('ies', 'y',$competencyCategory->category_name) }}</h1>
+                <h1 class="mb-3">{{ str_replace('ies', 'y', $competencyCategory->category_name) }}</h1>
             @endif
-            <p class="text-muted">Complete the form by clicking on the button to the left of your selected rating. All questions are required and must be answered.</p>
+            <p class="text-muted">Complete the form by clicking on the button to the left of your selected rating. All
+                questions are required and must be answered.</p>
 
             <div class="text-end">
-                <a id="ratingScaleInfo" class="btn text-light"  data-bs-toggle="modal"
-                    data-bs-target="#ratingScaleModal">
+                <a id="ratingScaleInfo" class="btn text-light" data-bs-toggle="modal" data-bs-target="#ratingScaleModal">
                     <i class="fas fa-info-circle"></i> Rating Scale
                 </a>
             </div>
@@ -35,9 +52,9 @@
             <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
                 4-Always
             </span>
-            @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+            @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
                 <span class="rating-label mx-2">
-                     Self-Assessment Score
+                    Self-Assessment Score
                 </span>
             @endif
         </div>
@@ -59,9 +76,8 @@
                     $displayedLevels = [];
                 @endphp
                 <div class="card mb-4">
-                    <div class="card-header text-center" >
-                        <h3 class="card-title"
-                            id="competency-{{ $items->first()->behavioralIndicator->competency->id }}">
+                    <div class="card-header text-center">
+                        <h3 class="card-title" id="competency-{{ $items->first()->behavioralIndicator->competency->id }}">
                             {{ $items->first()->behavioralIndicator->competency->name }}</h3>
                     </div>
                     <div class="card-body">
@@ -73,10 +89,11 @@
                             @if (!in_array($currentLevel, $displayedLevels))
                                 <div class="row">
                                     <div class="col">
-                                        @if($currentLevel!=1)
-                                        <hr style="border-top: 4px solid #1E4387;">
+                                        @if ($currentLevel != 1)
+                                            <hr style="border-top: 4px solid #1E4387;">
                                         @endif
-                                        <h4>{{ $items->first()->behavioralIndicator->competency->name }} ({{ $levelMapping[$currentLevel] ?? 'Unknown Level' }})</h4>
+                                        <h4>{{ $items->first()->behavioralIndicator->competency->name }}
+                                            ({{ $levelMapping[$currentLevel] ?? 'Unknown Level' }})</h4>
                                     </div>
                                 </div>
                                 @php
@@ -91,14 +108,13 @@
                                     <div class="row">
                                         @for ($i = 0; $i < 5; $i++)
                                             <div class="col">
-                                                <div class="form-check fw-bold">{{$i}}
+                                                <div class="form-check fw-bold">{{ $i }}
                                                     <input class="form-check-input" type="radio"
                                                         name="rating[{{ $item->behavioralIndicator->id }}]"
                                                         id="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}"
                                                         value="{{ $i }}"
                                                         {{ isset($item->score) && $item->score == $i ? 'checked' : '' }}
-                                                        {{$competencyAssessmentCompleted ? 'disabled' : ''}}
-                                                        required>
+                                                        {{ $competencyAssessmentCompleted ? 'disabled' : '' }} required>
                                                     <label class="form-check-label d-block d-lg-none"
                                                         for="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}">
                                                         {{ ['Never', 'Rarely', 'Sometimes', 'Frequently', 'Always'][$i] }}
@@ -108,10 +124,10 @@
                                                 </div>
                                             </div>
                                         @endfor
-                                        @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-                                        <div class="col">
-                                            <span>{{ $item->selfAssessmentScore }}</span>
-                                        </div>
+                                        @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+                                            <div class="col">
+                                                <span>{{ $item->selfAssessmentScore }}</span>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -129,11 +145,13 @@
                 </div>
                 <div class="col text-end">
                     @if ($competencyAssessmentCompleted)
-                    <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
-                        class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Next</a>
+                        <a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
+                            class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Next</a>
                     @else
-                        <button type="submit" name="action" value="save" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Save</button>
-                        <button type="submit" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Submit & Continue</button>
+                        <button type="submit" name="action" value="save" class="btn btn-md mt-2 text-light"
+                            style="background-color:#1E4387;">Save</button>
+                        <button type="submit" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Submit &
+                            Continue</button>
                     @endif
                 </div>
             </div>
@@ -148,7 +166,7 @@
             style="position: fixed; bottom: 50px; right: 20px; z-index: 2000;">
             <i class="fa fa-arrow-down"></i>
         </button>
-   
+
         <div class="modal fade " id="ratingScaleModal" tabindex="-1" aria-labelledby="ratingScaleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg">

@@ -2,6 +2,23 @@
 
 @section('compass-content')
     <div class="container-fluid mt-2 p-5 bg-white rounded">
+        @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+            <div class="container-fluid rounded p-4 mb-4 text-white" style="background-color: #1E4387;">
+                <h6>
+                    <strong>You are currently evaluating:</strong>
+                    <span>
+                        {{ $employee->firstname }} {{ $employee->lastname }}
+                    </span>
+                </h6>
+                <h6>
+                    <strong>Employee's Position:</strong>
+                    <span>
+                        {{ $employee->position->name }}
+                    </span>
+                    </strong>
+                </h6>
+            </div>
+        @endif
         <h1 class="text-center mb-4">CAREER DEVELOPMENT PLAN</h1>
         <p class="text-center mb-4">
             The Career Development Plan is a tool to assist you to identify and develop your competencies toward achieving
@@ -820,7 +837,8 @@
 
         <div class="mb-5">
             <p class="text-center fw-bold">You've reached the end of the Career Development Plan.</p>
-            <p class="text-center fw-bold">    It is important to note that once you click on the 'Submit & Continue' button, both Employee (or owner of
+            <p class="text-center fw-bold"> It is important to note that once you click on the 'Submit & Continue' button,
+                both Employee (or owner of
                 this CDP) and Supervisor will be able to view all the contents of and changes made on this CDP.</p>
         </div>
 

@@ -2,6 +2,23 @@
 
 @section('compass-content')
     <div class="container-fluid mt-2 p-5 bg-white rounded ">
+        @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+            <div class="container-fluid rounded p-4 mb-4 text-white" style="background-color: #1E4387;">
+                <h6>
+                    <strong>You are currently evaluating:</strong>
+                    <span>
+                        {{ $employee->firstname }} {{ $employee->lastname }}
+                    </span>
+                </h6>
+                <h6>
+                    <strong>Employee's Position:</strong>
+                    <span>
+                        {{ $employee->position->name }}
+                    </span>
+                    </strong>
+                </h6>
+            </div>
+        @endif
         <h1 class="text-center">SUMMARY OF RATING</h1>
         <div class="text-end mb-4">
             <button type="button" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Export As PDF</button>
@@ -67,13 +84,14 @@
                                                     <td class="fw-bolder no-striping" rowspan="{{ $rowSpanCount }}">
                                                         {{ number_format($competency['levels'][$indicator['level']]['average_rating'], 2) }}
                                                     </td>
-                                                    <td class="fw-bolder" rowspan="{{ $rowSpanCount }}">{{ $competency['mastery_level'] }}</td>
+                                                    <td class="fw-bolder" rowspan="{{ $rowSpanCount }}">
+                                                        {{ $competency['mastery_level'] }}</td>
                                                 @endif
-                                               
+
                                                 @if ($key === 0)
-                                                <td class="fw-bolder no-striping" rowspan="{{ $competencyRowCount }}" >
-                                                    {{ number_format($overallAverageRating, 2) }}
-                                                </td>
+                                                    <td class="fw-bolder no-striping" rowspan="{{ $competencyRowCount }}">
+                                                        {{ number_format($overallAverageRating, 2) }}
+                                                    </td>
                                                     <td class="fw-bolder no-striping" rowspan="{{ $competencyRowCount }}">
                                                         {{ $overallMasteryLevel }}
                                                     </td>
