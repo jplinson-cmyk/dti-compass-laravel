@@ -18,7 +18,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
      * Home Routes
      */
   
-    Route::get('/test', 'HomeController@test')->name('home.test');
 
     Route::group(['middleware' => ['guest']], function () {
         /**
@@ -63,7 +62,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::post('/{userId}/send-password-link', 'UsersController@sendPasswordLink')->name('users.send_password_link');
         });
 
-        Route::group(['prefix' => 'profile'], function () {
+        Route::group(['prefix' => '/{user}/profile'], function () {
             Route::get('/', 'ProfileController@index')->name('profile.index');
         });
 
@@ -75,10 +74,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
             Route::get('/', 'EmployeesController@index')->name('employees.index');
             Route::get('/create', 'EmployeesController@create')->name('employees.create');
             Route::post('/create', 'EmployeesController@store')->name('employees.store');
+            Route::post('/bulk-reset', 'EmployeesController@sendBulkResetLinks')->name('employees.bulk-reset');
+
             Route::get('/{employee}/show', 'EmployeesController@show')->name('employees.show');
             Route::get('/{employee}/edit', 'EmployeesController@edit')->name('employees.edit');
             Route::patch('/{employee}/update', 'EmployeesController@update')->name('employees.update');
-            Route::delete('/{employee}/delete', 'EmployeesController@destroy')->name('employees.destroy');
+            Route::get('/{employee}/delete', 'EmployeesController@destroy')->name('employees.destroy');
 
             Route::get('/{employee}/tags/create', 'EmployeesSupervisorsController@showTagForm')->name('employees_supervisors.tags.create');
             Route::post('/{employee}/tags', 'EmployeesSupervisorsController@storeTag')->name('employees_supervisors.tags.store');
@@ -168,35 +169,46 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::resource('permissions', PermissionsController::class);
 
 
-
-
         //Employee Competency Assessment Routes
-
+        
         /**
          * Competency Assessment Routes
          */
 
-         Route::group(['prefix' => 'competency-assessment'], function () {
-            Route::get('/{employee}/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
-            Route::get('/{employee}/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
-            Route::get('/{employee}/rating_scale', 'CompetencyAssessmentController@ratingScale')->name('competency_assessment.rating_scale');
-            Route::get('/{employee}/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
-            Route::get('/{employee}/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
-            Route::get('/{employee}/core_competency', 'CompetencyAssessmentController@coreCompetencies')->name('competency_assessment.core_competency');
-            Route::get('/{employee}/technical_competency', 'CompetencyAssessmentController@technicalCompetencies')->name('competency_assessment.technical_competency');
-            Route::get('/{employee}/leadership_competency', 'CompetencyAssessmentController@leadershipCompetencies')->name('competency_assessment.leadership_competency');
-            Route::get('/{employee}/summary', 'CompetencyAssessmentController@summary')->name('competency_assessment.summary');
-        
-            Route::post('/{employee}/about/save', 'CompetencyAssessmentController@storeAboutAssessment')->name('competency_assessment.save.about');
-            Route::post('/{employee}/dictionary/save', 'CompetencyAssessmentController@storeDictionary')->name('competency_assessment.save.dictionary');
-            Route::post('/{employee}/rating_scale/save', 'CompetencyAssessmentController@storeRatingScale')->name('competency_assessment.save.rating_scale');
-            Route::post('/{employee}/employee_profile/save', 'CompetencyAssessmentController@storeEmployeeDetails')->name('competency_assessment.save.employee_profile');
-            Route::post('/{employee}/instructions/save', 'CompetencyAssessmentController@storeInstructions')->name('competency_assessment.save.instructions');
-            Route::post('/{employee}/core_competency/save', 'CompetencyAssessmentController@storeCoreCompetency')->name('competency_assessment.save.core_competency');
-            Route::post('/{employee}/technical_competency/save', 'CompetencyAssessmentController@storeTechnicalCompetency')->name('competency_assessment.save.technical_competency');
-            Route::post('/{employee}/leadership_competency/save', 'CompetencyAssessmentController@storeLeadershipCompetency')->name('competency_assessment.save.leadership_competency');
-            Route::post('/{employee}/summary/save', 'CompetencyAssessmentController@storeSummary')->name('competency_assessment.save.summary');
+        Route::group(["prefix" => "employees/{employee}"], function(){
+            Route::group(['prefix' => 'competency_assessments'], function () {
+                Route::get('{session_type}/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
+                Route::get('{session_type}/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
+                Route::get('{session_type}/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
+                Route::get('{session_type}/{id}/rating_scale', 'CompetencyAssessmentController@ratingScale')->name('competency_assessment.rating_scale');
+                Route::get('{session_type}/{id}/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
+                Route::get('{session_type}/{id}/categories/{categoryId}', 'CompetencyAssessmentController@getAssessmentForm')->name('competency_assessment.form');
+                Route::get('{session_type}/{id}/cdp', 'CompetencyAssessmentController@cdp')->name('competency_assessment.cdp');
+                Route::get('{session_type}/{id}/summary', 'CompetencyAssessmentController@summary')->name('competency_assessment.summary');
+                Route::get('{session_type}/{id}/closing', 'CompetencyAssessmentController@closing')->name('competency_assessment.closing');
+
+                
+                Route::post('{session_type}/about', 'CompetencyAssessmentController@storeAboutAssessment')->name('competency_assessment.save.about');
+                Route::post('{session_type}/dictionary', 'CompetencyAssessmentController@storeDictionary')->name('competency_assessment.save.dictionary');
+                Route::post('{session_type}/rating_scale', 'CompetencyAssessmentController@storeRatingScale')->name('competency_assessment.save.rating_scale');
+                Route::post('{session_type}/employee_profile', 'CompetencyAssessmentController@storeEmployeeDetails')->name('competency_assessment.save.employee_profile');
+                Route::post('{session_type}/instructions', 'CompetencyAssessmentController@storeInstructions')->name('competency_assessment.save.instructions');
+                Route::post('{session_type}/{id}/categories/{categoryId}', 'CompetencyAssessmentController@storeAssessmentForm')->name('competency_assessment.save.form');
+                Route::post('{session_type}/summary', 'CompetencyAssessmentController@storeSummary')->name('competency_assessment.save.summary');
+            
+            
+                Route::get('{session_type}/dashboard', 'CompetencyAssessmentController@employeeAssessment')->name('competency_assessment.employee_assessment');
+
+            
+            });  
+
+          
+       
+
         });
+
+
+
         /**
          * Divisions Routes
         */

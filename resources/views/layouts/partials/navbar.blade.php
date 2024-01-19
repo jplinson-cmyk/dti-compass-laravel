@@ -60,26 +60,8 @@
                                 Competency Assessment
                             </a>
                             <ul class="dropdown-menu">
-                                @if (isset($employee))
-                                    <li><a href="{{ route('competency_assessment.about', ['employee' => $employee]) }}"
-                                            class="dropdown-item">About</a></li>
-                                    <li><a href="{{ route('competency_assessment.dictionary', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Competency Dictionary</a></li>
-                                    <li><a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Employee Profile</a></li>
-                                    <li><a href="{{ route('competency_assessment.instructions', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Instructions</a></li>
-                                    <li><a href="{{ route('competency_assessment.core_competency', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Core Competency</a></li>
-                                    <li><a href="{{ route('competency_assessment.technical_competency', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Technical Competency</a></li>
-                                    <li><a href="{{ route('competency_assessment.leadership_competency', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Leadership Competency</a></li>
-                                    <li><a href="{{ route('competency_assessment.summary', ['employee' => $employee]) }}"
-                                            class="dropdown-item">Summary of Rating</a></li>
-                                @else
-                                    <li><a href="#" class="dropdown-item disabled">Please enter the employee id in the url "competency-assessment/employeeid/about"</a></li>
-                                @endif
+                                  
+                                  
                             </ul>
                         </li>
                     @endrole
@@ -89,7 +71,7 @@
             @auth
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="{{ route('profile.index') }}" class="nav-link text-white">{{ auth()->user()->firstname }}
+                        <a href="{{ route('profile.index', ['user' => auth()->user()->id]) }}" class="nav-link text-white">{{ auth()->user()->firstname }}
                             {{ auth()->user()->lastname }}</a>
                     </li>
                     <li class="nav-item">

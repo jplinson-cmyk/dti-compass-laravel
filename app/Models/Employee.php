@@ -83,4 +83,9 @@ class Employee extends Model
         return $this->competencyAssessments->where('status', 'in_progress')->first();
     }
 
+    public function getLastCompetencyAssessmentAttribute()
+    {
+        return $this->competencyAssessments->sortByDesc('id')->first();
+    }
+
 }

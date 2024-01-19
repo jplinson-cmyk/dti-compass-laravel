@@ -4,11 +4,11 @@
     <h1 class="mb-3">DTI COMPASS</h1>
 
     <div class="bg-light p-4 rounded">
-        <h1>Employees Tagged</h1>
+        <h1>Employees Assigned</h1>
         <div class="lead">
-            View employees who are tagged.
+            View employees who are assigned.
             <a href="{{ route('employees_supervisors.tags.create', ['employee' => $employee->id]) }}"
-                class="btn btn-primary btn-sm float-right">Tag new employee</a>
+                class="btn btn-primary btn-sm float-right">Assign new employee</a>
         </div>
 
         <div class="mt-2">
