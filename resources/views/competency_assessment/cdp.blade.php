@@ -106,7 +106,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <textarea class="form-control" rows="3" placeholder="Ex. Adaptability"></textarea>
+                            <textarea class="form-control" rows="3" placeholder="Example. Adaptability"></textarea>
                         </td>
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Ex. Managing events"></textarea>

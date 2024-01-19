@@ -27,10 +27,14 @@
       }
 
       .float-right {
-        float: right;
+        float: right; 
       }
+
     </style>
 
+    <style id="antiClickjack">
+        body{display:none !important;}
+    </style>
 
     <!-- Custom styles for this template -->
     <link href="{!! url('assets/css/app.css') !!}" rel="stylesheet">
@@ -45,6 +49,15 @@
     <main class="container mt-5">
         @yield('content')
     </main>
+
+    <script type="text/javascript"> 
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>

@@ -21,9 +21,15 @@ class PasswordResetController extends Controller
             $request->only('email')
         );
 
-        return $status === Password::RESET_LINK_SENT
-            ? redirect()->route('login.show')->with('status', __($status))
-            : back()->withErrors(['email' => __($status)]);
+
+        if ($request->ajax()) {
+            return response()->json(['status' => 'success']);
+        } else {
+            return $status === Password::RESET_LINK_SENT
+                ? back()->with(['status' => __($status)])
+                : back()->withErrors(['email' => __($status)]);
+        }
+
     }
 
 
