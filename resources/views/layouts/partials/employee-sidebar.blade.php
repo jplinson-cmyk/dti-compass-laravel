@@ -82,15 +82,15 @@
                         </li>
                         <li class="list-unstyled">
                             <a class="rounded text-secondary fw-bold" href="#"><i class="fas fa-circle"></i> Core
-                                Competencies</a>
+                                Competency</a>
                         </li>
                         <li class="list-unstyled">
                             <a class="rounded text-secondary fw-bold" href="#"><i class="fas fa-circle"></i>
-                                Technical Competencies</a>
+                                Technical Competency</a>
                         </li>
                         <li class="list-unstyled">
                             <a class="rounded text-secondary fw-bold" href="#"><i class="fas fa-circle"></i>
-                                Leadership Competencies</a>
+                                Leadership Competency</a>
                         </li>
                     @endif
                     @php

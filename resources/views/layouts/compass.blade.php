@@ -47,9 +47,9 @@
                 @else
                 <li><a class="text-secondary" href="#">COMPASS Rating Scale</a></li>
                 <li><a class="text-secondary" href="#">My Checklist</a></li>
-                <li><a class="text-secondary" href="#">Core Competencies</a></li>
-                <li><a class="text-secondary" href="#">Technical Competencies</a></li>
-                <li><a class="text-secondary" href="#">Leadership Competencies</a></li>
+                <li><a class="text-secondary" href="#">Core Competency</a></li>
+                <li><a class="text-secondary" href="#">Technical Competency</a></li>
+                <li><a class="text-secondary" href="#">Leadership Competency</a></li>
                 @endif
             @php
                 

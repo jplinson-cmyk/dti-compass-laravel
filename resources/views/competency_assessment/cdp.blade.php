@@ -13,14 +13,14 @@
                 <div class="card bg-white shadow-md">
                     <div class="card-body">
                         <p class="card-title fw-bolder ">Employee Name: <span
-                                class="text-uppercase">{{ $employee->lastname }}, {{ $employee->firstname }}</span></p>
+                                class="text-uppercase employee-name">{{ $employee->lastname }}, {{ $employee->firstname }}</span></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="mb-4">
-            <h6 class="fw-bold">1. Define your personal interests, values, and career goals for your future career goals.
+        <div class="mb-4 row-space">
+            <h6 class="fw-bold mb-4">1. Define your personal interests, values, and career goals for your future career goals.
             </h6>
             <table class="table table-bordered table-hover shadow-lg bdr">
                 <thead style="background-color:#F1F3F9;">
@@ -64,8 +64,8 @@
 
         </div>
 
-        <div class="mb-4">
-            <h6 class="fw-bold">2. List your key competency strengths and key development gaps.</h6>
+        <div class="mb-4 row-space">
+            <h6 class="fw-bold mb-4">2. List your key competency strengths and key development gaps.</h6>
             <table class="table table-bordered table-hover shadow-lg bdr">
                 <thead style="background-color:#F1F3F9;">
                     <tr>
@@ -101,7 +101,7 @@
             </table>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-5 mt-5">
             <h1 class="text-center">PLANNING FOR DEVELOPMENT</h1>
         </div>
         <div class="mb-4">
@@ -134,50 +134,62 @@
 
         <div class="mb-4">
             <div class="row">
-                <div class="col col-sm-12 col-md-6">
+                <div class="col col-sm-12 col-md-6 row-spacing">
                     <h6 class="fw-bold">4. Identify your Role Aspiration.<span><button class="btn btn-default btn-sm"><i
-                                    class="fa fa-edit"></i></button></span></h6>
-                    <div class="mb-4">
-                        <h6 class="fw-bold">Short Term (1-2 Years)</h6>
-                        <select class="form-select">
-                            <option selected>Select Position</option>
+                    class="fa fa-edit"></i></button></span></h6>
+                        <div class="row mb-4">
+                            <h6 class="fw-bold">Short Term (1-2 Years)</h6>
+                            <div class="col-6">
+                                <select class="form-select">
+                                    <option selected>Select Position</option>
+        
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select">
+                                    <option selected>Select Bureau/Office</option>
+        
+                                </select>
+                            </div>
+                        </div>
 
-                        </select>
-                        <select class="form-select mt-2">
-                            <option selected>Select Bureau/Office</option>
-
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
+                    <div class="mb-4 mt-4">
                         <h6 class="fw-bold">Medium Term (3-5 Years)</h6>
-
-                        <select class="form-select">
-                            <option selected>Select Position</option>
-
-                        </select>
-                        <select class="form-select mt-2">
-                            <option selected>Select Bureau/Office</option>
-
-                        </select>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <select class="form-select">
+                                    <option selected>Select Position</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select">
+                                    <option selected>Select Bureau/Office</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-4 mt-3">
                         <h6 class="fw-bold">Long Term (6-10 Years)</h6>
 
-                        <select class="form-select">
-                            <option selected>Select Position</option>
-
-                        </select>
-                        <select class="form-select mt-2">
-                            <option selected>Select Bureau/Office</option>
-
-                        </select>
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <select class="form-select">
+                                    <option selected>Select Position</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select class="form-select">
+                                    <option selected>Select Bureau/Office</option>
+        
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col col-sm-12 col-md-6">
+                <div class="col col-sm-12 col-md-6 row-spacing-1">
                     <div class="mb-4">
-                        <h6 class="fw-bold">5. Provide your mobility preferences and constraints to be considered for any
+                        <h6 class="fw-bold mb-4     ">5. Provide your mobility preferences and constraints to be considered for any
                             future career opportunities</h6>
                         <label for="mobilityPreferences" class="form-label">Mobility Preferences</label>
                         <table class="table table-bordered table-hover shadow-lg bdr">
@@ -200,7 +212,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <label for="mobilityConstraints" class="form-label mt-2">Mobility Constraints</label>
+                        <label for="mobilityConstraints" class="form-label mt-2 mb-4">Mobility Constraints</label>
                         <table class="table table-bordered table-hover shadow-lg bdr">
                             <thead style="background-color:#F1F3F9;">
                                 <tr>
@@ -228,7 +240,7 @@
 
         </div>
 
-        <div class="mb-4">
+        <div class="mb-4 row-space">
             <h6 class="fw-bold">6. List your specific development activities to address your career development focus.</h6>
             <p class="mt-3">
                 Consider on-the-job development activities that allow you to learn through others, workshops, as well as
@@ -279,14 +291,21 @@
         <div class="mb-4">
 
             <h6 class="fw-bold">Example:</h6>
-            <h6 class="fw-bold">Short Term (1-2 Years)</h6>
+            <h6 class="fw-bold mt-4 mb-4">Short Term (1-2 Years)</h6>
 
-            <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
-            <select class="form-select" id="competencyDevelopmentGoal" disabled>
-                <option selected>Public Speaking</option>
-
-            </select>
-            <table class="table mt-3 table-striped shadow-lg bdr">
+            <div class="d-flex flex-row align-items-center ">
+                <div class="col-3">
+                    <label for="competencyDevelopmentGoal" class="form-label fw-bold">Competency Development Need/Goal:</label>
+                </div>
+                <div class="col-3">
+                    <select class="form-select" id="competencyDevelopmentGoal" disabled>
+                        <option selected>Public Speaking</option>
+                    </select>
+                </div>
+            </div>
+            
+           
+            <table class="table mt-3 table-striped shadow-lg bdr mt-4">
                 <thead style="background-color:#F1F3F9;">
                     <tr>
                         <th></th>
@@ -335,15 +354,20 @@
             </table>
         </div>
 
-        <div class="mb-4">
+        <div class="mb-4 row-space">
 
-            <h6 class="fw-bold">Short Term (1-2 Years)</h6>
+            <h6 class="fw-bold mt-4 mb-4">Short Term (1-2 Years)</h6>
 
-            <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
-            <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Select</option>
-
-            </select>
+            <div class="d-flex flex-row align-items-center ">
+                <div class="col-3">
+                    <label for="competencyDevelopmentGoal" class="form-label fw-bold">Competency Development Need/Goal:</label>
+                </div>
+                <div class="col-3">
+                    <select class="form-select" id="competencyDevelopmentGoal" disabled>
+                        <option selected>Public Speaking</option>
+                    </select>
+                </div>
+            </div>  
 
             <table class="table mt-3 table-striped shadow-lg bdr">
                 <thead style="background-color:#F1F3F9;">
@@ -419,15 +443,20 @@
             </table>
         </div>
 
-        <div class="mb-4">
+        <div class="mt-5 mb-4">
 
-            <h6 class="fw-bold">Short Term (1-2 Years)</h6>
+            <h6 class="fw-bold mt-4 mb-4">Short Term (1-2 Years)</h6>
 
-            <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
-            <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Select</option>
-
-            </select>
+            <div class="d-flex flex-row align-items-center ">
+                <div class="col-3">
+                    <label for="competencyDevelopmentGoal" class="form-label fw-bold">Competency Development Need/Goal:</label>
+                </div>
+                <div class="col-3">
+                    <select class="form-select" id="competencyDevelopmentGoal" disabled>
+                        <option selected>Public Speaking</option>
+                    </select>
+                </div>
+            </div>
 
             <table class="table mt-3 table-striped shadow-lg bdr">
                 <thead style="background-color:#F1F3F9;">
@@ -499,94 +528,22 @@
         </div>
 
         <div class="mb-4">
+            <h6 class="fw-bold mt-5 mb-4">Medium Term (3-5 Years)</h6>
 
-            <h6 class="fw-bold">Medium Term (3-5 Years)</h6>
+            <div class="d-flex flex-row align-items-center ">
+                <div class="col-3">
+                    <label for="competencyDevelopmentGoal" class="form-label fw-bold">Competency Development Need/Goal:</label>
+                </div>
+                <div class="col-3">
+                    <select class="form-select" id="competencyDevelopmentGoal">
+                        <option selected>Select</option>
+        
+                    </select>
+                </div>
+            </div>
 
-            <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
-            <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Select</option>
 
-            </select>
-
-            <table class="table mt-3 table-striped shadow-lg bdr">
-                <thead style="background-color:#F1F3F9;">
-                    <tr>
-                        <th></th>
-                        <th>Development Actions</th>
-                        <th>Measures / Target Dates</th>
-                        <th>By whom</th>
-                        <th>Status</th>
-                        <th>Supervisor Notes</th>
-                        <th>Action</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Experience on-the-job (70%)</td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td><span class="badge bg-orange text-dark p-2">On Going</span></td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>Exposure to others (20%)</td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td><span class="badge bg-orange text-dark p-2">On Going</span></td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
-                    </tr>
-                    <tr>
-                        <td>Education and Formal Training (10%)</td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td><span class="badge bg-orange text-dark p-2">On Going</span></td>
-                        <td>
-                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
-                        </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </div>
-
-        <div class="mb-4">
-
-            <h6 class="fw-bold">Medium Term (3-5 Years)</h6>
-
-            <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
-            <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Select</option>
-
-            </select>
+            
 
             <table class="table mt-3 table-striped shadow-lg bdr">
                 <thead style="background-color:#F1F3F9;">
@@ -660,13 +617,105 @@
 
         <div class="mb-4">
 
-            <h6 class="fw-bold">Long Term (6-10 Years)</h6>
+            <h6 class="fw-bold mt-5 mb-4">Medium Term (3-5 Years)</h6>
 
-            <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
-            <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Select</option>
+            <div class="d-flex flex-row align-items-center ">
+                <div class="col-3">
+                    <label for="competencyDevelopmentGoal" class="form-label fw-bold">Competency Development Need/Goal:</label>
+                </div>
+                <div class="col-3">
+                    <select class="form-select" id="competencyDevelopmentGoal">
+                        <option selected>Select</option>
+        
+                    </select>
+                </div>
+            </div>
 
-            </select>
+            <table class="table mt-3 table-striped shadow-lg bdr">
+                <thead style="background-color:#F1F3F9;">
+                    <tr>
+                        <th></th>
+                        <th>Development Actions</th>
+                        <th>Measures / Target Dates</th>
+                        <th>By whom</th>
+                        <th>Status</th>
+                        <th>Supervisor Notes</th>
+                        <th>Action</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Experience on-the-job (70%)</td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td><span class="badge bg-orange text-dark p-2">On Going</span></td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>Exposure to others (20%)</td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td><span class="badge bg-orange text-dark p-2">On Going</span></td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>Education and Formal Training (10%)</td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td><span class="badge bg-orange text-dark p-2">On Going</span></td>
+                        <td>
+                            <textarea class="form-control" rows="3" placeholder="Text"></textarea>
+                        </td>
+                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mb-4">
+
+            <h6 class="fw-bold  mt-5 mb-4">Long Term (6-10 Years)</h6>
+
+            <div class="d-flex flex-row align-items-center ">
+                <div class="col-3">
+                    <label for="competencyDevelopmentGoal" class="form-label fw-bold">Competency Development Need/Goal:</label>
+                </div>
+                <div class="col-3">
+                    <select class="form-select" id="competencyDevelopmentGoal">
+                        <option selected>Select</option>
+        
+                    </select>
+                </div>
+            </div>
 
             <table class="table mt-3 table-striped shadow-lg bdr">
                 <thead style="background-color:#F1F3F9;">
@@ -739,14 +788,22 @@
         </div>
 
         <div class="mb-5">
+            <h6 class="fw-bold  mt-5 mb-4">Long Term (6-10 Years)</h6>
 
-            <h6 class="fw-bold">Long Term (6-10 Years)</h6>
+            <div class="d-flex flex-row align-items-center ">
+                <div class="col-3">
+                    <label for="competencyDevelopmentGoal" class="form-label fw-bold">Competency Development Need/Goal:</label>
+                </div>
+                <div class="col-3">
+                    <select class="form-select" id="competencyDevelopmentGoal">
+                        <option selected>Select</option>
+        
+                    </select>
+                </div>
+            </div>
+            
 
-            <label for="competencyDevelopmentGoal" class="form-label">Competency Development Need/Goal:</label>
-            <select class="form-select" id="competencyDevelopmentGoal">
-                <option selected>Select</option>
-
-            </select>
+            
 
             <table class="table mt-3 table-striped shadow-lg bdr">
                 <thead style="background-color:#F1F3F9;">
@@ -819,8 +876,8 @@
         </div>
 
         <div class="mb-5">
-            <p class="text-center fw-bold">You've reached the end of the Career Development Plan.</p>
-            <p class="text-center fw-bold">    It is important to note that once you click on the 'Submit & Continue' button, both Employee (or owner of
+            <p class="text-center ">You've reached the end of the Career Development Plan.</p>
+            <p class="text-center ">    It is important to note that once you click on the <strong>'Submit & Continue'</strong> button, both Employee (or owner of
                 this CDP) and Supervisor will be able to view all the contents of and changes made on this CDP.</p>
         </div>
 
@@ -832,7 +889,7 @@
                 <a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
                     class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Save</a>
                 <a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
-                    class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Submit and Continue</a>
+                    class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Submit & Continue</a>
             </div>
 
         </div>
