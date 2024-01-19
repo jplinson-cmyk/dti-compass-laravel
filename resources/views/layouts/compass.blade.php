@@ -1,36 +1,14 @@
 @extends('layouts.employee')
 @section("content")
 
-<div class="mt-4 mb-3">
+<div class="mt-2 mb-2">
     @php 
         $currentRouteName = Request::route()->getName();
         $currentCompetencyAssessment = $employee->competencyAssessments->where('session_type', $session_type)->first();
         $user = auth()->user();
         
     @endphp
-    @if($user->hasRole('supervisor') && $session_type == 'employee_assessment')  
-    <header>
-        <div class="row">
-            <div class="col-md-6">
-                <h6>
-                    <strong>Employee Name:</strong> 
-                    <p>
-                        {{$employee->firstname}} {{$employee->lastname}}
-                    </p> 
-                </h6>
-            </div>
-            <div class="col-md-6">
-                <h6>
-                    <strong> Email: </strong> 
-                    <p>
-                        {{$employee->email}} 
-                    </p> 
-                </h6>
-
-            </div>
-        </div>
-    </header>
-    @endif
+   
     <div class="container-fluid">
         <ul class="compass-breadcrumb py-2 px-2 border-bottom">
         

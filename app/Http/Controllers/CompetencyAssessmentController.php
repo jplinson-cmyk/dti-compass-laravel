@@ -212,7 +212,8 @@ class CompetencyAssessmentController extends Controller
             ->where('employee_id', $employee->id)
             ->where('session_type', $session_type)
             ->first();
-
+        
+       
         $competencyCategories = CompetencyCategory::all();
 
         $competencyAssessmentItemsExist = $this->checkIfCompetencyAssessmentItemExists($employee, $session_type);

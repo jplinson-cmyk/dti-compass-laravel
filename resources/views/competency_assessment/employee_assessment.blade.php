@@ -28,7 +28,7 @@
           
             </div>
             <div class="table-responsive">
-                <table class="table table-striped shadow-lg bdr">
+                <table class="table table-striped bdr">
                     <thead style="background-color:#F1F3F9;">
                         <tr>
                             {{-- <th scope="col">#</th> --}}

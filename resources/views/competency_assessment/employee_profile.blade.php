@@ -2,11 +2,29 @@
 
 @section('compass-content')
     <div class="container-fluid mt-2 p-5 bg-white rounded">
+        @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+            <div class="container-fluid rounded p-4 mb-4 text-white" style="background-color: #1E4387;">
+                <h6>
+                    <strong>You are currently evaluating:</strong>
+                    <span>
+                        {{ $employee->firstname }} {{ $employee->lastname }}
+                    </span>
+                </h6>
+                <h6>
+                    <strong>Employee's Position:</strong>
+                    <span>
+                        {{ $employee->position->name }}
+                    </span>
+                    </strong>
+                </h6>
+            </div>
+        @endif
         <h1 class="text-center mb-3">EMPLOYEE PROFILE</h1>
         <p class="text-center mb-4">Please provide all the required information below to complete the assessment profile.
         </p>
 
-        <form method="post" action="{{ route('competency_assessment.save.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"
+        <form method="post"
+            action="{{ route('competency_assessment.save.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"
             class="card p-4">
             @csrf
 
@@ -40,7 +58,35 @@
                         name="employee_lastname" disabled>
                 </div>
             </div>
-
+            @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="employment_status" class="form-label">Employment Status</label>
+                    <select class="form-control form-select" id="employment_status" name="employment_status" disabled>
+                        <option value="">Select Employment Status</option>
+                        @foreach ($employmentStatuses as $status)
+                            <option value="{{ $status->id }}"
+                                {{ $status->id == $employee->employment_status_id ? 'selected' : '' }}>
+                                {{ $status->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="job_level" class="form-label">Job Level</label>
+                    <select class="form-control form-select" id="job_level" name="job_level" disabled>
+                        @foreach ($jobLevels as $level)
+                            <option value="{{ $level->id }}"
+                                {{ $level->id == $employee->job_level_id ? 'selected' : '' }}>
+                                {{ $level->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            @else
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label for="employment_status" class="form-label">Employment Status</label>
@@ -66,9 +112,12 @@
                             </option>
                         @endforeach
                     </select>
-                </div>             
+                </div>
             </div>
-       
+
+            @endif
+            
+
             <div class="form-group">
                 <label for="functional_group">Functional Group</label>
                 <select class="form-control form-select" id="functional_group" name="functional_group" disabled>
@@ -126,7 +175,16 @@
                         value="{{ $employee->immediate_supervisor }}" name="immediate_supervisor" disabled>
                 </div>
             </div>
-
+            @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+            <div class="row">
+                <div class="col-md-12 mb-3">
+                    <label for="last_review_date" class="form-label">Date of Last Review</label>
+                    <input type="text" class="form-control" id="last_review_date"
+                        value="{{ $employee->last_review_at }}" name="last_review_date" disabled>
+                </div>
+            </div>
+           
+            @else
             <div class="row">
                 <div class="col-md-12 mb-3">
                     <label for="last_review_date" class="form-label">Date of Last Review</label>
@@ -134,23 +192,31 @@
                         value="{{ $employee->last_review_at }}" name="last_review_date" required>
                 </div>
             </div>
+            @endif
 
             <div class="form-check mt-3">
                 @if ($competencyAssessmentItemsExist)
-                    <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy" checked  disabled>
-                    <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information displayed above are accurate and correct.</label>
+                    <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy" checked
+                        disabled>
+                    <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information
+                        displayed above are accurate and correct.</label>
                 @else
-                <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy"  required>
-                <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information displayed above are accurate and correct.</label>
+                    <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy" required>
+                    <label class="form-check-label" for="privacy_policy">I confirm that all of the profile information
+                        displayed above are accurate and correct.</label>
                 @endif
             </div>
 
             <div class="alert alert-warning mt-3">
-                <i class="fa fa-exclamation-triangle"></i> If any of your profile information is incorrect, please DO NOT proceed to the Competency Assessment. Kindly report the error/s to the DTI COMPASS system administrators through the help desk widget found in the lower-left corner of the screen. You will be notified via email once your profile has been updated.
+                <i class="fa fa-exclamation-triangle"></i> If any of your profile information is incorrect, please DO NOT
+                proceed to the Competency Assessment. Kindly report the error/s to the DTI COMPASS system administrators
+                through the help desk widget found in the lower-left corner of the screen. You will be notified via email
+                once your profile has been updated.
             </div>
 
             <div class="text-center mt-3">
-                By clicking <strong>"Save and Continue"</strong>, you agree to the <span><a class="text-primary" href="#">Data Privacy Policy</a></span> and Terms of Use of
+                By clicking <strong>"Save and Continue"</strong>, you agree to the <span><a class="text-primary"
+                        href="#">Data Privacy Policy</a></span> and Terms of Use of
                 this DTI COMPASS System.
             </div>
 
@@ -161,8 +227,8 @@
                     <a href="{{ route('competency_assessment.rating_scale', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
                         class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Next</a>
                 @else
-                <button type="submit" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Save and Continue</button>
-
+                    <button type="submit" class="btn btn-md mt-2 text-light" style="background-color:#1E4387;">Save and
+                        Continue</button>
                 @endif
             </div>
         </form>
