@@ -36,28 +36,6 @@
 
         </div>
 
-        <div class="rating-labels d-flex justify-content-end">
-            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
-                0-Never
-            </span>
-            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
-                1-Rarely
-            </span>
-            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
-                2-Sometimes
-            </span>
-            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
-                3-Frequently
-            </span>
-            <span class="rating-label mx-2 mb-5" style="transform: rotate(-60deg);">
-                4-Always
-            </span>
-            @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-                <span class="rating-label mx-2">
-                    Self-Assessment Score
-                </span>
-            @endif
-        </div>
         <form method="post"
             action="{{ route('competency_assessment.form', ['employee' => $employee, 'session_type' => $session_type, 'id' => $competencyAssessment->id, 'categoryId' => $competencyCategory->id]) }}"
             class="needs-validation" novalidate>
@@ -76,12 +54,37 @@
                     $displayedLevels = [];
                 @endphp
                 <div class="card mb-4">
-                    <div class="card-header text-center">
-                        <h3 class="card-title" id="competency-{{ $items->first()->behavioralIndicator->competency->id }}">
-                            {{ $items->first()->behavioralIndicator->competency->name }}</h3>
+
+                    
+        
+                    <div class="card-header text-center" >
+                        <h3 class="card-title"
+                            id="competency-{{ $items->first()->behavioralIndicator->competency->id }}"><strong>
+                            {{ $items->first()->behavioralIndicator->competency->name }}</strong></h3>
                     </div>
                     <div class="card-body">
-
+                        <div class="rating-labels d-flex justify-content-end mt-4">
+                            <span class="rating-label  mb-5" id="label-1" style="transform: rotate(-60deg);">
+                                Never
+                            </span>
+                            <span class="rating-label  mb-5" id="label-2" style="transform: rotate(-60deg);">
+                                Rarely
+                            </span>
+                            <span class="rating-label  mb-5" id="label-3" style="transform: rotate(-60deg);">
+                                Sometimes
+                            </span>
+                            <span class="rating-label  mb-5" id="label-4" style="transform: rotate(-60deg);">
+                                Frequently
+                            </span>
+                            <span class="rating-label  mb-5" id="label-5" style="transform: rotate(-60deg);">
+                                Always
+                            </span>
+                            @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+                                <span class="rating-label">
+                                    Employee's <br>Self-Rating
+                                </span>
+                            @endif
+                        </div>
                         @foreach ($items as $item)
                             @php
                                 $currentLevel = $item->behavioralIndicator->level;
@@ -92,8 +95,7 @@
                                         @if ($currentLevel != 1)
                                             <hr style="border-top: 4px solid #1E4387;">
                                         @endif
-                                        <h4>{{ $items->first()->behavioralIndicator->competency->name }}
-                                            ({{ $levelMapping[$currentLevel] ?? 'Unknown Level' }})</h4>
+                                        <h4><strong>{{ $items->first()->behavioralIndicator->competency->name }} ({{ $levelMapping[$currentLevel] ?? 'Unknown Level' }})</strong></h4>
                                     </div>
                                 </div>
                                 @php
@@ -107,8 +109,8 @@
                                 <div class="col-lg-4 col-md-4">
                                     <div class="row">
                                         @for ($i = 0; $i < 5; $i++)
-                                            <div class="col">
-                                                <div class="form-check fw-bold">{{ $i }}
+                                            <div class="col numbered-items">
+                                                <div class="form-check fw-bold">{{$i}}
                                                     <input class="form-check-input" type="radio"
                                                         name="rating[{{ $item->behavioralIndicator->id }}]"
                                                         id="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}"
@@ -124,10 +126,10 @@
                                                 </div>
                                             </div>
                                         @endfor
-                                        @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-                                            <div class="col">
-                                                <span>{{ $item->selfAssessmentScore }}</span>
-                                            </div>
+                                        @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+                                        <div class="col self-assessment-score">
+                                            <span><strong>{{ $item->selfAssessmentScore }}</strong></span>
+                                        </div>
                                         @endif
                                     </div>
                                 </div>
