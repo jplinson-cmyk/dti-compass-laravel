@@ -272,7 +272,7 @@ ul ul a {
         /* Adjust font size for tablet devices */
     }
     .employee-avatar {
-        max-width: none;
+        max-width: 100px;
         height: 100%;
         /* Set height to fill the column */
     }
@@ -384,6 +384,12 @@ footer {
 
 p {
     font-size: 14px;
+}
+
+.employee-avatar {
+    max-width: 125px;
+    height: 100%;
+    /* Set height to fill the column */
 }
 
 
