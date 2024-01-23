@@ -73,8 +73,7 @@
                             </td>
                             <td></td>
                             <td>
-                                <div class="btn-group dropstart">
-                                    <button class="btn btn-light btn-sm " type="button"
+                                <button class="btn btn-light btn-sm " type="button"
                                     id="dropdownMenuButton{{ $supervisedEmployee->id }}" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <i class="fa fa-ellipsis-v"></i>
@@ -105,9 +104,6 @@
                                         </li>
                                     @endif
                                 </ul>
-                                </div>
-                              
-
                             </td>
                         </tr>
                     @empty
