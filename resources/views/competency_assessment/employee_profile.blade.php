@@ -30,14 +30,14 @@
 
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <label for="employee_number" class="form-label">Employee Number</label>
+                    <label for="employee_number" class="form-label fw-bold">Employee Number</label>
                     <input type="text" class="form-control" id="employee_number" value="{{ $employee->employee_id }}"
                         name="employee_number" disabled>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <label for="employee_firstname" class="form-label">Employee First Name</label>
+                    <label for="employee_firstname" class="form-label fw-bold">Employee First Name</label>
                     <input type="text" class="form-control" id="employee_firstname" value="{{ $employee->firstname }}"
                         name="employee_firstname" disabled>
                 </div>
@@ -45,7 +45,7 @@
 
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <label for="employee_lastname" class="form-label">Employee Last Name</label>
+                    <label for="employee_lastname" class="form-label fw-bold">Employee Last Name</label>
                     <input type="text" class="form-control" id="employee_lastname" value="{{ $employee->lastname }}"
                         name="employee_lastname" disabled>
                 </div>
@@ -53,7 +53,7 @@
 
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <label for="employee_lastname" class="form-label">Gender</label>
+                    <label for="employee_lastname" class="form-label fw-bold">Gender</label>
                     <input type="text" class="form-control" id="employee_lastname" value="{{ $employee->gender }}"
                         name="employee_lastname" disabled>
                 </div>
@@ -89,7 +89,7 @@
             @else
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <label for="employment_status" class="form-label">Employment Status</label>
+                    <label for="employment_status" class="form-label fw-bold">Employment Status</label>
                     <select class="form-control form-select" id="employment_status" name="employment_status" required>
                         <option value="">Select Employment Status</option>
                         @foreach ($employmentStatuses as $status)
@@ -103,7 +103,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <label for="job_level" class="form-label">Job Level</label>
+                    <label for="job_level" class="form-label fw-bold">Job Level</label>
                     <select class="form-control form-select" id="job_level" name="job_level" required>
                         @foreach ($jobLevels as $level)
                             <option value="{{ $level->id }}"
@@ -114,12 +114,9 @@
                     </select>
                 </div>
             </div>
-
-            @endif
-            
-
-            <div class="form-group">
-                <label for="functional_group">Functional Group</label>
+       
+            <div class="form-group mb-3">
+                <label for="functional_group" class="fw-bold">Functional Group</label>
                 <select class="form-control form-select" id="functional_group" name="functional_group" disabled>
                     @foreach ($functionalGroups as $group)
                         <option value="{{ $group->id }}"
@@ -130,8 +127,8 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="bureau_office">Bureau/Office</label>
+            <div class="form-group mb-3">
+                <label for="bureau_office" class="fw-bold">Bureau/Office</label>
                 <select class="form-control form-select" id="bureau_office" name="bureau_office" disabled>
                     @foreach ($bureauOffices as $office)
                         <option value="{{ $office->id }}"
@@ -142,8 +139,8 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="division">Division</label>
+            <div class="form-group mb-3">
+                <label for="division" class="fw-bold">Division</label>
                 <select class="form-control form-select" id="division" name="division" disabled>
                     <option value="">None</option>
                     @foreach ($divisions as $division)
@@ -156,8 +153,8 @@
             </div>
 
 
-            <div class="form-group">
-                <label for="position">Position</label>
+            <div class="form-group mb-3">
+                <label for="position" class="fw-bold">Position</label>
                 <select class="form-control form-select" id="position" name="position" disabled>
                     @foreach ($positions as $position)
                         <option value="{{ $position->id }}"
@@ -168,9 +165,9 @@
                 </select>
             </div>
 
-            <div class="row">
-                <div class="col-md-12 mb-3">
-                    <label for="immediate_supervisor" class="form-label">Immediate Supervisor</label>
+            <div class="row mb-3">
+                <div class="col-md-12">
+                    <label for="immediate_supervisor" class="form-label fw-bold" >Name of Immediate Supervisor</label>
                     <input type="text" class="form-control" id="immediate_supervisor"
                         value="{{ $employee->immediate_supervisor }}" name="immediate_supervisor" disabled>
                 </div>
@@ -187,14 +184,14 @@
             @else
             <div class="row">
                 <div class="col-md-12 mb-3">
-                    <label for="last_review_date" class="form-label">Date of Last Review</label>
+                    <label for="last_review_date" class="form-label fw-bold">Date of Last Review</label>
                     <input type="text" class="form-control" id="last_review_date"
                         value="{{ $employee->last_review_at }}" name="last_review_date" required>
                 </div>
             </div>
             @endif
 
-            <div class="form-check mt-3">
+            <div class="form-check mt-2 mb-2">
                 @if ($competencyAssessmentItemsExist)
                     <input type="checkbox" class="form-check-input" id="privacy_policy" name="privacy_policy" checked
                         disabled>
