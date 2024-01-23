@@ -114,7 +114,7 @@
                     </select>
                 </div>
             </div>
-       
+            @endif
             <div class="form-group mb-3">
                 <label for="functional_group" class="fw-bold">Functional Group</label>
                 <select class="form-control form-select" id="functional_group" name="functional_group" disabled>

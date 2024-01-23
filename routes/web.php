@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Notifications\ResetPasswordNotification;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -269,4 +269,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
            
         });
     });
+});
+
+
+Route::get('/notification', function () {
+    
+ 
+    $url = route("password.reset", "asdfasdgasdgasg");
+    return (new ResetPasswordNotification($url))
+                ->toMail(null);
 });

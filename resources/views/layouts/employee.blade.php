@@ -17,6 +17,9 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;500&display=swap" rel="stylesheet">
+    <style id="antiClickjack">
+        body{display:none !important;}
+    </style>
 
 </head>
 
@@ -49,7 +52,14 @@
     </script>
     
 
-
+    <script type="text/javascript"> 
+        if (self === top) {
+            var antiClickjack = document.getElementById("antiClickjack");
+            antiClickjack.parentNode.removeChild(antiClickjack);
+        } else {
+            top.location = self.location;
+        }
+    </script>
     <script>
         var isOpen = true;
 
