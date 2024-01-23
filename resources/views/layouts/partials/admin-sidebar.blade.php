@@ -2,7 +2,8 @@
     <ul class="list-unstyled components">
         <!-- User Management -->
         <li class="nav-item">
-            <a href="#userManagementSubmenu" data-bs-toggle="collapse" aria-expanded="true" class="dropdown-toggle rounded fw-bold">
+            <a href="#userManagementSubmenu" data-bs-toggle="collapse" aria-expanded="false"
+            class="dropdown-toggle rounded fw-bold" aria-controls="userManagementSubmenu" aria-hidden="true">
                 <i class="fas fa-users-cog"></i> User Management
             </a>
             <ul class="collapse list-unstyled" id="userManagementSubmenu">

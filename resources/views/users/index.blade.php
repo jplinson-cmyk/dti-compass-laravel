@@ -1,13 +1,11 @@
 @extends('layouts.app-master')
 
 @section('content')
-    <h1 class="mb-3">DTI COMPASS</h1>
-
-    <div class="bg-light p-4 rounded">
+    <div class="bg-white p-4 rounded mt-4">
         <h1>Users</h1>
         <div class="lead">
-            Manage your users here.
-            <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right">Add new user</a>
+            <a href="{{ route('users.create') }}" class="btn btn-sm float-end text-white mb-4"
+            style="background-color: #1E4387;">Add new user</a>
         </div>
 
         <div class="mt-2">
@@ -23,7 +21,7 @@
                     <th scope="col">Email</th>
                     <th scope="col" width="10%">Username</th>
                     <th scope="col" width="10%">Roles</th>
-                    <th scope="col" width="1%" colspan="3"></th>
+                    <th scope="col" width="1%" colspan="4"></th>
                 </tr>
             </thead>
             <tbody>
@@ -54,7 +52,7 @@
             </tbody>
         </table>
 
-        <div class="d-flex">
+        <div class="d-flex mt-4 justify-content-center">
             {!! $users->links() !!}
         </div>
 

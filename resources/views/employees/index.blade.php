@@ -1,7 +1,7 @@
 @extends('layouts.app-master')
 
 @section('content')
-    <div class="container-fluid mt-2 p-5 bg-white rounded">
+    <div class="container-fluid mt-4 p-5 bg-white rounded">
         <h1 class="text-center mb-4">EMPLOYEE MANAGEMENT</h1>
 
         <div class="mt-2">
@@ -38,15 +38,15 @@
                         </form>
                     </div>
                     <div class="float-end mx-4 align-text-bottom">
-                        <span> <strong class="pt-4">Export As:</strong>
+                        <span> <strong class="pt-4 mx-4">Export As:</strong>
                             <span>
-                                <a href="{{ route('employees.create') }}"
+                                <a href="#" type="button"
                                     class="btn btn-sm float-end text-white mb-4 mx-1"
                                     style="background-color: #1E4387;">PDF</a>
-                                <a href="{{ route('employees.create') }}"
+                                <a href="#"
                                     class="btn btn-sm float-end text-white mb-4 mx-1"
                                     style="background-color: #1E4387;">CSV</a>
-                                <a href="{{ route('employees.create') }}"
+                                <a href="#"
                                     class="btn btn-sm float-end text-white mb-4 mx-1"
                                     style="background-color: #1E4387;">XLS</a>
                             </span>
