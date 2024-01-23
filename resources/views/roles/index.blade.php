@@ -2,13 +2,11 @@
 
 @section('content')
 
-    <h1 class="mb-3">DTI COMPASS</h1>
-
-    <div class="bg-light p-4 rounded">
+    <div class="bg-white p-4 rounded mt-4">
         <h1>Roles</h1>
         <div class="lead">
-            Manage your roles here.
-            <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right ">Add role</a>
+            <a href="{{ route('roles.create') }}" class="btn btn-sm float-end text-white mb-4"
+            style="background-color: #1E4387;">Add new role</a>
         </div>
 
         <div class="mt-2">
@@ -40,7 +38,7 @@
             @endforeach
         </table>
 
-        <div class="d-flex">
+        <div class="d-flex mt-4 justify-content-center">
             {!! $roles->links() !!}
         </div>
 
