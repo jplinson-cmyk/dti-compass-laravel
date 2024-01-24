@@ -8,7 +8,7 @@
         <tr>
             <td align="center" style="padding: 20px;">
                 <!-- Insert the correct path to your logo image below -->
-                <img src="{{ asset('images/compass_logo.png') }}" alt="DTI COMPASS Logo" style="width: 200px; height: auto;">
+                <img src="{{ asset('images/compass_logo.png') }}" alt="DTI COMPASS Logo" style="width: 400px; height: auto;">
             </td>
         </tr>
         <tr>
@@ -19,13 +19,13 @@
                 <!-- Use your button styling here -->
                 <table border="0" cellspacing="0" cellpadding="0" style="margin: auto;">
                     <tr>
-                        <td align="center" style="padding: 10px; margin-bottom 20px;">
+                        <td align="center" style="padding: 10px;">
                             <a href="{{ $url }}" style="background-color: #1E4387; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;">Reset Password</a>
                         </td>
                     </tr>
                 </table>
 
-                <p>This password reset link will expire in 60 minutes.</p>
+                <p style="margin-top: 40px;">This password reset link will expire in 60 minutes.</p>
                 <p>If you did not request a password reset, no further action is required.</p>
                 <p>Regards,<br><strong>DTI COMPASS 2024 Team</strong></p>
 
