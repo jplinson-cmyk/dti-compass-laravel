@@ -10,13 +10,13 @@
                         @csrf
                         <div class="logo-title row align-items-end mb-4">
                             <!-- Logo -->
-                            <div class="col-5">
-                                <img src="{!! url('/images/login_logo.png') !!}" alt="Login Logo" class="img-fluid">
+                            <div class="col-5 image">
+                                <img  src="{!! url('/images/login_logo.png') !!}" alt="Login Logo" class="img-fluid">
                             </div>
                             <!-- Title -->
-                            <div class="col-7">
-                                <h1 class="fw-bolder" style="color:#1E4387">COMPASS</h1>
-                                <p class="fw-bolder">COMPETENCY ASSESSMENT</p>
+                            <div class="col-7 title-column">
+                                <h1 class="fw-bolder title-1" style="color:#1E4387">COMPASS</h1>
+                                <p class="fw-bolder title-2">COMPETENCY ASSESSMENT</p>
                             </div>
                         </div>
 
@@ -71,7 +71,7 @@
                             <span class="text-danger text-left">{{ $errors->first() }}</span>
                         @endif
                         <div class="mb-4 text-left">
-                            <a href="{{ route('password.request') }}">Forgot password?</a>
+                            <a class="forgot-pass" href="{{ route('password.request') }}">Forgot password?</a>
                         </div>
 
                         <!-- Submit Button -->

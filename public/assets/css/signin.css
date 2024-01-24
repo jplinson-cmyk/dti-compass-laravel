@@ -82,3 +82,45 @@ body {
         display: none;
     }
 }
+
+/* Ron css */
+
+.vh-100 {
+    height: 94vh!important;
+}
+
+input#username,input#password {
+    background-color: #F1F3F6;
+}
+
+.input-group>:not(:first-child):not(.dropdown-menu):not(.valid-tooltip):not(.valid-feedback):not(.invalid-tooltip):not(.invalid-feedback) {
+    margin-left: -7px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-radius: 10px;
+    z-index: 9;
+}
+
+a.forgot-pass {
+    color: #1E2772;
+}
+
+.title-1 {
+    font-size: 50px;
+}
+
+.login-form {
+    margin-top: -135px;
+}
+
+.col-7.title-column {
+    margin-bottom: -18px;
+}
+
+.title-1 {
+    font-size: 60px;
+}
+
+p.fw-bolder.title-2 {
+    font-size: 20px;
+}
