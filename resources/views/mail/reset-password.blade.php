@@ -4,7 +4,7 @@
     <title>Password Reset</title>
 </head>
 <body>
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; margin: auto; background-color:#edf2f7;">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="max-width: 600px; margin: auto;">
         <tr>
             <td align="center" style="padding: 20px;">
                 <!-- Insert the correct path to your logo image below -->
