@@ -21,7 +21,7 @@
          @endif
         <h1 class="mb-4">ABOUT COMPASS</h1>
         <div class="row">
-            <div class="col-md-4 mb-4">
+            <div class="col-md-6 mb-4">
                 <p class="text-dark">
                     This competency assessment encompasses all the capabilities of an individual that are necessary to
                     perform the job effectively. All of which are important for the overall success of an organization. The
@@ -38,7 +38,7 @@
                 </p>
                 <img src="{{ asset('images/about_compass.png') }}" class="img-fluid" alt="Compass Image">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <p>
                     The <strong>Organizational or Core Competencies</strong> cluster captures DTI’s values, mission,
                     strategy, and unique service proposition and must be possessed by all employees regardless of position

@@ -478,3 +478,17 @@ button.accordion-button.collapsed.fw-bolder {
     background-color: #fff;
     border: none;
 }
+
+i.fas.fa-circle {
+    font-size: 10px;
+    margin: auto;
+    line-height: 20px;
+}
+
+li.nav-item {
+    margin-left: 50px;
+}
+
+p.text-light {
+    margin-bottom: 0px !important;
+}
