@@ -22,7 +22,12 @@
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <p><strong>Role: </strong> {{$employee->user->getRoleNames()->first()}}</p>
+                                    <p><strong>Role: </strong> @if($employee->user->getRoleNames()->first())
+                                        {{$employee->user->getRoleNames()->first()}}
+                                        @else
+                                        No User Role
+                                        @endif
+                                    </p>
                                 </div>
                                 <div class="col">
                                     <p><strong>Division:</strong> {{$employee->division->name}}</p>
