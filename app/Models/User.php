@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Notifications\ResetPasswordNotification;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -33,6 +34,8 @@ class User extends Authenticatable
         'email',
         'username',
         'password',
+        'profile_pic',
+
     ];
 
     /**
@@ -65,12 +68,13 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($value);
     }
 
-    public function userable(){
+    public function userable()
+    {
         return $this->morphTo();
     }
 
-    
-    
+
+
     public function employee(): MorphToMany
     {
         return $this->morphToMany(Employee::class, 'model', 'model_has_users', 'user_id', 'model_id');
@@ -79,9 +83,16 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $url = route("password.reset", $token);
-     
+
         $this->notify(new ResetPasswordNotification($url));
     }
 
-    
+    public function getProfilePicUrlAttribute()
+    {
+        if ($this->profile_pic) {
+            return Storage::url($this->profile_pic);
+        }
+
+        return null;
+    }
 }

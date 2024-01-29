@@ -4,6 +4,8 @@
         ->hasRole('supervisor');
     $userLoggedIn = auth()->user();
     $isDashboardPage = Request::is('employees/*/competency_assessments/employee_assessment/dashboard');
+    $isProfilePage = Request::is('*/profile');
+
     $currentRoute = Request::route()->getName();
     $sessionType = request()->segment(4) ?? 'self_assessment';
 @endphp
@@ -11,7 +13,7 @@
 
 <div id="sidebar" class="sidenav bg-light">
     <ul class="list-unstyled components">
-        @if (!$isDashboardPage)
+        @if (!$isDashboardPage && !$isProfilePage)
             <li class="{{ Request::is('employees/' . $employee->id . '/competency_assessments*') ? 'active' : '' }}">
                 @if ($sessionType === 'employee_assessment')
                     <p class="rounded fw-bolder mt-2 ps-2 text-secondary">Competency Assessment</p>
