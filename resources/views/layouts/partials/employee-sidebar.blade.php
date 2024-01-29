@@ -18,10 +18,12 @@
                 @if ($sessionType === 'employee_assessment')
                     <p class="rounded fw-bolder mt-2 ps-2 text-secondary">Competency Assessment</p>
             <li>
-                <a class="rounded fw-bolder"
+                <a class="rounded fw-bolder "
                     href="{{ route('competency_assessment.about', ['employee' => $userLoggedIn->userable_id, 'session_type' => 'self_assessment']) }}"><i
                         class="fa fa-file-alt" aria-hidden="true"></i> My
-                    Assesssment</a>
+                    Assesssment
+                    <i id="assessmentArrow" class="fa fa-angle-down" aria-hidden="true"></i>
+                </a>
             </li>
 
             <li class="active">
@@ -29,13 +31,14 @@
                     class="dropdown-toggle" aria-controls="homeSubmenu"><i class="fa fa-user-tie"
                         aria-hidden="true"></i> Employee Assessments</a>
             </li>
-
         @else
             <p class="rounded fw-bolder mt-2 ps-2 text-secondary">Competency Assessment</p>
             <a class="rounded fw-bolder" id="myAssessment" href="#homeSubmenu" data-bs-toggle="collapse"
-                aria-expanded="false" class="dropdown-toggle" aria-controls="homeSubmenu"><i class="fa fa-file-alt"
-                    aria-hidden="true"></i>
-                My Assessment</a>
+                aria-expanded="false" class="dropdown-toggle" aria-controls="homeSubmenu">
+                <i class="fa fa-file-alt" aria-hidden="true"></i>
+                My Assessment
+                <i id="assessmentArrow" class="fa fa-angle-down" aria-hidden="true"></i>
+            </a>
         @endif
         <ul class="collapse list-unstyled show" id="homeSubmenu">
             <ul class="collapse show" id="assessmentSubmenn">
@@ -179,7 +182,8 @@
             </li>
         @endif
         <li class="nav-item">
-            <a href="#" class="rounded fw-bolder"><i class="fa fa-user-check" aria-hidden="true"></i> Completed
+            <a href="#" class="rounded fw-bolder"><i class="fa fa-user-check" aria-hidden="true"></i>
+                Completed
                 Assessments</a>
         </li>
     </ul>
