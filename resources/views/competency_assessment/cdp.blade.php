@@ -74,7 +74,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -111,7 +111,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Ex. Managing events"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
 
                     </tr>
                 </tbody>
@@ -143,7 +143,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                 </tbody>
             </table>
@@ -225,7 +225,7 @@
                                     <td>
                                         <textarea class="form-control" rows="3" placeholder="Ex. Head Office, with little to no travel"></textarea>
                                     </td>
-                                    <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                                    <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -247,7 +247,7 @@
                                         <textarea class="form-control" rows="3"
                                             placeholder="Ex. My physical injury serves as a hindrance for me to traveling to different places"></textarea>
                                     </td>
-                                    <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                                    <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -308,7 +308,6 @@
         <div class="mb-4">
 
             <h6 class="fw-bold">Example:</h6>
-            <h6 class="fw-bold mt-4 mb-4">Short Term (1-2 Years)</h6>
 
             <div class="d-flex flex-row align-items-center ">
                 <div class="col-3">
@@ -343,7 +342,7 @@
                         <td>Juan Dela Cruz</td>
                         <td><span class="badge bg-success text-dark p-2">Done</span></td>
                         <td>Text here</td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
 
                     </tr>
                     <tr>
@@ -353,7 +352,7 @@
                         <td>Text here</td>
                         <td><span class="badge bg-orange text-dark p-2">On Going</span></td>
                         <td>Text here</td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
 
                     </tr>
                     <tr>
@@ -363,7 +362,7 @@
                         <td>Text here</td>
                         <td><span class="badge bg-success text-dark p-2">Done</span></td>
                         <td>Text here</td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
 
                     </tr>
 
@@ -415,7 +414,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
 
                     </tr>
                     <tr>
@@ -433,7 +432,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
 
                     </tr>
                     <tr>
@@ -451,7 +450,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
 
 
@@ -503,7 +502,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Exposure to others (20%)</td>
@@ -520,7 +519,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Education and Formal Training (10%)</td>
@@ -537,7 +536,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
 
                 </tbody>
@@ -591,7 +590,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Exposure to others (20%)</td>
@@ -608,7 +607,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Education and Formal Training (10%)</td>
@@ -625,7 +624,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
 
                 </tbody>
@@ -677,7 +676,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Exposure to others (20%)</td>
@@ -694,7 +693,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Education and Formal Training (10%)</td>
@@ -711,7 +710,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
 
                 </tbody>
@@ -763,7 +762,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Exposure to others (20%)</td>
@@ -780,7 +779,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Education and Formal Training (10%)</td>
@@ -797,7 +796,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
 
                 </tbody>
@@ -851,7 +850,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Exposure to others (20%)</td>
@@ -868,7 +867,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
                     <tr>
                         <td>Education and Formal Training (10%)</td>
@@ -885,7 +884,7 @@
                         <td>
                             <textarea class="form-control" rows="3" placeholder="Text"></textarea>
                         </td>
-                        <td><button class="btn btn-default btn-sm"><i class="fa fa-edit"></i></button></td>
+                        <td><button  class="btn btn-outline-default btn-sm text-white" style="background-color:#1E4387;"><i class="fa fa-edit"></i></button></td>
                     </tr>
 
                 </tbody>
