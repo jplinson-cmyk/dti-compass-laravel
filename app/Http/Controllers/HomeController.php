@@ -25,8 +25,6 @@ class HomeController extends Controller
     public function index(){
 
 
-        $url = route("password.reset","asdfasdgadsgasdgasghasdhadshash");
-        dd($url);
         $categories = CompetencyCategory::all();
         $user = auth()->user();
 
