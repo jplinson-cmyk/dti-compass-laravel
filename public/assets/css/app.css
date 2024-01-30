@@ -352,6 +352,29 @@ ul ul a {
     color: #fff;
 }
 
+.compass-breadcrumb li.active+li {
+    border-radius: 2px;
+    background-color: #e8edf6;
+}
+
+.compass-breadcrumb li.active+li a {
+    color: #1E4387;
+    font-weight: bolder;
+}
+
+.compass-breadcrumb li.active+li:before,
+.compass-breadcrumb li.active+li:after {
+    background-color: #e8edf6;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid #1E4387;
+    border-right: 1px solid #1E4387;
+    border-radius: 1px;
+}
+
+.compass-breadcrumb li.active+li:hover a {
+    color: #1E4387;
+}
+
 footer {
     position: fixed;
     left: 0;
@@ -491,4 +514,10 @@ li.nav-item {
 
 p.text-light {
     margin-bottom: 0px !important;
+}
+
+.tawk-min-container,
+.tawk-min-container .tawk-button {
+    margin-bottom: 500px !important;
+    /* Adjust the value as needed */
 }
