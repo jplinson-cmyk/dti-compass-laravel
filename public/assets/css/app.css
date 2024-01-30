@@ -521,3 +521,7 @@ p.text-light {
     margin-bottom: 500px !important;
     /* Adjust the value as needed */
 }
+
+p {
+    font-size: 18px;
+}
