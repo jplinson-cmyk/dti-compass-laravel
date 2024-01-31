@@ -165,14 +165,23 @@ ul ul a {
     background: #fff;
 }
 
+.compass-breadcrumb-container {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+    display: block;
+    position: relative;
+    min-height: 80px;    
+}
 .compass-breadcrumb {
+    position: absolute;
+    left: 0px;
+}
+.compass-breadcrumb ul {
     list-style: none;
     display: flex;
     /* Flexbox layout */
     flex-wrap: nowrap;
-    /* Prevent wrapping */
-    overflow-x: auto;
-    /* Horizontal scrollbar if needed */
     font: 12px 'Poppins', Sans-Serif;
     margin: 0;
     padding: 0;
