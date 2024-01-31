@@ -67,26 +67,30 @@
            
                             <div class="col-lg-8 col-md-8">
                             </div>
-                            <div class="col rating-label" id="label-1" style="transform: rotate(-60deg);">
-                                Never
-                            </div>
-                            <div class="col rating-label" id="label-2" style="transform: rotate(-60deg);">
-                                Rarely
-                            </div>
-                            <div class="col rating-label" id="label-3" style="transform: rotate(-60deg);">
-                                Sometimes
-                            </div>
-                            <div class="col rating-label" id="label-4" style="transform: rotate(-60deg);">
-                                Frequently
-                            </div>
-                            <div class="col rating-label " id="label-5" style="transform: rotate(-60deg);">
-                                Always
-                            </div>
-                            @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-                                <div class="col rating-label">
-                                    Employee's <br>Self-Rating
+                            <div class="col-lg-4 col-md-4">
+                                <div class ="row">
+                                    <div class="col rating-label" id="label-1">
+                                        Never
+                                    </div>
+                                    <div class="col rating-label" id="label-2">
+                                        Rarely
+                                    </div>
+                                    <div class="col rating-label" id="label-3">
+                                        Sometimes
+                                    </div>
+                                    <div class="col rating-label" id="label-4">
+                                        Frequently
+                                    </div>
+                                    <div class="col rating-label " id="label-5">
+                                        Always
+                                    </div>
+                                    @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+                                    <div class="col rating-label">
+                                        Employee's <br>Self-Rating
+                                    </div>
+                                    @endif
                                 </div>
-                            @endif
+                            </div>
                         </div>
 
                         @foreach ($items as $item)
