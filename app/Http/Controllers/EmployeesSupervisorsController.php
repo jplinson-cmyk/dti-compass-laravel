@@ -11,14 +11,11 @@ class EmployeesSupervisorsController extends Controller
 {
     public function showTaggedEmployees($employee_id)
     {
-
         $employee = Employee::findOrFail($employee_id);
-
-        $taggedEmployees = $employee->supervisedEmployees;
-
+        $taggedEmployees = $employee->supervisedEmployees()->paginate(1);
+    
         return view('employees_supervisors.tags', compact('employee', 'taggedEmployees'));
     }
-
     public function showTagForm($employee)
     {
         $supervisor = Employee::findOrFail($employee);

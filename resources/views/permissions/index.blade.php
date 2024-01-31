@@ -1,14 +1,11 @@
 @extends('layouts.app-master')
 
 @section('content')
-
-    <h1 class="mb-3">DTI COMPASS</h1>
-
-    <div class="bg-light p-4 rounded">
+    <div class="bg-white p-4 rounded mt-4">
         <h2>Permissions</h2>
         <div class="lead">
-            Manage your permissions here.
-            <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm float-right">Add permissions</a>
+            <a href="{{ route('permissions.create') }}" class="btn btn-sm float-end text-white mb-4"
+            style="background-color: #1E4387;">Add new permissions</a>
         </div>
 
         <div class="mt-2">
@@ -38,7 +35,9 @@
                 @endforeach
             </tbody>
         </table>
-
+        <div class="d-flex mt-4 justify-content-center">
+            {!! $permissions->links() !!}
+        </div>
     </div>
 @endsection
 @section("scripts")
