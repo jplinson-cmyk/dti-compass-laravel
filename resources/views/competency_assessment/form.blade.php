@@ -63,28 +63,32 @@
                             {{ $items->first()->behavioralIndicator->competency->name }}</strong></h3>
                     </div>
                     <div class="card-body">
-                        <div class="rating-labels d-flex justify-content-end mt-4">
-                            <span class="rating-label  mb-5" id="label-1" style="transform: rotate(-60deg);">
+                        <div class="row align-items-center">
+           
+                            <div class="col-lg-8 col-md-8">
+                            </div>
+                            <div class="col rating-label" id="label-1" style="transform: rotate(-60deg);">
                                 Never
-                            </span>
-                            <span class="rating-label  mb-5" id="label-2" style="transform: rotate(-60deg);">
+                            </div>
+                            <div class="col rating-label" id="label-2" style="transform: rotate(-60deg);">
                                 Rarely
-                            </span>
-                            <span class="rating-label  mb-5" id="label-3" style="transform: rotate(-60deg);">
+                            </div>
+                            <div class="col rating-label" id="label-3" style="transform: rotate(-60deg);">
                                 Sometimes
-                            </span>
-                            <span class="rating-label  mb-5" id="label-4" style="transform: rotate(-60deg);">
+                            </div>
+                            <div class="col rating-label" id="label-4" style="transform: rotate(-60deg);">
                                 Frequently
-                            </span>
-                            <span class="rating-label  mb-5" id="label-5" style="transform: rotate(-60deg);">
+                            </div>
+                            <div class="col rating-label " id="label-5" style="transform: rotate(-60deg);">
                                 Always
-                            </span>
+                            </div>
                             @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-                                <span class="rating-label">
+                                <div class="col rating-label">
                                     Employee's <br>Self-Rating
-                                </span>
+                                </div>
                             @endif
                         </div>
+
                         @foreach ($items as $item)
                             @php
                                 $currentLevel = $item->behavioralIndicator->level;
