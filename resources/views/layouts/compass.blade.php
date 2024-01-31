@@ -1,7 +1,7 @@
 @extends('layouts.employee')
 @section("content")
 
-<div class="mt-2 mb-2">
+<div class="compass-breadcrumb-container mt-2 mb-2">
     @php 
         $currentRouteName = Request::route()->getName();
         $currentCompetencyAssessment = $employee->competencyAssessments->where('session_type', $session_type)->first();
@@ -9,8 +9,8 @@
         
     @endphp
    
-    <div class="container-fluid">
-        <ul class="compass-breadcrumb py-2 px-2 border-bottom">
+    <div class="compass-breadcrumb">
+        <ul class="py-2 px-2 border-bottom">
         
             <li class="{{ $currentRouteName == 'competency_assessment.about' ? 'active' : '' }}"><a href="{{ route('competency_assessment.about', ['employee' => $employee, 'session_type' => $session_type]) }}">About COMPASS</a></li>
             <li class="{{ $currentRouteName == 'competency_assessment.dictionary' ? 'active' : '' }}"><a href="{{ route('competency_assessment.dictionary', ['employee' => $employee, 'session_type' => $session_type]) }}">Competency Dictionary</a></li>
