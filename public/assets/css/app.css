@@ -525,3 +525,31 @@ p.text-light {
 p {
     font-size: 18px;
 }
+
+footer.d-flex.flex-wrap.justify-content-between.align-items-center.py-1.border-top.bg-light {
+    margin-left: 5em;
+}
+
+button.accordion-button.collapsed.fw-bolder.dictionary-title {
+    border-radius: 20px;
+}
+
+table.table.table-striped.bdr {
+    width: 85%;
+    margin-left: 120px;
+}
+
+.d-flex.justify-content-between.competency-assesment-form-control {
+    margin-top: -55px;
+}
+
+.table>:not(caption)>*>* {
+    padding: 0.8rem 0.8rem;
+    background-color: var(--bs-table-bg);
+    border-bottom-width: 1px;
+    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+}
+
+button.btn.btn-md.btn-outline-primary.disable {
+    display: none;
+}

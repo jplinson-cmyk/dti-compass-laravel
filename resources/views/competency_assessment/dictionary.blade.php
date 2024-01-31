@@ -28,7 +28,7 @@
             @foreach ($competencyCategories as $category)
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="category{{ $category->id }}">
-                        <button class="accordion-button collapsed fw-bolder" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button collapsed fw-bolder dictionary-title" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapse{{ $category->id }}" aria-expanded="false">
                             {{ Str::upper($category->category_name) }}
                         </button>

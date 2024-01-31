@@ -77,7 +77,7 @@
             </table>
         </div>
 
-        <div class="d-flex justify-content-between mt-4 ">
+        <div class="d-flex justify-content-between competency-assesment-form-control">
             <a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}"
                 class="btn btn-md mt-2 btn-outline-dark">Back</a>
             <form

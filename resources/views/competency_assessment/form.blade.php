@@ -163,12 +163,12 @@
             </div>
         </form>
 
-        <button onclick="scrollToTop()" class="btn btn-md btn-outline-primary"
+        <button onclick="scrollToTop()" class="btn btn-md btn-outline-primary disable"
             style="position: fixed; bottom: 100px; right: 20px; z-index: 2000;">
             <i class="fa fa-arrow-up"></i>
         </button>
 
-        <button onclick="scrollToBottom()" class="btn btn-md btn-outline-primary"
+        <button onclick="scrollToBottom()" class="btn btn-md btn-outline-primary disable"
             style="position: fixed; bottom: 50px; right: 20px; z-index: 2000;">
             <i class="fa fa-arrow-down"></i>
         </button>
