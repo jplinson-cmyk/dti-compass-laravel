@@ -30,7 +30,7 @@
             @include('layouts.partials.employee-sidebar')
         </div>
 
-        <div id="content" class="page-content-wrapper">
+        <div id="content" class="page-content-wrapper" style="width:100%">
             <main class="container-fluid mt-5">
                 @include('layouts.partials.banner')
 
