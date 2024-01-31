@@ -41,7 +41,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/reset-password', 'PasswordResetController@updatePassword')->name('password.update');
     });
 
-    Route::group(['middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth', 'permission']], function () {
         /**
          * Logout Routes
          */

@@ -88,6 +88,9 @@ a:focus {
     #toggleButton {
         display: none;
         /* larger margin for larger screens */
+    },
+    .rating-label {
+        display:none!important;
     }
 }
 
@@ -461,6 +464,8 @@ span.text-uppercase.employee-name {
     padding-right: 14px;
     font-size: 14px;
     margin-top: 13px;
+    transform: rotate(-60deg);
+    display:block!important;
 }
 
 span#label-5 {
@@ -521,3 +526,4 @@ p.text-light {
     margin-bottom: 500px !important;
     /* Adjust the value as needed */
 }
+
