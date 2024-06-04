@@ -17,7 +17,7 @@ pipelines:
         trigger: 'manual'
         script:
           - echo "Pushing to Production..."
-#          - git push ssh://u357-f31vucuafghn@gsgpm1049.siteground.biz:18765/home/customer/www/dticompass.razzaconsulting.com/public_html/laravel/ staging:master
+          - git push ssh://u1990-t22uxupo1hvw@gsgpm1047.siteground.biz:18765/home/customer/www/dticompass.dti.gov.ph/public_html/laravel/ master:master
    '{staging}':
     - step:
        name: 'Running Pipeline'
