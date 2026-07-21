@@ -69,7 +69,7 @@ class LoginController extends Controller
                     case 'cdp':
                             return redirect()->route('competency_assessment.cdp', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id]);
                     case 'closing':
-                        return redirect()->route('competency_assessment.closing', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id]);
+                        return redirect()->route('competency_assessment.cdp', ['employee' => $employee, 'session_type' => 'self_assessment', 'id' => $competencyAssessment->id]);
                     default:
                         return redirect()->route('competency_assessment.about', ['employee' => $employee, 'session_type' => 'self_assessment']);
                 }

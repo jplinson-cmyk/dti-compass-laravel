@@ -26,10 +26,16 @@ class UsersController extends Controller
 
     public function store(User $user, StoreUserRequest $request)
     {
-        
-        $user->create(array_merge($request->validated(), [
-            'password' => 'dti@2023'
+        // ✅ Create user
+        $newUser = $user->create(array_merge($request->validated(), [
+            'password' => 'dti@2024'
         ]));
+
+        // ✅ Assign default role "Employee"
+        $role = Role::where('name', 'Employee')->first();
+        if ($role) {
+            $newUser->assignRole($role);
+        }
 
         return redirect()->route('users.index')
             ->withSuccess(__('User created successfully.'));
@@ -54,15 +60,14 @@ class UsersController extends Controller
     public function update(User $user, UpdateUserRequest $request)
     {
         $user->update($request->validated());
-    
+
         $selectedRoles = $request->input('selected_roles', []);
-    
+
         $user->roles()->sync($selectedRoles);
-    
+
         return redirect()->route('users.index')
             ->withSuccess(__('User updated successfully.'));
     }
-    
 
     public function destroy(User $user)
     {
@@ -71,7 +76,6 @@ class UsersController extends Controller
         return redirect()->route('users.index')
             ->withSuccess(__('User deleted successfully.'));
     }
-
 
     public function sendPasswordLink($userId)
     {
@@ -82,8 +86,5 @@ class UsersController extends Controller
             Array("email"=>$user->email)
         );
         return json_encode(array($status => "success"));
-
     }
-
-
 }

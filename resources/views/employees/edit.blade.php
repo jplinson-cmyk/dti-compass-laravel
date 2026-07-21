@@ -140,14 +140,29 @@
                         <span class="text-danger text-left">{{ $errors->first('job_level_id') }}</span>
                     @endif
                 </div>
-                <div class="mb-3">
-                    <label for="immediate_supervisor" class="form-label">Immediate Supervisor</label>
-                    <input value="{{ $employee->immediate_supervisor }}" type="text" class="form-control"
-                        name="immediate_supervisor" placeholder="Immediate Supervisor" required>
-                    @if ($errors->has('immediate_supervisor'))
-                        <span class="text-danger text-left">{{ $errors->first('immediate_supervisor') }}</span>
-                    @endif
-                </div>
+                    <div class="mb-3">
+                        <label for="immediate_supervisor" class="form-label">Immediate Supervisor</label>
+                        <input type="text" 
+                            class="form-control" 
+                            id="immediate_supervisor" 
+                            name="immediate_supervisor"
+                            placeholder="Start typing supervisor's name..." 
+                            autocomplete="off"
+                            value="{{ old('immediate_supervisor', $supervisorName ?? '') }}">
+
+                        <input type="hidden" name="supervisor_id" id="supervisor_id" 
+                            value="{{ old('supervisor_id', $currentSupervisor->id ?? '') }}">
+
+                        <div id="supervisorList" class="list-group position-absolute"></div>
+
+                        @if ($errors->has('immediate_supervisor'))
+                            <span class="text-danger text-left">{{ $errors->first('immediate_supervisor') }}</span>
+                        @endif  
+                    </div>
+
+
+
+
                 <div class="mb-3">
                     <label for="last_review_at" class="form-label">Last Review Date</label>
                     <input value="{{ $employee->last_review_at }}" type="date" class="form-control"
@@ -184,3 +199,67 @@
 
     </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    let supervisorInput = $('#immediate_supervisor');
+    let supervisorList = $('#supervisorList');
+
+    // Function to fetch supervisor suggestions
+    supervisorInput.on('keyup', function () {
+        let query = $(this).val().trim();
+
+        if (query.length < 2) {
+            supervisorList.fadeOut(); 
+            return; // Don't search for empty or short queries
+        }
+
+        $.ajax({
+            url: "{{ route('employees_supervisors.search') }}", // Adjust route if necessary
+            type: "GET",
+            data: { q: query },
+            success: function (data) {
+                supervisorList.empty().fadeIn(); // Clear and show dropdown
+
+                if (data.length > 0) {
+                    $.each(data, function (index, employee) {
+                        supervisorList.append(`<a href="#" class="list-group-item list-group-item-action supervisor-item"
+                                                data-id="${employee.id}">${employee.firstname} ${employee.lastname}</a>`);
+                    });
+                } else {
+                    supervisorList.append(`<a href="#" class="list-group-item list-group-item-action disabled">No results found</a>`);
+                }
+            },
+            error: function () {
+                supervisorList.fadeOut();
+            }
+        });
+    });
+
+    // When a user selects a name from the dropdown
+    $(document).on('click', '.supervisor-item', function (e) {
+        e.preventDefault();
+        let selectedName = $(this).text();
+        let selectedId = $(this).data('id');
+
+        supervisorInput.val(selectedName);
+        supervisorList.fadeOut();
+
+        // Store the selected supervisor ID in the hidden field
+        $('#supervisor_id').remove(); // Remove existing hidden field if any
+        $('<input>').attr({
+            type: 'hidden',
+            id: 'supervisor_id',
+            name: 'supervisor_id',
+            value: selectedId
+        }).appendTo('form');
+    });
+
+    // Hide the dropdown when clicking outside
+    $(document).click(function (e) {
+        if (!$(e.target).closest('#immediate_supervisor, #supervisorList').length) {
+            supervisorList.fadeOut();
+        }
+    });
+});
+</script>

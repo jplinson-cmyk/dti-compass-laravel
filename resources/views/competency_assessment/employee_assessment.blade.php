@@ -1,39 +1,39 @@
 @extends('layouts.employee')
 
 @section('content')
-    <div class="container-xxl mt-2 p-5 bg-white rounded">
-        <div class="employee-assessment">
-            <h1 class="mb-4 text-center">EMPLOYEE ASSESSMENT</h1>
-            <p class="mb-4 text-center">Listed below are the Employees that must be assessed by you as their Supervisor. To
-                begin your assessment, click on the three dots found in the rightmost column of the table to open the
-                expandable menu, and click ‘Assess.’ After completing the assessment, use the same menu to access and view
-                the Employee’s Career Development Plan.</p>
-            <div class="row mb-2">
-                <div class="col-md-8">
-                </div>
-                <div class="col-md-4">
-                    <div class="text-end">
-                        <form method="GET"
-                            action="{{ route('competency_assessment.employee_assessment', ['employee' => $employee, 'session_type' => $session_type]) }}"
-                            id="searchForm">
-                            <div class="input-group">
-                                <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                                <input type="text" class="form-control" name="searchEmployee" placeholder="Search..."
-                                    id="searchInput">
-                                <button type="button" class="btn btn-outline-secondary" id="cancelButton"
-                                    style="display: none;">
-                                    <i class="fa fa-times"></i>
-                                </button>
-                            </div>
-                        </form>
+    <div class="container-fluid mt-2 p-5 bg-white rounded">
 
-                    </div>
+        <h1 class="mb-4 text-center">EMPLOYEE ASSESSMENT</h1>
+        <p class="mb-4 text-center">Listed below are the Employees that must be assessed by you as their Supervisor. To
+            begin your assessment, click on the three dots found in the rightmost column of the table to open the
+            expandable menu, and click ‘Assess.’ After completing the assessment, use the same menu to access and view
+            the Employee’s Career Development Plan.</p>
+        <div class="row mb-2">
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-4">
+                <div class="text-end">
+                    <form method="GET"
+                        action="{{ route('competency_assessment.employee_assessment', ['employee' => $employee, 'session_type' => $session_type]) }}"
+                        id="searchForm">
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            <input type="text" class="form-control" name="searchEmployee" placeholder="Search..."
+                                id="searchInput">
+                            <button type="button" class="btn btn-outline-secondary" id="cancelButton"
+                                style="display: none;">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
-
         </div>
+
+
         <div class="table-responsive">
             <table class="table table-striped bdr">
                 <thead>
@@ -64,14 +64,16 @@
                                     <span class="badge bg-warning text-dark p-2 w-100 text-uppercase text-center"
                                         style="border-radius: 10px;">Continue</span>
                                 @elseif ($supervisedEmployee->assessment_status == 'completed')
-                                    <span class="badge bg-success text-dark p-2 w-100 text-uppercase text-center"
-                                        style="border-radius: 10px;">Completed</span>
+                                    <span class="badge text-dark p-2 w-100 text-uppercase text-center"
+                                        style="border-radius: 10px;background-color:#58D838;">Completed</span>
                                 @else
                                     <span class="badge bg-danger text-dark p-2 w-100 text-uppercase text-center"
                                         style="border-radius: 10px;">{{ $supervisedEmployee->assessment_status }}</span>
                                 @endif
                             </td>
-                            <td></td>
+                            <td>
+                            </td>
+
                             <td>
                                 <button class="btn btn-light btn-sm " type="button"
                                     id="dropdownMenuButton{{ $supervisedEmployee->id }}" data-bs-toggle="dropdown"
@@ -86,24 +88,33 @@
                                         </li>
                                     @else
                                         <li class="dropdown-item disabled">Assess (Unavailable)</li>
-                                        <li><a class="dropdown-item" href="#">View Profile</a></li>
                                     @endif
-                                    @if ($supervisedEmployee->assessment_status == 'completed')
-                                        <li><a class="dropdown-item"
-                                                href="{{ route('competency_assessment.summary', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">View
-                                                Summary of Rating</a></li>
-                                        <li><a class="dropdown-item"
-                                                href="{{ route('competency_assessment.cdp', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">View
-                                                Career
-                                                Development Plan</a></li>
-                                    @else
-                                        <li><a class="dropdown-item" href="#">View Profile</a></li>
 
+                                    @if ($supervisedEmployee->assessment_status == 'completed')
+                                        <li><a class="dropdown-item" 
+                                                href="{{ route('competency_assessment.employee_profile', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment']) }}">
+                                                View Profile</a></li>
+
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('competency_assessment.summary', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">
+                                                View Summary of Rating</a></li>
+
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('competency_assessment.pdap', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">
+                                                View Professional Development Action Plan</a></li>
+
+                                        <li><a class="dropdown-item"
+                                                href="{{ route('competency_assessment.cdp', ['employee' => $supervisedEmployee->id, 'session_type' => 'employee_assessment', 'id' => $supervisedEmployee->competencyAssessmentId]) }}">
+                                                View Career Development Plan</a></li>
+                                    @else
+                                        <li class="dropdown-item disabled">View Profile (Unavailable)</li>
                                         <li class="dropdown-item disabled">View Summary of Rating (Unavailable)</li>
-                                        <li class="dropdown-item disabled">View Career Development Plan (Unavailable)
-                                        </li>
+                                        <li class="dropdown-item disabled">View Professional Development Action Plan (Unavailable)</li>
+                                        <li class="dropdown-item disabled">View Career Development Plan (Unavailable)</li>
                                     @endif
                                 </ul>
+
+
                             </td>
                         </tr>
                     @empty
@@ -119,6 +130,8 @@
         </div>
     </div>
     </div>
+    @include('auth.partials.privacy_policy')
+
 @endsection
 <script>
     document.addEventListener('DOMContentLoaded', function() {

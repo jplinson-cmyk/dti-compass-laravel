@@ -19,21 +19,23 @@
                 </h6>
             </div>
         @endif
-        <div class="text-center mb-5">
+        <div class="text-center mb-3">
             @if ($competencyCategory->category_name == 'Core Competencies')
                 <h1 class="mb-3">Organizational / {{ str_replace('ies', 'y', $competencyCategory->category_name) }}</h1>
             @else
                 <h1 class="mb-3">{{ str_replace('ies', 'y', $competencyCategory->category_name) }}</h1>
             @endif
-            <p class="text-muted">Complete the form by clicking on the button to the left of your selected rating. All
-                questions are required and must be answered.</p>
 
-            <div class="text-end">
-                <a id="ratingScaleInfo" class="btn text-light" data-bs-toggle="modal" data-bs-target="#ratingScaleModal">
-                    <i class="fas fa-info-circle"></i> Rating Scale
-                </a>
+
+            <div class="d-flex flex-row justify-content-between">
+                <p class="text-muted text-center flex-grow-1 my-auto">Complete the form by clicking on the button to the left
+                    of your selected rating. All questions are required and must be answered.</p>
+                <button id="ratingScaleInfo" class="btn text-light fs-responsive my-auto ml-2" data-bs-toggle="modal"
+                    data-bs-target="#ratingScaleModal">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="rating-scale-text"> Rating Scale</span>
+                </button>
             </div>
-
         </div>
 
         <form method="post"
@@ -55,39 +57,40 @@
                 @endphp
                 <div class="card mb-4">
 
-                    
-        
-                    <div class="card-header text-center" >
-                        <h3 class="card-title"
-                            id="competency-{{ $items->first()->behavioralIndicator->competency->id }}"><strong>
-                            {{ $items->first()->behavioralIndicator->competency->name }}</strong></h3>
+
+
+                    <div class="card-header text-center">
+                        <h3 class="card-title" id="competency-{{ $items->first()->behavioralIndicator->competency->id }}">
+                            <strong>
+                                {{ $items->first()->behavioralIndicator->competency->name }}</strong>
+                        </h3>
                     </div>
                     <div class="card-body">
                         <div class="row align-items-center">
-           
-                            <div class="col-lg-8 col-md-8">
+
+                            <div class="col-lg-7 col-md-7">
                             </div>
-                            <div class="col-lg-4 col-md-4">
-                                <div class ="row">
-                                    <div class="col rating-label" id="label-1">
-                                        Never
+                            <div class="col-lg-5 col-md-5 rating-label-col fw-bolder">
+                                <div class="row align-items-end" style="min-height: 90px;">
+                                    <div class="col mb-0 rating-label-container" id="label-1">
+                                        <label class="rating-label">Never</label>
                                     </div>
-                                    <div class="col rating-label" id="label-2">
-                                        Rarely
+                                    <div class="col mb-0 rating-label-container" id="label-2">
+                                        <label class="rating-label">Rarely</label>
                                     </div>
-                                    <div class="col rating-label" id="label-3">
-                                        Sometimes
+                                    <div class="col mb-0 rating-label-container" id="label-3">
+                                        <label class="rating-label">Sometimes</label>
                                     </div>
-                                    <div class="col rating-label" id="label-4">
-                                        Frequently
+                                    <div class="col mb-0 rating-label-container" id="label-4">
+                                        <label class="rating-label">Frequently</label>
                                     </div>
-                                    <div class="col rating-label " id="label-5">
-                                        Always
+                                    <div class="col mb-0 rating-label-container" id="label-5">
+                                        <label class="rating-label">Always</label>
                                     </div>
-                                    @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-                                    <div class="col rating-label">
-                                        Employee's <br>Self-Rating
-                                    </div>
+                                    @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+                                        <div class="col mb-0 mx-0 self-rating">
+                                            <label>Employee's Self-Rating</label>
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -103,7 +106,9 @@
                                         @if ($currentLevel != 1)
                                             <hr style="border-top: 4px solid #1E4387;">
                                         @endif
-                                        <h4><strong>{{ $items->first()->behavioralIndicator->competency->name }} ({{ $levelMapping[$currentLevel] ?? 'Unknown Level' }})</strong></h4>
+                                        <h4><strong>{{ $items->first()->behavioralIndicator->competency->name }}
+                                                ({{ $levelMapping[$currentLevel] ?? 'Unknown Level' }})
+                                            </strong></h4>
                                     </div>
                                 </div>
                                 @php
@@ -111,21 +116,22 @@
                                 @endphp
                             @endif
                             <div class="row mb-3 align-items-center">
-                                <div class="col-lg-8 col-md-8">
-                                    <p>{{ $item->behavioralIndicator->description }}</p>
+                                <div class="col-lg-7 col-md-7">
+                                    <p class="form-question-text">{{ $item->behavioralIndicator->description }}</p>
                                 </div>
-                                <div class="col-lg-4 col-md-4">
+                                <div class="col-lg-5 col-md-5">
                                     <div class="row">
                                         @for ($i = 0; $i < 5; $i++)
                                             <div class="col numbered-items">
-                                                <div class="form-check fw-bold">{{$i}}
+                                                <div class="form-check fw-bold">
                                                     <input class="form-check-input" type="radio"
                                                         name="rating[{{ $item->behavioralIndicator->id }}]"
                                                         id="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}"
                                                         value="{{ $i }}"
                                                         {{ isset($item->score) && $item->score == $i ? 'checked' : '' }}
                                                         {{ $competencyAssessmentCompleted ? 'disabled' : '' }} required>
-                                                    <label class="form-check-label d-block d-lg-none"
+                                                    <p class="fw-bolder d-none d-xl-block rating-number">{{ $i }}</p>
+                                                    <label class="form-check-label d-block d-xl-none"
                                                         for="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}">
                                                         {{ ['Never', 'Rarely', 'Sometimes', 'Frequently', 'Always'][$i] }}
                                                     </label>
@@ -134,10 +140,15 @@
                                                 </div>
                                             </div>
                                         @endfor
-                                        @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-                                        <div class="col self-assessment-score">
-                                            <span><strong>{{ $item->selfAssessmentScore }}</strong></span>
-                                        </div>
+                                        @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
+                                            <div class="col">
+                                                <div class="card align-items-center mx-0 d-flex justify-content-center">
+                                                    <p class="fw-bolder d-none d-xl-block rating-number" style="padding-top:10px;"><strong>{{ $item->selfAssessmentScore }}</strong></p>
+                                                </div>
+                                                <label class="form-check-label d-block d-xl-none fw-bold">
+                                                Self-Assessment Score({{ $item->selfAssessmentScore }})
+                                                </label>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -148,6 +159,12 @@
                     </div>
                 </div>
             @endforeach
+            <div class="row text-center">
+                <div class="col">
+                    <p>Kindly review your answers before submitting. Ratings can no longer be changed and updated after
+                        submission.</p>
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
@@ -167,13 +184,13 @@
             </div>
         </form>
 
-        <button onclick="scrollToTop()" class="btn btn-md btn-outline-primary disable"
-            style="position: fixed; bottom: 100px; right: 20px; z-index: 2000;">
+        <button onclick="scrollToTop()" class="btn btn-xs"
+            style="position: fixed; bottom: 110px; right: 1px; z-index: 2000;background-color:#1E4387; color:#fff;">
             <i class="fa fa-arrow-up"></i>
         </button>
 
-        <button onclick="scrollToBottom()" class="btn btn-md btn-outline-primary disable"
-            style="position: fixed; bottom: 50px; right: 20px; z-index: 2000;">
+        <button onclick="scrollToBottom()" class="btn btn-xs"
+            style="position: fixed; bottom: 80px; right: 1px; z-index: 2000;background-color:#1E4387; color:#fff;">
             <i class="fa fa-arrow-down"></i>
         </button>
 
@@ -240,19 +257,62 @@
         </div>
 
         <script>
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 
-            function scrollToBottom() {
-                window.scrollTo({
-                    top: document.body.scrollHeight,
-                    behavior: 'smooth'
+    function scrollToBottom() {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const radioGroups = document.querySelectorAll(".row.mb-3.align-items-center"); // Each question group
+        const submitButtons = form.querySelectorAll("button[type='submit']");
+
+        submitButtons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                let isValid = true;
+                let firstUnanswered = null;
+
+                radioGroups.forEach(group => {
+                    const radios = group.querySelectorAll("input[type='radio']");
+                    const isChecked = Array.from(radios).some(radio => radio.checked);
+
+                    if (!isChecked) {
+                        isValid = false;
+
+                        // Store first unanswered question to scroll to
+                        if (!firstUnanswered) {
+                            firstUnanswered = group;
+                        }
+
+                        // Highlight the unanswered question
+                        group.style.border = "2px solid red";
+                        setTimeout(() => group.style.border = "", 3000);
+                    }
                 });
-            }
-        </script>
+
+                if (!isValid) {
+                    event.preventDefault(); // Prevent form submission
+
+                    // Show an alert message
+                    alert("⚠️ Please answer all questions before submitting!");
+
+                    // Scroll smoothly to the first unanswered question
+                    firstUnanswered.scrollIntoView({ behavior: "smooth", block: "center" });
+                }
+            });
+        });
+    });
+</script>
+
+
     </div>
 @endsection

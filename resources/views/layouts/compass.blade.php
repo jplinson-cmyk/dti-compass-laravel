@@ -17,12 +17,12 @@
             <li class="{{ $currentRouteName == 'competency_assessment.employee_profile' ? 'active' : '' }}"><a href="{{ route('competency_assessment.employee_profile', ['employee' => $employee, 'session_type' => $session_type]) }}">Employee Profile</a></li>
             
             @if ($currentCompetencyAssessment)
-                @if ($competencyAssessmentItemsExist)
+                @if ($competencyAssessmentItemsExist = $competencyAssessmentItemsExist ?? false)
                 
-                <li class="{{ $currentRouteName == 'competency_assessment.rating_scale' ? 'active' : '' }}"><a href="{{ route('competency_assessment.rating_scale', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">COMPASS Rating Scale</a></li>
+                <li class="{{ $currentRouteName == 'competency_assessment.rating_scale' ? 'active' : '' }}"><a href="{{ route('competency_assessment.rating_scale', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}" style="font-size:10px">COMPASS Rating Scale</a></li>
                 <li class="{{ $currentRouteName == 'competency_assessment.instructions' ? 'active' : '' }}"><a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">My Checklist</a></li>
                 @else
-                <li><a class="text-secondary" href="#">COMPASS Rating Scale</a></li>
+                <li><a class="text-secondary" href="#" style="font-size:10px;">COMPASS Rating Scale</a></li>
                 <li><a class="text-secondary" href="#">My Checklist</a></li>
                 <li><a class="text-secondary" href="#">Core Competency</a></li>
                 <li><a class="text-secondary" href="#">Technical Competency</a></li>
@@ -45,14 +45,18 @@
                     </li>
                 @endif
             @endforeach
-                @if ($competencyAssessmentCompleted)
+                @if ($competencyAssessmentCompleted = $competencyAssessmentCompleted ?? false)
+
                 <li class="{{ $currentRouteName == 'competency_assessment.summary' || $currentRouteName == 'competency_assessment.summary' ? 'active' : '' }}"><a href="{{ route('competency_assessment.summary', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Summary of Rating</a></li>
-    
+               
+                <li class="{{ $currentRouteName == 'competency_assessment.pdap' || $currentRouteName == 'competency_assessment.pdap' ? 'active' : '' }}"> <a href="{{ route('competency_assessment.pdap', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Professional Development Action Plan</a></li>
+
                 <li class="{{ $currentRouteName == 'competency_assessment.cdp' || $currentRouteName == 'competency_assessment.cdp' ? 'active' : '' }}"><a href="{{ route('competency_assessment.cdp', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">Career Development</a></li>
     
                 <li class="{{ $currentRouteName == 'competency_assessment.closing' || $currentRouteName == 'competency_assessment.closing' ? 'active' : '' }}"><a href="{{ route('competency_assessment.closing', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $currentCompetencyAssessment->id]) }}">End of COMPASS</a></li>
                 @else
                 <li><a class="text-secondary" href="#">Summary of Rating</a></li>
+                <li><a class="text-secondary" href="#">Professional Development Action Plan</a></li>
                 <li><a class="text-secondary" href="#">Career Development</a></li>
                 <li><a class="text-secondary" href="#">End of COMPASS</a></li>
                 @endif
@@ -63,6 +67,7 @@
             <li><a class="text-secondary" href="#">Technical Competencies</a></li>
             <li><a class="text-secondary" href="#">Leadership Competencies</a></li>
             <li><a class="text-secondary" href="#">Summary of Rating</a></li>
+            <li><a class="text-secondary" href="#">Professional Development Action Plan</a></li>
             <li><a class="text-secondary" href="#">Career Development</a></li>
             <li><a class="text-secondary" href="#">End of COMPASS</a></li>
             @endif

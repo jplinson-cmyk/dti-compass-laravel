@@ -85,11 +85,15 @@
                 style="background-color:#f1f3f6;">
                 <img src="{!! url('/images/login_img.png') !!}" alt="Login Illustration" class="img-fluid" style="max-width: 50%;">
             </div>
-        </div>
+        </div>    
+     
 
         <!-- Footer -->
         <div class="footer">
             @include('auth.partials.footer')
         </div>
+        
     </div>
+    @include('auth.partials.privacy_policy')
+
 @endsection

@@ -12,4 +12,6 @@
             and continuously update your Career Development Plan.</p>
     </div>
 </div>
+@include('auth.partials.privacy_policy')
+
 @endsection

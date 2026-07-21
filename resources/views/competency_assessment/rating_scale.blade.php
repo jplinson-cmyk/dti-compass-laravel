@@ -41,35 +41,35 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>4</td>
-                        <td>ALWAYS</td>
+                        <td  class="rating-scale-number">4</td>
+                        <td class="text-center">ALWAYS</td>
                         <td>The behavior is demonstrated ALL THE TIME in performing one's job, even if the situation does
                             not call for it; behavior is considered an epitome that is worth emulating, and may already
                             coach or mentor others for this particular behavior</td>
                     </tr>
                     <tr>
-                        <td>3</td>
-                        <td>FREQUENTLY</td>
+                        <td class="rating-scale-number">3</td>
+                        <td class="text-center">FREQUENTLY</td>
                         <td>The behavior is demonstrated MOST OF THE TIME in performing the job; expect to exhibit the
                             behavior during expected situations at work; could demonstrate behavior independently, without
                             much supervision.</td>
                     </tr>
                     <tr>
-                        <td>2</td>
-                        <td>SOMETIMES</td>
+                        <td class="rating-scale-number">2</td>
+                        <td class="text-center">SOMETIMES</td>
                         <td>The behavior is demonstrated EVERY ONCE IN A WHILE/OCCASIONALLY in performing the job; may or
                             may not exhibit the behavior during expected situations at work, and relies on supervision or
                             guidance from time to time.</td>
                     </tr>
                     <tr>
-                        <td>1</td>
-                        <td>RARELY</td>
+                        <td class="rating-scale-number">1</td>
+                        <td class="text-center">RARELY</td>
                         <td>The behavior is SELDOM demonstrated; cannot expect to exhibit the behavior when a situation
                             calls for it; relies heavily on supervision or guidance</td>
                     </tr>
                     <tr>
-                        <td>0</td>
-                        <td>NEVER</td>
+                        <td class="rating-scale-number">0</td>
+                        <td class="text-center">NEVER</td>
                         <td>The behavior is NOT being demonstrated in performing the job; cannot exhibit the behavior when
                             the situation at work calls for it.</td>
                     </tr>
@@ -94,4 +94,6 @@
             </form>
         </div>
     </div>
+    @include('auth.partials.privacy_policy')
+
 @endsection

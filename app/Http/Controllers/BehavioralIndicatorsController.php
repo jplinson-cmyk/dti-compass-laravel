@@ -10,7 +10,7 @@ class BehavioralIndicatorsController extends Controller
 {
     public function index()
     {
-        $behavioralIndicators = BehavioralIndicator::with('competency.competencyCategory')->latest()->paginate(10);
+        $behavioralIndicators = BehavioralIndicator::with('competency.competencyCategory')->latest()->get();
     
         return view('behavioral_indicators.index', compact('behavioralIndicators'));
     }
