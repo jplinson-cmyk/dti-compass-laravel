@@ -89,7 +89,7 @@
                             <th rowspan="2" class="align-middle">{{ $category['category_name'] }}</th>
                             <th rowspan="2" class="align-middle text-nowrap" style="max-width: 10%;">Behavioral
                                 Indicators</th>
-                            <th colspan="9" class="text-center">Rating</th>
+                            <th colspan="8" class="text-center">Rating</th>
                         </tr>
                         <tr>
                             <th>Self-Assessment</th>
@@ -99,8 +99,7 @@
                             <th>Average Rating</th>
                             <th>Level of Mastery</th>
                             <th>Overall Competency Level</th>
-                            <th>Overall Level of Mastery</th>
-                            <th>Competency Standard</th>
+                            <th>Overall<br> Level of<br> Mastery</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,8 +128,6 @@
                                     <td class="fw-bolder no-striping text-center">
                                         {{ $competency['overall_mastery_level'] }}
                                     </td>
-
-                                    <td class="text-center">{{ $indicator['standard'] }}</td>
                                 </tr>
                             @endforeach
                         @endforeach

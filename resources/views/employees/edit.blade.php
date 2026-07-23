@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="bg-light p-4 rounded">
-        <h1>Update employee</h1>
+        <h1>Update Employee</h1>
         <div class="lead">
             Update employee information.
         </div>
@@ -192,7 +192,7 @@
                 @endif
 
 
-                <button type="submit" class="btn btn-primary">Update employee</button>
+                <button type="submit" class="btn btn-primary">Update Employee</button>
                 <a href="{{ route('employees.index') }}" class="btn btn-default">Cancel</a>
             </form>
         </div>

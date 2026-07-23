@@ -16,7 +16,9 @@ use App\Models\Position;
 use App\Models\JobLevel;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
 use App\Exports\EmployeesExport;
+use App\Imports\EmployeesImport;
 use App\Models\EmployeesSupervisor;
 
 
@@ -113,11 +115,18 @@ class EmployeesController extends Controller
             ->where('userable_type', Employee::class)
             ->get();
 
+        dd([
+            'employee_ids' => $employeeIds,
+            'users' => $users->pluck('email'),
+        ]);
+
         foreach ($users as $user) {
             Password::sendResetLink(['email' => $user->email]);
         }
 
-        return redirect()->route('employees.index')->with('success', 'Password reset links sent successfully.');
+        return redirect()
+            ->route('employees.index')
+            ->with('success', 'Password reset links sent successfully.');
     }
 
     private function userAccountIfExists($employeeId, $employeeType)
@@ -128,25 +137,25 @@ class EmployeesController extends Controller
     }
 
     private function createNewUser($request, $employee)
-{
-    $user = new User();
-    $user->firstname = $request->firstname;
-    $user->lastname = $request->lastname;
-    $user->email = $request->email;
-    $user->username = $request->email;
-    $user->password = 'dti@2024';
+    {
+        $user = new User();
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->username = $request->email;
+        $user->password = 'dti@2024';
 
-    $user->userable_id = $employee->id;
-    $user->userable_type = get_class($employee);
-    
-    $user->save();
+        $user->userable_id = $employee->id;
+        $user->userable_type = get_class($employee);
+        
+        $user->save();
 
-    // ✅ Assign default role as "Employee"
-    $user->assignRole('Employee');
+        // ✅ Assign default role as "Employee"
+        $user->assignRole('Employee');
 
-    // ✅ Send password reset email
-    $this->sendPasswordLink($user->email);
-}
+        // ✅ Send password reset email
+        $this->sendPasswordLink($user->email);
+    }
 
     
 
@@ -274,16 +283,13 @@ class EmployeesController extends Controller
         return redirect()->route('employees.index')->with('success', 'Employee and associated user account deleted successfully.');
     }
     
-
-    
-  // Export Employees as PDF
+    // Export Employees as PDF
     public function exportPdf()
     {
         $employees = Employee::all();
         $pdf = Pdf::loadView('employees.export_pdf', compact('employees'));
         return $pdf->download('employees.pdf');
     }
-
 
     // Export Employees as CSV
     public function exportCsv()
@@ -295,5 +301,42 @@ class EmployeesController extends Controller
     public function exportXls()
     {
         return Excel::download(new EmployeesExport, 'employees.xlsx');
+    }
+
+    // Import Employees from CSV or XLS
+    public function import(Request $request)
+    {
+        $request->validate([
+            'import_file' => [
+                'required',
+                'file',
+                'mimes:csv,txt,xls,xlsx',
+                'max:10240',
+            ],
+        ]);
+
+        try {
+            Excel::import(
+                new EmployeesImport(),
+                $request->file('import_file')
+            );
+
+            return redirect()
+                ->route('employees.index')
+                ->with('success', 'Employees imported successfully.');
+        } catch (ValidationException $e) {
+            $failures = $e->failures();
+
+            $errors = collect($failures)
+                ->map(function ($failure) {
+                    return 'Row '.$failure->row().': '.
+                        implode(' ', $failure->errors());
+                })
+                ->toArray();
+
+            return redirect()
+                ->route('employees.index')
+                ->withErrors($errors);
+        }
     }
 }

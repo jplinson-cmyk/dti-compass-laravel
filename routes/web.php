@@ -329,3 +329,6 @@ Route::get('/employees/export/pdf', [EmployeesController::class, 'exportPdf'])->
 Route::get('/employees/export/csv', [EmployeesController::class, 'exportCsv'])->name('employees.export.csv');
 Route::get('/employees/export/xls', [EmployeesController::class, 'exportXls'])->name('employees.export.xls');
 Route::get('/employees/supervisors/search', [EmployeesSupervisorsController::class, 'searchEmployees'])->name('employees_supervisors.search');
+
+// Import Routes
+Route::post('/employees/import', [EmployeesController::class, 'import'])->name('employees.import');

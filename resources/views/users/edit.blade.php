@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="bg-light p-4 rounded">
-        <h1>Update user</h1>
+        <h1>Update User</h1>
         <div class="lead">
 
         </div>
@@ -13,7 +13,7 @@
                 @csrf
                 <div class="mb-3">
                     <label for="firstname" class="form-label">First Name</label>
-                    <input value="{{ $user->firstname }}" type="text" class="form-control" name="firstname"
+                    <input value="{{ old('firstname', $user->firstname) }}" type="text" class="form-control" name="firstname"
                         placeholder="First Name" required>
 
                     @if ($errors->has('firstname'))
@@ -22,7 +22,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="lastname" class="form-label">Last Name</label>
-                    <input value="{{ $user->lastname }}" type="text" class="form-control" name="lastname"
+                    <input value="{{ old('lastname', $user->lastname) }}" type="text" class="form-control" name="lastname"
                         placeholder="Last Name" required>
 
                     @if ($errors->has('lastname'))
@@ -31,7 +31,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input value="{{ $user->email }}" type="email" class="form-control" name="email"
+                    <input value="{{ old('email', $user->email) }}" type="email" class="form-control" name="email"
                         placeholder="Email address" required>
                     @if ($errors->has('email'))
                         <span class="text-danger text-left">{{ $errors->first('email') }}</span>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
-                    <input value="{{ $user->username }}" type="text" class="form-control" name="username"
+                    <input value="{{ old('username', $user->username) }}" type="text" class="form-control" name="username"
                         placeholder="Username" required>
                     @if ($errors->has('username'))
                         <span class="text-danger text-left">{{ $errors->first('username') }}</span>
@@ -49,11 +49,15 @@
                 <div id="selected-roles" class="mb-3">
                     <label for="selected-roles" class="form-label">Assigned Roles</label>
                     @foreach ($user->roles as $selectedRole)
-                        <div class="badge-container">
-                            <span class="badge bg-primary">{{ $selectedRole->name }}</span>
+                        <div class="badge-container" style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+                            <span class="badge bg-primary" style="height: 24px; display: inline-flex; align-items: center; justify-content: center; padding: 0 8px; font-size: 16px; font-weight: 600; border-radius: 6px;">
+                                {{ $selectedRole->name }}
+                            </span>
                             <input type="hidden" name="selected_roles[]" value="{{ $selectedRole->id }}">
-                            <button class="btn btn-sm btn-danger remove-role-btn"
-                                data-role-id="{{ $selectedRole->id }}">x</button>
+                            <button type="button" class="btn btn-danger remove-role-btn" data-role-id="{{ $selectedRole->id }}" style="width: 24px; height: 24px; min-width: 24px; padding: 0; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; line-height: 1; border-radius: 7px;">
+                                ✖
+                            </button>
+                            <!-- Use × or ✖ unicode symbol -->
                         </div>
                     @endforeach
                 </div>
@@ -73,7 +77,7 @@
 
                 <button type="button" class="btn btn-success" id="add-role-btn">&#43; Add Role</button>
 
-                <button type="submit" class="btn btn-primary">Update user</button>
+                <button type="submit" class="btn btn-primary">Update User</button>
                 <a href="{{ route('users.index') }}" class="btn btn-default">Cancel</button>
             </form>
         </div>
@@ -105,12 +109,25 @@
                     const selectedRoleName = selectedRoleOption.textContent;
 
                     if (!isRoleAlreadySelected(selectedRoleName, selectedRolesContainer)) {
-                        const badgeContainer = document.createElement('div');
+                         const badgeContainer = document.createElement('div');
                         badgeContainer.className = 'badge-container';
+                        badgeContainer.style.display = 'flex';
+                        badgeContainer.style.alignItems = 'center';
+                        badgeContainer.style.gap = '6px';
+                        badgeContainer.style.marginBottom = '6px';
+
 
                         const badge = document.createElement('span');
-                        badge.className = 'badge bg-primary mr-2';
+                        badge.className = 'badge bg-primary';
                         badge.textContent = selectedRoleName;
+                        badge.style.height = '24px';
+                        badge.style.display = 'inline-flex';
+                        badge.style.alignItems = 'center';
+                        badge.style.justifyContent = 'center';
+                        badge.style.padding = '0 8px';
+                        badge.style.fontSize = '16px';
+                        badge.style.fontWeight = '600';
+                        badge.style.borderRadius = '6px';
                         badgeContainer.appendChild(badge);
 
                         const hiddenInput = document.createElement('input');

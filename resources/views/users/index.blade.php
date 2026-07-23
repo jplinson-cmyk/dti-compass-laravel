@@ -2,10 +2,9 @@
 
 @section('content')
     <div class="bg-white p-4 rounded mt-4">
-        <h1>Users</h1>
-        <div class="lead">
-            <a href="{{ route('users.create') }}" class="btn btn-sm float-end text-white mb-4"
-            style="background-color: #1E4387;"><i class="fa fa-plus" aria-hidden="true"></i> Add new user</a>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h1>Users</h1>
+            <a href="{{ route('users.create') }}" class="btn btn-sm text-white" style="background-color: #1E4387;"><i class="fa fa-plus" aria-hidden="true"></i> Add new user</a>
         </div>
 
         <div class="mt-2">
@@ -54,7 +53,7 @@
                                         <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item">Edit</a>
                                     </li>
                                     <li>
-                                        {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id], 'style' => 'display:inline']) !!}
+                                        {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id], 'style' => 'display:inline', 'onsubmit' => "return confirm('Are you sure you want to delete this user?');"]) !!}
                                         {!! Form::submit('Delete', ['class' => 'dropdown-item']) !!}
                                         {!! Form::close() !!}
                                     </li>
