@@ -18,7 +18,7 @@ class CompetencySetsController extends Controller
         $column = $request->input('column', 'id');
         $order = $request->input('order', 'asc');
 
-        $competency_sets = CompetencySet::orderBy($column, $order)->paginate(100);
+        $competency_sets = CompetencySet::orderBy($column, $order)->paginate(20);
 
         return view('competency_sets.index', compact('competency_sets'));
     }

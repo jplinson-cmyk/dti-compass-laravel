@@ -14,20 +14,16 @@ class Employee extends Model
     protected $table = 'employees';
 
     protected $fillable = [
-        'firstname',
-        'lastname',
-        'email',
-        'employee_id',
-        'gender',
-        'employment_status_id',
-        'functional_group_id',
-        'bureau_office_id',
-        'division_id',
-        'position_id',
-        'job_level_id',
-        'immediate_supervisor',
-        'last_review_at',
+        'firstname', 'middlename', 'lastname', 'suffix', 'email', 'employee_id', 'gender',
+        'employment_status_id', 'functional_group_id', 'bureau_office_id', 'division_id',
+        'position_id', 'job_level_id', 'immediate_supervisor', 'last_review_at',
+        'disability',
+        'indigenous',
+        'ip_group',
+        'civil_status',
+        'religion',
     ];
+
 
     public function employmentStatus()
     {
@@ -69,8 +65,9 @@ class Employee extends Model
         return $this->belongsToMany(Employee::class, 'employees_supervisors', 'supervisor_id', 'employee_id');
     }
 
-    public function user(){
-        return $this->morphOne(User::class,"userable");
+    public function user()
+    {
+        return $this->morphOne(User::class, "userable");
     }
 
     public function competencyAssessments()
@@ -87,5 +84,4 @@ class Employee extends Model
     {
         return $this->competencyAssessments->sortByDesc('id')->first();
     }
-
 }

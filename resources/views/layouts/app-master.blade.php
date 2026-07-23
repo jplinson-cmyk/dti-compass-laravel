@@ -11,7 +11,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{!! url('assets/bootstrap/css/bootstrap.min.css') !!}" rel="stylesheet">
-
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
     <style id="antiClickjack">
         body {
             display: none !important;
@@ -46,10 +47,8 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="{!! url('assets/bootstrap/js/bootstrap.bundle.min.js') !!}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
-        integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+
     <script type="text/javascript">
         if (self === top) {
             var antiClickjack = document.getElementById("antiClickjack");
@@ -88,13 +87,12 @@
 
         document.getElementById("toggleButton").onclick = toggleNav;
         $(function() {
-            $('[data-bs-toggle="tooltip"]').tooltip()
-        })
+            $('[data-bs-toggle="tooltip"]').tooltip();
 
-        
+        })
     </script>
 
-   
+
 
     @section('scripts')
 

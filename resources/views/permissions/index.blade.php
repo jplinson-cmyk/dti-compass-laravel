@@ -2,17 +2,17 @@
 
 @section('content')
     <div class="bg-white p-4 rounded mt-4">
-        <h2>Permissions</h2>
+        <h1>Permissions</h1>
         <div class="lead">
             <a href="{{ route('permissions.create') }}" class="btn btn-sm float-end text-white mb-4"
-            style="background-color: #1E4387;">Add new permissions</a>
+            style="background-color: #1E4387;"><i class="fa fa-plus" aria-hidden="true"></i> Add new permissions</a>
         </div>
 
         <div class="mt-2">
             @include('layouts.partials.messages')
         </div>
 
-        <table class="table table-striped">
+        <table class="table table-striped bdr table-bordered table-responsive">
             <thead>
             <tr>
                 <th scope="col" width="15%">Name</th>
@@ -25,12 +25,26 @@
                     <tr>
                         <td>{{ $permission->name }}</td>
                         <td>{{ $permission->guard_name }}</td>
-                        <td><a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info btn-sm">Edit</a></td>
                         <td>
-                            {!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                            {!! Form::close() !!}
+                            <div class="btn-group dropstart">
+                                <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <a href="{{ route('permissions.edit', $permission->id) }}" class="dropdown-item">Edit</a>
+                                    </li>
+                                    <li>
+                                        {!! Form::open(['method' => 'DELETE','route' => ['permissions.destroy', $permission->id],'style'=>'display:inline']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'dropdown-item']) !!}
+                                        {!! Form::close() !!}
+                                    </li>
+                                    
+                                </ul>
+                            </div>
                         </td>
+                       
                     </tr>
                 @endforeach
             </tbody>

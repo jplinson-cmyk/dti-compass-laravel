@@ -2,20 +2,20 @@
 
 @section('content')
 
-    <h1 class="mb-3">DTI COMPASS</h1>
+<div class="bg-white p-4 rounded mt-4">
+    <h1>Behavioral Indicators</h1>
 
-    <div class="bg-light p-4 rounded">
-        <h2>Behavioral Indicators</h2>
-        <div class="lead">
-            Manage your Behavioral Indicators here.
-            <a href="{{ route('behavioral_indicators.create') }}" class="btn btn-primary btn-sm float-right">Add Behavioral Indicator</a>
-        </div>
+    <div class="lead">
+        <a href="{{ route('behavioral_indicators.create') }}" class="btn btn-sm float-end text-white mb-4"
+            style="background-color: #1E4387;"><i class="fa fa-plus" aria-hidden="true"></i> Add new Behavioral Indicator</a>
+    </div>
 
-        <div class="mt-2">
-            @include('layouts.partials.messages')
-        </div>
+    <div class="mt-2">
+        @include('layouts.partials.messages')
+    </div>
 
-        <table class="table table-bordered">
+    <table id="behavioralIndicatorsTable" class="table table-striped bdr table-bordered table-responsive">
+        <thead>
             <tr>
                 <th width="1%">No</th>
                 <th>Category Name</th>
@@ -24,6 +24,8 @@
                 <th>Level</th>
                 <th width="3%" colspan="3">Action</th>
             </tr>
+        </thead>
+        <tbody>
             @foreach ($behavioralIndicators as $key => $indicator)
                 <tr>
                     <td>{{ $indicator->id }}</td>
@@ -43,19 +45,51 @@
                         {{ $levelText }}
                     </td>
                     <td>
-                        <a class="btn btn-info btn-sm" href="{{ route('behavioral_indicators.show', $indicator->id) }}">Show</a>
-                    </td>
-                    <td>
-                        <a class="btn btn-primary btn-sm" href="{{ route('behavioral_indicators.edit', $indicator->id) }}">Edit</a>
-                    </td>
-                    <td>
-                        {!! Form::open(['method' => 'DELETE','route' => ['behavioral_indicators.destroy', $indicator->id],'style'=>'display:inline']) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                        {!! Form::close() !!}
+                        <div class="btn-group dropstart">
+                            <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('behavioral_indicators.show', $indicator->id) }}">Show</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('behavioral_indicators.edit', $indicator->id) }}">Edit</a>
+                                </li>
+                                <li>
+                                    {!! Form::open(['method' => 'DELETE','route' => ['behavioral_indicators.destroy', $indicator->id],'style'=>'display:inline']) !!}
+                                    {!! Form::submit('Delete', ['class' => 'dropdown-item']) !!}
+                                    {!! Form::close() !!}
+                                </li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach
-        </table>
+        </tbody>
+    </table>
+    {{-- <div class="d-flex mt-4 justify-content-center">
+        {!! $behavioralIndicators->links() !!}
+    </div> --}}
+</div>
 
-    </div>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#behavioralIndicatorsTable').DataTable({
+            "processing": true,
+            "serverSide": false, // Set to true if you want server-side processing
+            "columnDefs": [
+                {
+                    "targets": [0, 4, 5],
+                    "orderable": false, // Disable ordering on columns that should not be sortable
+                }
+            ]
+        });
+    });
+</script>
 @endsection

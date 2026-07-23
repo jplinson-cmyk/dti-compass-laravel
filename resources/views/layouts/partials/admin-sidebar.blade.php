@@ -45,7 +45,7 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow-lg rounded">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img src="{!! url('/images/dti-logo.ico') !!}" alt="" width="32" height="32">
+            <img src="{!! url('/images/bagong_pilipinas.png') !!}" alt="" width="auto" height="50">
         </a>
         <div class="d-sm-none d-md-block d-none d-sm-block">
             <span id="toggleButton"

@@ -2,10 +2,9 @@
 
 @section('content')
     <div class="bg-white p-4 rounded mt-4">
-        <h1>Users</h1>
-        <div class="lead">
-            <a href="{{ route('users.create') }}" class="btn btn-sm float-end text-white mb-4"
-            style="background-color: #1E4387;">Add new user</a>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h1>Users</h1>
+            <a href="{{ route('users.create') }}" class="btn btn-sm text-white" style="background-color: #1E4387;"><i class="fa fa-plus" aria-hidden="true"></i> Add new user</a>
         </div>
 
         <div class="mt-2">
@@ -38,14 +37,29 @@
                             @endforeach
                         </td>
                         <td>
-                            <button onclick="sendResetPasswordLink('{{$user->id}}')" class="btn btn-primary btn-sm password-reset">Reset</button>
-                        </td>
-                        <td><a href="{{ route('users.show', $user->id) }}" class="btn btn-warning btn-sm">Show</a></td>
-                        <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm">Edit</a></td>
-                        <td>
-                            {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id], 'style' => 'display:inline']) !!}
-                            {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                            {!! Form::close() !!}
+                            <div class="btn-group dropstart">
+                                <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li>
+                                        <button onclick="sendResetPasswordLink('{{$user->id}}')" class="dropdown-item">Reset</button>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('users.show', $user->id) }}" class="dropdown-item">Show</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('users.edit', $user->id) }}" class="dropdown-item">Edit</a>
+                                    </li>
+                                    <li>
+                                        {!! Form::open(['method' => 'DELETE', 'route' => ['users.destroy', $user->id], 'style' => 'display:inline', 'onsubmit' => "return confirm('Are you sure you want to delete this user?');"]) !!}
+                                        {!! Form::submit('Delete', ['class' => 'dropdown-item']) !!}
+                                        {!! Form::close() !!}
+                                    </li>
+                                    
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

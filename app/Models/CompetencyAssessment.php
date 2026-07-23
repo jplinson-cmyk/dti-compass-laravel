@@ -51,4 +51,10 @@ class CompetencyAssessment extends Model
         //return $this->items->where('score', NULL);  // query all and filters collections based on the condition
     }
 
+    public function careerDevelopmentPlan()
+    {
+        return $this->hasOne(CareerDevelopmentPlan::class);
+    }
+
+
 }

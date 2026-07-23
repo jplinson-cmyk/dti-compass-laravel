@@ -2,6 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Notifications\ResetPasswordNotification;
+use App\Http\Controllers\CompetencyAssessmentController;
+use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\EmployeesSupervisorsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -71,27 +76,30 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
 
-        /**
-         * Employee Routes
-         */
-        Route::group(['prefix' => 'employees'], function () {
-            Route::get('/', 'EmployeesController@index')->name('employees.index');
-            Route::get('/create', 'EmployeesController@create')->name('employees.create');
-            Route::post('/create', 'EmployeesController@store')->name('employees.store');
-            Route::post('/bulk-reset', 'EmployeesController@sendBulkResetLinks')->name('employees.bulk-reset');
+       /**
+ * Employee Routes
+ */
+Route::group(['prefix' => 'employees'], function () {
+    Route::get('/', [EmployeesController::class, 'index'])->name('employees.index');
+    Route::get('/create', [EmployeesController::class, 'create'])->name('employees.create');
+    Route::post('/create', [EmployeesController::class, 'store'])->name('employees.store');
+    Route::post('/bulk-reset', [EmployeesController::class, 'sendBulkResetLinks'])->name('employees.bulk-reset');
 
-            Route::get('/{employee}/show', 'EmployeesController@show')->name('employees.show');
-            Route::get('/{employee}/edit', 'EmployeesController@edit')->name('employees.edit');
-            Route::patch('/{employee}/update', 'EmployeesController@update')->name('employees.update');
-            Route::get('/{employee}/delete', 'EmployeesController@destroy')->name('employees.destroy');
+    Route::get('/{employee}/show', [EmployeesController::class, 'show'])->name('employees.show');
+    Route::get('/{employee}/edit', [EmployeesController::class, 'edit'])->name('employees.edit');
+    Route::patch('/{employee}/update', [EmployeesController::class, 'update'])->name('employees.update');
 
-            Route::get('/{employee}/tags/create', 'EmployeesSupervisorsController@showTagForm')->name('employees_supervisors.tags.create');
-            Route::post('/{employee}/tags', 'EmployeesSupervisorsController@storeTag')->name('employees_supervisors.tags.store');
-            Route::get('/{employee}/tags', 'EmployeesSupervisorsController@showTaggedEmployees')->name('employees_supervisors.tags.index');
-            Route::delete('/{employee}/tags/delete/{employee_id}', 'EmployeesSupervisorsController@destroy')->name('employees_supervisors.tags.destroy');
+    // ✅ Correct DELETE route (Fixes the error)
+    Route::delete('/{employee}', [EmployeesController::class, 'destroy'])->name('employees.destroy');
 
-            Route::get('/{employee}/tags/search', 'EmployeesSupervisorsController@searchEmployees')->name('employees_supervisors.tags.search');
-        });
+    // Supervisor Tagging Routes
+    Route::get('/{employee}/tags/create', [EmployeesSupervisorsController::class, 'showTagForm'])->name('employees_supervisors.tags.create');
+    Route::post('/{employee}/tags', [EmployeesSupervisorsController::class, 'storeTag'])->name('employees_supervisors.tags.store');
+    Route::get('/{employee}/tags', [EmployeesSupervisorsController::class, 'showTaggedEmployees'])->name('employees_supervisors.tags.index');
+    Route::delete('/{employee}/tags/delete/{employee_id}', [EmployeesSupervisorsController::class, 'destroy'])->name('employees_supervisors.tags.destroy');
+    Route::get('/{employee}/tags/search', [EmployeesSupervisorsController::class, 'searchEmployees'])->name('employees_supervisors.tags.search');
+});
+
 
         /**
          * Test Post Routes
@@ -172,44 +180,60 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::resource('permissions', PermissionsController::class);
 
+/**
+ * ✅ Employee Competency Assessment Routes
+ */
+Route::group(["prefix" => "employees/{employee}"], function () {
+    Route::group(['prefix' => 'competency_assessments'], function () {
 
-        //Employee Competency Assessment Routes
-        
-        /**
-         * Competency Assessment Routes
-         */
+        /** 📌 About & Dictionary */
+        Route::get('{session_type}/about', [CompetencyAssessmentController::class, 'about'])->name('competency_assessment.about'); 
+        Route::get('{session_type}/dictionary', [CompetencyAssessmentController::class, 'dictionary'])->name('competency_assessment.dictionary');
 
-        Route::group(["prefix" => "employees/{employee}"], function(){
-            Route::group(['prefix' => 'competency_assessments'], function () {
-                Route::get('{session_type}/about', 'CompetencyAssessmentController@about')->name('competency_assessment.about');
-                Route::get('{session_type}/dictionary', 'CompetencyAssessmentController@dictionary')->name('competency_assessment.dictionary');
-                Route::get('{session_type}/employee_profile', 'CompetencyAssessmentController@getEmployeeProfileDetails')->name('competency_assessment.employee_profile');
-                Route::get('{session_type}/{id}/rating_scale', 'CompetencyAssessmentController@ratingScale')->name('competency_assessment.rating_scale');
-                Route::get('{session_type}/{id}/instructions', 'CompetencyAssessmentController@instructions')->name('competency_assessment.instructions');
-                Route::get('{session_type}/{id}/categories/{categoryId}', 'CompetencyAssessmentController@getAssessmentForm')->name('competency_assessment.form');
-                Route::get('{session_type}/{id}/cdp', 'CompetencyAssessmentController@cdp')->name('competency_assessment.cdp');
-                Route::get('{session_type}/{id}/summary', 'CompetencyAssessmentController@summary')->name('competency_assessment.summary');
-                Route::get('{session_type}/{id}/closing', 'CompetencyAssessmentController@closing')->name('competency_assessment.closing');
+        /** 📌 Employee Profile & Rating Scale */
+        Route::get('{session_type}/employee_profile', [CompetencyAssessmentController::class, 'getEmployeeProfileDetails'])->name('competency_assessment.employee_profile'); 
+        Route::get('{session_type}/{id}/rating_scale', [CompetencyAssessmentController::class, 'ratingScale'])->name('competency_assessment.rating_scale');
 
-                
-                Route::post('{session_type}/about', 'CompetencyAssessmentController@storeAboutAssessment')->name('competency_assessment.save.about');
-                Route::post('{session_type}/dictionary', 'CompetencyAssessmentController@storeDictionary')->name('competency_assessment.save.dictionary');
-                Route::post('{session_type}/rating_scale', 'CompetencyAssessmentController@storeRatingScale')->name('competency_assessment.save.rating_scale');
-                Route::post('{session_type}/employee_profile', 'CompetencyAssessmentController@storeEmployeeDetails')->name('competency_assessment.save.employee_profile');
-                Route::post('{session_type}/instructions', 'CompetencyAssessmentController@storeInstructions')->name('competency_assessment.save.instructions');
-                Route::post('{session_type}/{id}/categories/{categoryId}', 'CompetencyAssessmentController@storeAssessmentForm')->name('competency_assessment.save.form');
-                Route::post('{session_type}/summary', 'CompetencyAssessmentController@storeSummary')->name('competency_assessment.save.summary');
-            
-            
-                Route::get('{session_type}/dashboard', 'CompetencyAssessmentController@employeeAssessment')->name('competency_assessment.employee_assessment');
+        /** 📌 Instructions & Categories */
+        Route::get('{session_type}/{id}/instructions', [CompetencyAssessmentController::class, 'instructions'])->name('competency_assessment.instructions'); 
+        Route::get('{session_type}/{id}/categories/{categoryId}', [CompetencyAssessmentController::class, 'getAssessmentForm'])->name('competency_assessment.form');
 
-            
-            });  
+        /** 📌 Summary */
+        Route::get('{session_type}/{id}/summary', [CompetencyAssessmentController::class, 'summary'])->name('competency_assessment.summary');
+        Route::post('{session_type}/{id}/summary/export', [CompetencyAssessmentController::class, 'export'])->name('competency_assessment.export.summary');
+        /** ✅ PDAP Module */
+        Route::get('{session_type}/{id}/pdap', [CompetencyAssessmentController::class, 'pdap'])->name('competency_assessment.pdap'); 
+        Route::post('{session_type}/{id}/pdap', [CompetencyAssessmentController::class, 'storePDAP'])->name('competency_assessment.save.pdap'); 
+        Route::get('{session_type}/{id}/pdap_extended', [CompetencyAssessmentController::class, 'pdapExtended'])->name('competency_assessment.pdap_extended'); 
+        Route::post('{session_type}/{id}/pdap_extended', [CompetencyAssessmentController::class, 'storePDAPExtended'])->name('competency_assessment.save.pdap_extended');
 
-          
-       
+        /** ✅ CDP Module */
+        Route::get('{session_type}/{id}/cdp', [CompetencyAssessmentController::class, 'cdp'])->name('competency_assessment.cdp'); 
+        Route::post('{session_type}/{id}/cdp', [CompetencyAssessmentController::class, 'storeCDP'])->name('competency_assessment.save.cdp');
 
-        });
+        /** 📌 Closing */
+        Route::get('{session_type}/{id}/closing', [CompetencyAssessmentController::class, 'closing'])->name('competency_assessment.closing');
+
+        /** ✅ Saving Routes */
+        Route::post('{session_type}/about', [CompetencyAssessmentController::class, 'storeAboutAssessment'])->name('competency_assessment.save.about'); 
+        Route::post('{session_type}/dictionary', [CompetencyAssessmentController::class, 'storeDictionary'])->name('competency_assessment.save.dictionary'); 
+        Route::post('{session_type}/rating_scale', [CompetencyAssessmentController::class, 'storeRatingScale'])->name('competency_assessment.save.rating_scale'); 
+        Route::post('{session_type}/employee_profile', [CompetencyAssessmentController::class, 'storeEmployeeDetails'])->name('competency_assessment.save.employee_profile'); 
+        Route::post('{session_type}/instructions', [CompetencyAssessmentController::class, 'storeInstructions'])->name('competency_assessment.save.instructions'); 
+        Route::post('{session_type}/{id}/categories/{categoryId}', [CompetencyAssessmentController::class, 'storeAssessmentForm'])->name('competency_assessment.save.form'); 
+        Route::post('{session_type}/summary', [CompetencyAssessmentController::class, 'storeSummary'])->name('competency_assessment.save.summary'); 
+
+        Route::get('{session_type}/dashboard', [CompetencyAssessmentController::class, 'employeeAssessment'])->name('competency_assessment.employee_assessment');
+    });
+});
+
+
+
+
+
+
+
+
 
 
 
@@ -283,3 +307,28 @@ Route::get('/notification', function () {
     return (new ResetPasswordNotification($url))
                 ->toMail(null);
 });
+
+// Save PDAP
+Route::post('employees/{employee}/competency_assessments/{session_type}/{id}/pdap', 
+    [CompetencyAssessmentController::class, 'storePDAP'])
+    ->name('competency_assessment.save.pdap');
+
+// Redirect to next page after submitting
+Route::get('employees/{employee}/competency_assessments/{session_type}/{id}/closing', 
+    [CompetencyAssessmentController::class, 'closing'])
+    ->name('competency_assessment.closing');
+
+/**
+ * ✅ AJAX Route for Fetching Job Family Competencies
+ */
+Route::get('get_competencies', [CompetencyAssessmentController::class, 'getCompetencies'])
+    ->name('get.job.family.competencies');
+
+// Export Routes
+Route::get('/employees/export/pdf', [EmployeesController::class, 'exportPdf'])->name('employees.export.pdf');
+Route::get('/employees/export/csv', [EmployeesController::class, 'exportCsv'])->name('employees.export.csv');
+Route::get('/employees/export/xls', [EmployeesController::class, 'exportXls'])->name('employees.export.xls');
+Route::get('/employees/supervisors/search', [EmployeesSupervisorsController::class, 'searchEmployees'])->name('employees_supervisors.search');
+
+// Import Routes
+Route::post('/employees/import', [EmployeesController::class, 'import'])->name('employees.import');

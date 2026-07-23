@@ -83,13 +83,15 @@ body {
     }
 }
 
+
 /* Ron css */
 
 .vh-100 {
     height: 94vh!important;
 }
 
-input#username,input#password {
+input#username,
+input#password {
     background-color: #F1F3F6;
 }
 
@@ -123,4 +125,8 @@ a.forgot-pass {
 
 p.fw-bolder.title-2 {
     font-size: 20px;
+}
+
+h1 {
+    color: #1E4387;
 }

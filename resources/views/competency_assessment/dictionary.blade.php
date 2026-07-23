@@ -77,4 +77,6 @@
             </form>
         </div>
     </div>
+    @include('auth.partials.privacy_policy')
+
 @endsection

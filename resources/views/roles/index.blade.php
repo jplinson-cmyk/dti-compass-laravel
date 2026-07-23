@@ -1,40 +1,49 @@
 @extends('layouts.app-master')
 
 @section('content')
-
     <div class="bg-white p-4 rounded mt-4">
         <h1>Roles</h1>
         <div class="lead">
             <a href="{{ route('roles.create') }}" class="btn btn-sm float-end text-white mb-4"
-            style="background-color: #1E4387;">Add new role</a>
+                style="background-color: #1E4387;"><i class="fa fa-plus" aria-hidden="true"></i> Add new role</a>
         </div>
 
         <div class="mt-2">
             @include('layouts.partials.messages')
         </div>
 
-        <table class="table table-bordered">
-          <tr>
-             <th width="1%">No</th>
-             <th>Name</th>
-             <th width="3%" colspan="3">Action</th>
-          </tr>
-            @foreach ($roles as $key => $role)
+        <table class="table table-striped bdr table-bordered table-responsive">
             <tr>
-                <td>{{ $role->id }}</td>
-                <td>{{ $role->name }}</td>
-                <td>
-                    <a class="btn btn-info btn-sm" href="{{ route('roles.show', $role->id) }}">Show</a>
-                </td>
-                <td>
-                    <a class="btn btn-primary btn-sm" href="{{ route('roles.edit', $role->id) }}">Edit</a>
-                </td>
-                <td>
-                    {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                    {!! Form::close() !!}
-                </td>
+                <th width="1%">No</th>
+                <th>Name</th>
+                <th width="3%" colspan="3">Action</th>
             </tr>
+            @foreach ($roles as $key => $role)
+                <tr>
+                    <td>{{ $role->id }}</td>
+                    <td>{{ $role->name }}</td>
+                    <td>
+                        <div class="btn-group dropstart">
+                            <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('roles.show', $role->id) }}">Show</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('roles.edit', $role->id) }}">Edit</a>
+                                </li>
+                                <li>
+                                    {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
+                                    {!! Form::submit('Delete', ['class' => 'dropdown-item']) !!}
+                                    {!! Form::close() !!}
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
             @endforeach
         </table>
 

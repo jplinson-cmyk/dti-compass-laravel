@@ -2,51 +2,60 @@
 
 @section('content')
 
-    <h1 class="mb-3">DTI COMPASS</h1>
-
-    <div class="bg-light p-4 rounded">
-        <h2>Competencies</h2>
+    <div class="bg-white p-4 rounded mt-4">
+        <h1>Competencies</h1>
         <div class="lead">
-            Manage your competencies here.
-            <a href="{{ route('competencies.create') }}" class="btn btn-primary btn-sm float-right">Add Competency</a>
+            <a href="{{ route('competencies.create') }}" class="btn btn-sm float-end text-white mb-4"
+                style="background-color: #1E4387;"><i class="fa fa-plus" aria-hidden="true"></i> Add new Competency</a>
         </div>
 
         <div class="mt-2">
             @include('layouts.partials.messages')
         </div>
 
-        <table class="table table-bordered">
-          <tr>
+        <table class="table table-striped bdr table-bordered table-responsive">
+            <tr>
              <th width="1%">No</th>
              <th>Category</th>
              <th>Name</th>
              <th>Description</th>
              <th width="3%" colspan="3">Action</th>
           </tr>
-            @foreach ($competencies as $key => $competencies)
+            @foreach ($competencies as $key => $competency)
             <tr>
-                <td>{{ $competencies->id }}</td>
-                <td>{{ $competencies->competencyCategory->category_name }}</td>
-                <td>{{ $competencies->name }}</td>
-                <td>{{ $competencies->description }}</td>
+                <td>{{ $competency->id }}</td>
+                <td>{{ $competency->competencyCategory->category_name }}</td>
+                <td>{{ $competency->name }}</td>
+                <td>{{ $competency->description }}</td>
                 <td>
-                    <a class="btn btn-info btn-sm" href="{{ route('competencies.show', $competencies->id) }}">Show</a>
-                </td>
-                <td>
-                    <a class="btn btn-primary btn-sm" href="{{ route('competencies.edit', $competencies->id) }}">Edit</a>
-                </td>
-                <td>
-                    {!! Form::open(['method' => 'DELETE','route' => ['competencies.destroy', $competencies->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                    {!! Form::close() !!}
+                    <div class="btn-group dropstart">
+                        <button class="btn btn-light btn-sm" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item" href="{{ route('competencies.show', $competency->id) }}">Show</a>
+
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('competencies.edit', $competency->id) }}">Edit</a>
+                            </li>
+                            <li>
+                                {!! Form::open(['method' => 'DELETE','route' => ['competencies.destroy', $competency->id],'style'=>'display:inline']) !!}
+                                {!! Form::submit('Delete', ['class' => 'dropdown-item']) !!}
+                                {!! Form::close() !!}
+                            </li>
+                        </ul>
+                    </div>
                 </td>
             </tr>
             @endforeach
         </table>
 
-        {{-- <div class="d-flex">
-            {!! $competencies_categories->links() !!}
-        </div> --}}
+        <div class="d-flex mt-4 justify-content-center">
+            {!! $competencies->links() !!}
+        </div>
 
     </div>
 @endsection

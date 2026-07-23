@@ -1,6 +1,106 @@
 @extends('layouts.compass')
 
 @section('compass-content')
+    <style>
+        .competency-rating-table-wrapper {
+            border: 1px solid #cfd8e3;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .competency-rating-table {
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+        .competency-rating-table th,
+        .competency-rating-table td {
+            border: 1px solid #cfd8e3 !important;
+            vertical-align: middle;
+        }
+
+        .competency-rating-table .competency-level-header th {
+            padding: 16px 10px;
+            background-color: #dbe8ff;
+            color: #17212b;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .competency-rating-table .competency-level-header .statement-column {
+            width: 45%;
+            padding-left: 24px;
+            text-align: left;
+        }
+
+        .competency-rating-table .statement-cell {
+            padding: 18px 16px;
+            background-color: #ffffff;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        .competency-rating-table .rating-cell {
+            position: relative;
+            height: 74px;
+            padding: 0;
+            background-color: #ffffff;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .competency-rating-table .rating-radio {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 2;
+            width: 1.35rem;
+            height: 1.35rem;
+            margin: 0;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .competency-rating-table .rating-radio:checked {
+            background-color: #1e4387;
+            border-color: #1e4387;
+        }
+
+        .competency-rating-table .rating-cell-label {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            display: block;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .competency-rating-table .rating-cell:hover {
+            background-color: #f4f7fb;
+        }
+
+        .competency-rating-table .rating-cell:has(.rating-radio:checked) {
+            background-color: #edf3f9;
+        }
+
+        .competency-rating-table .self-rating-cell {
+            padding: 16px 10px;
+            background-color: #ffffff;
+            text-align: center;
+        }
+
+        @media (max-width: 991.98px) {
+            .competency-rating-table {
+                min-width: 900px;
+            }
+
+            .competency-rating-table .competency-level-header .statement-column {
+                width: 380px;
+            }
+        }
+    </style>
+
     <div class="container-fluid mt-2 p-5 bg-white rounded">
         @if (auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
             <div class="container-fluid rounded p-4 mb-4 text-white" style="background-color: #1E4387;">
@@ -19,21 +119,23 @@
                 </h6>
             </div>
         @endif
-        <div class="text-center mb-5">
+        <div class="text-center mb-3">
             @if ($competencyCategory->category_name == 'Core Competencies')
                 <h1 class="mb-3">Organizational / {{ str_replace('ies', 'y', $competencyCategory->category_name) }}</h1>
             @else
                 <h1 class="mb-3">{{ str_replace('ies', 'y', $competencyCategory->category_name) }}</h1>
             @endif
-            <p class="text-muted">Complete the form by clicking on the button to the left of your selected rating. All
-                questions are required and must be answered.</p>
 
-            <div class="text-end">
-                <a id="ratingScaleInfo" class="btn text-light" data-bs-toggle="modal" data-bs-target="#ratingScaleModal">
-                    <i class="fas fa-info-circle"></i> Rating Scale
-                </a>
+
+            <div class="d-flex flex-row justify-content-between">
+                <p class="text-muted text-center flex-grow-1 my-auto">Complete the form by clicking on the button to the left
+                    of your selected rating. All questions are required and must be answered.</p>
+                <button id="ratingScaleInfo" class="btn text-light fs-responsive my-auto ml-2" data-bs-toggle="modal"
+                    data-bs-target="#ratingScaleModal">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="rating-scale-text"> Rating Scale</span>
+                </button>
             </div>
-
         </div>
 
         <form method="post"
@@ -47,107 +149,126 @@
                 $levelMapping = ['1' => 'Basic', '2' => 'Intermediate', '3' => 'Advanced', '4' => 'Superior'];
             @endphp
 
-            @foreach ($sortedItems->groupBy(function ($item) {
-            return $item->behavioralIndicator->competency_id;
-        }) as $key => $items)
-                @php
-                    $displayedLevels = [];
-                @endphp
-                <div class="card mb-4">
+            <div class="accordion mb-4" id="competencyAccordion">
+                @foreach ($sortedItems->groupBy(function ($item) {
+                    return $item->behavioralIndicator->competency_id;
+                }) as $key => $items)
 
-                    
-        
-                    <div class="card-header text-center" >
-                        <h3 class="card-title"
-                            id="competency-{{ $items->first()->behavioralIndicator->competency->id }}"><strong>
-                            {{ $items->first()->behavioralIndicator->competency->name }}</strong></h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="row align-items-center">
-           
-                            <div class="col-lg-8 col-md-8">
-                            </div>
-                            <div class="col-lg-4 col-md-4">
-                                <div class ="row">
-                                    <div class="col rating-label" id="label-1">
-                                        Never
-                                    </div>
-                                    <div class="col rating-label" id="label-2">
-                                        Rarely
-                                    </div>
-                                    <div class="col rating-label" id="label-3">
-                                        Sometimes
-                                    </div>
-                                    <div class="col rating-label" id="label-4">
-                                        Frequently
-                                    </div>
-                                    <div class="col rating-label " id="label-5">
-                                        Always
-                                    </div>
-                                    @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-                                    <div class="col rating-label">
-                                        Employee's <br>Self-Rating
-                                    </div>
-                                    @endif
+                    @php
+                        $displayedLevels = [];
+                        $competency = $items->first()->behavioralIndicator->competency;
+                        $accordionId = 'competency-collapse-' . $competency->id;
+                        $headingId = 'competency-heading-' . $competency->id;
+                    @endphp
+
+                    <div class="accordion-item mb-3 border rounded">
+                        <h2 class="accordion-header" id="{{ $headingId }}">
+                            <button
+                                class="accordion-button collapsed fw-bold"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#{{ $accordionId }}"
+                                aria-expanded="false"
+                                aria-controls="{{ $accordionId }}"
+                            >
+                                {{ $competency->name }}
+                            </button>
+                        </h2>
+
+                        <div
+                            id="{{ $accordionId }}"
+                            class="accordion-collapse collapse"
+                            aria-labelledby="{{ $headingId }}"
+                        >
+                            <div class="accordion-body">
+                                <div class="table-responsive competency-rating-table-wrapper">
+                                    <table class="table competency-rating-table mb-0">
+                                        <tbody>
+                                            @foreach ($items as $item)
+                                                @php
+                                                    $currentLevel = $item->behavioralIndicator->level;
+
+                                                    $hasSelfRating =
+                                                        auth()->user()->hasRole('supervisor') &&
+                                                        $session_type == 'employee_assessment';
+
+                                                    $columnCount = $hasSelfRating ? 7 : 6;
+                                                @endphp
+
+                                                @if (!in_array($currentLevel, $displayedLevels))
+                                                    <tr class="competency-level-header">
+                                                        <th class="statement-column">
+                                                            {{ $competency->name }}
+                                                            ({{ $levelMapping[$currentLevel] ?? 'Unknown Level' }})
+                                                        </th>
+
+                                                        <th>Never</th>
+                                                        <th>Rarely</th>
+                                                        <th>Sometimes</th>
+                                                        <th>Frequently</th>
+                                                        <th>Always</th>
+
+                                                        @if ($hasSelfRating)
+                                                            <th>Employee's Self-Rating</th>
+                                                        @endif
+                                                    </tr>
+
+                                                    @php
+                                                        $displayedLevels[] = $currentLevel;
+                                                    @endphp
+                                                @endif
+
+                                                <tr class="assessment-question">
+                                                    <td class="statement-cell">
+                                                        {{ $item->behavioralIndicator->description }}
+                                                    </td>
+
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @php
+                                                            $radioId =
+                                                                'rating-' .
+                                                                $item->behavioralIndicator->id .
+                                                                '-' .
+                                                                $i;
+                                                        @endphp
+
+                                                        <td class="rating-cell">
+                                                            <input class="form-check-input rating-radio"
+                                                                type="radio"
+                                                                name="rating[{{ $item->behavioralIndicator->id }}]"
+                                                                id="{{ $radioId }}"
+                                                                value="{{ $i }}"
+                                                                {{ isset($item->score) && $item->score == $i ? 'checked' : '' }}
+                                                                {{ $competencyAssessmentCompleted ? 'disabled' : '' }}
+                                                                required
+                                                            >
+
+                                                            <label class="rating-cell-label" for="{{ $radioId }}" aria-label="{{ ['Never', 'Rarely', 'Sometimes', 'Frequently', 'Always'][$i] }}"></label>
+                                                        </td>
+                                                    @endfor
+
+                                                    @if ($hasSelfRating)
+                                                        <td class="self-rating-cell">
+                                                            <strong>{{ $item->selfAssessmentScore }}</strong>
+                                                        </td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-
-                        @foreach ($items as $item)
-                            @php
-                                $currentLevel = $item->behavioralIndicator->level;
-                            @endphp
-                            @if (!in_array($currentLevel, $displayedLevels))
-                                <div class="row">
-                                    <div class="col">
-                                        @if ($currentLevel != 1)
-                                            <hr style="border-top: 4px solid #1E4387;">
-                                        @endif
-                                        <h4><strong>{{ $items->first()->behavioralIndicator->competency->name }} ({{ $levelMapping[$currentLevel] ?? 'Unknown Level' }})</strong></h4>
-                                    </div>
-                                </div>
-                                @php
-                                    $displayedLevels[] = $currentLevel;
-                                @endphp
-                            @endif
-                            <div class="row mb-3 align-items-center">
-                                <div class="col-lg-8 col-md-8">
-                                    <p>{{ $item->behavioralIndicator->description }}</p>
-                                </div>
-                                <div class="col-lg-4 col-md-4">
-                                    <div class="row">
-                                        @for ($i = 0; $i < 5; $i++)
-                                            <div class="col numbered-items">
-                                                <div class="form-check fw-bold">{{$i}}
-                                                    <input class="form-check-input" type="radio"
-                                                        name="rating[{{ $item->behavioralIndicator->id }}]"
-                                                        id="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}"
-                                                        value="{{ $i }}"
-                                                        {{ isset($item->score) && $item->score == $i ? 'checked' : '' }}
-                                                        {{ $competencyAssessmentCompleted ? 'disabled' : '' }} required>
-                                                    <label class="form-check-label d-block d-lg-none"
-                                                        for="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}">
-                                                        {{ ['Never', 'Rarely', 'Sometimes', 'Frequently', 'Always'][$i] }}
-                                                    </label>
-                                                    <label class="form-check-label d-none d-lg-block"
-                                                        for="rating-{{ $item->behavioralIndicator->id }}-{{ $i }}"></label>
-                                                </div>
-                                            </div>
-                                        @endfor
-                                        @if(auth()->user()->hasRole('supervisor') && $session_type == 'employee_assessment')
-                                        <div class="col self-assessment-score">
-                                            <span><strong>{{ $item->selfAssessmentScore }}</strong></span>
-                                        </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-
-
                     </div>
+                @endforeach
+            </div>
+
+            <div class="row text-center">
+                <div class="col">
+                    <p>Kindly review your answers before submitting. Ratings can no longer be changed and updated after
+                        submission.</p>
                 </div>
-            @endforeach
+            </div>
             <div class="row">
                 <div class="col">
                     <a href="{{ route('competency_assessment.instructions', ['employee' => $employee->id, 'session_type' => $session_type, 'id' => $competencyAssessment->id]) }}"
@@ -167,13 +288,13 @@
             </div>
         </form>
 
-        <button onclick="scrollToTop()" class="btn btn-md btn-outline-primary disable"
-            style="position: fixed; bottom: 100px; right: 20px; z-index: 2000;">
+        <button onclick="scrollToTop()" class="btn btn-xs"
+            style="position: fixed; bottom: 110px; right: 15px; z-index: 2000;background-color:#1E4387; color:#fff;">
             <i class="fa fa-arrow-up"></i>
         </button>
 
-        <button onclick="scrollToBottom()" class="btn btn-md btn-outline-primary disable"
-            style="position: fixed; bottom: 50px; right: 20px; z-index: 2000;">
+        <button onclick="scrollToBottom()" class="btn btn-xs"
+            style="position: fixed; bottom: 80px; right: 15px; z-index: 2000;background-color:#1E4387; color:#fff;">
             <i class="fa fa-arrow-down"></i>
         </button>
 
@@ -240,19 +361,95 @@
         </div>
 
         <script>
-            function scrollToTop() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 
-            function scrollToBottom() {
-                window.scrollTo({
-                    top: document.body.scrollHeight,
-                    behavior: 'smooth'
+    function scrollToBottom() {
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector("form");
+        const radioGroups = document.querySelectorAll(".assessment-question");; // Each question group
+        const submitButtons = form.querySelectorAll("button[type='submit']");
+
+        const accordionSections = document.querySelectorAll(".accordion-collapse");
+
+        accordionSections.forEach(section => {
+            section.addEventListener("shown.bs.collapse", function () {
+                const accordionItem = section.closest(".accordion-item");
+
+                accordionItem.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
                 });
-            }
-        </script>
+            });
+        });
+
+        submitButtons.forEach(button => {
+            button.addEventListener("click", function (event) {
+                let isValid = true;
+                let firstUnanswered = null;
+
+                radioGroups.forEach(group => {
+                    const radios = group.querySelectorAll("input[type='radio']");
+                    const isChecked = Array.from(radios).some(radio => radio.checked);
+
+                    if (!isChecked) {
+                        isValid = false;
+
+                        // Store first unanswered question to scroll to
+                        if (!firstUnanswered) {
+                            firstUnanswered = group;
+                        }
+
+                        // Highlight the unanswered question
+                        group.style.border = "2px solid red";
+                        setTimeout(() => group.style.border = "", 3000);
+                    }
+                });
+
+                if (!isValid) {
+                    event.preventDefault(); // Prevent form submission
+
+                    // Show an alert message
+                    alert("⚠️ Please answer all questions before submitting!");
+
+                    // Scroll smoothly to the first unanswered question
+                    const collapsedSection = firstUnanswered.closest(".accordion-collapse");
+                        if (collapsedSection) {
+                            const accordionCollapse =
+                                bootstrap.Collapse.getOrCreateInstance(collapsedSection, {
+                                    toggle: false
+                                });
+
+                            accordionCollapse.show();
+
+                            collapsedSection.addEventListener("shown.bs.collapse", function scrollToQuestion() {
+                                firstUnanswered.scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "center"
+                                });
+
+                                collapsedSection.removeEventListener(
+                                    "shown.bs.collapse",
+                                    scrollToQuestion
+                                );
+                            });
+                        }
+                }
+            });
+        });
+    });
+</script>
+
+
     </div>
 @endsection

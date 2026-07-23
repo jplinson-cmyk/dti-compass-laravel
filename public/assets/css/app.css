@@ -6,6 +6,14 @@ body {
     font-family: 'Poppins', sans-serif;
 }
 
+.btn-group-xs>.btn,
+.btn-xs {
+    padding: .25rem .4rem;
+    font-size: .875rem;
+    line-height: .5;
+    border-radius: .2rem;
+}
+
 h1 {
     color: #1E4387;
 }
@@ -16,6 +24,10 @@ a[data-toggle="collapse"] {
 
 thead {
     background-color: #F1F3F9;
+}
+
+i.fas.fa-circle {
+    padding-right: 10px;
 }
 
 a,
@@ -34,7 +46,9 @@ a:focus {
 }
 
 .banner {
-    background: radial-gradient(circle, #789fe7, #1E4387);
+    background-image: url('/images/DTI_BlueBG_V3.jpg');
+    background-size: cover;
+    background-position: top;
     border-bottom-left-radius: 6px;
     padding: 10px;
     font-family: 'Poppins', sans-serif;
@@ -47,6 +61,87 @@ a:focus {
 .employee-assessment {
     width: 100vw !important;
     max-width: 100% !important;
+}
+
+.privacy-terms-text {
+    margin-left: 70px;
+}
+
+.user-info {
+    font-size: 1rem;
+}
+
+.user-info {
+    font-size: 0.85rem;
+    color: #6c757d;
+}
+
+.no-arrow::after {
+    display: none;
+}
+
+.accordion-button {
+    background-color: #fff;
+    color: #000;
+}
+
+.accordion-header .accordion-button {
+    font-size: 18px;
+}
+
+.accordion-button.collapsed {
+    background-color: #fff;
+    color: #000;
+    box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #fff;
+    color: #000;
+}
+
+.accordion-button:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.table-responsive .table {
+    font-size: 0.9rem;
+    /* Reducing font size */
+}
+
+.table-responsive .table th,
+.table-responsive .table td {
+    padding: 0.5rem;
+    /* Reducing padding */
+}
+
+@media (max-width: 1800px) {
+    .summary-table {
+        font-size: 10px;
+    }
+    .form-question-text {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 1600px) {
+    .summary-table {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 1300px) {
+    .summary-table {
+        font-size: 6px;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-responsive .table th:nth-child(n+5),
+    .table-responsive .table td:nth-child(n+5) {
+        display: none;
+    }
 }
 
 @media (max-width: 768px) {
@@ -83,15 +178,45 @@ a:focus {
     }
 }
 
+@media only screen and (max-width: 1712px) {
+    #label-1,
+    #label-2,
+    #label-3,
+    #label-4,
+    #label-5 {
+        font-size: 8px;
+    }
+}
+
+@media only screen and (max-width: 1339px) {
+    #label-1,
+    #label-2,
+    #label-3,
+    #label-4,
+    #label-5 {
+        font-size: 5px;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    .rating-label-col {
+        display: none;
+    }
+}
+
 @media (max-width: 992px) {
     /* Adjusts for large screens, e.g., LG breakpoint in Bootstrap */
     #toggleButton {
         display: none;
         /* larger margin for larger screens */
-    },
-    .rating-label {
-        display:none!important;
     }
+    .rating-label-col {
+        display: none !important;
+    }
+}
+
+.sidebar-header-text {
+    font-size: 16px !important;
 }
 
 .sidenav {
@@ -132,8 +257,8 @@ a:focus {
 }
 
 #sidebar ul.components li a {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
     padding: 10px;
     font-size: .8em;
     display: block;
@@ -171,12 +296,14 @@ ul ul a {
     max-width: 100%;
     display: block;
     position: relative;
-    min-height: 80px;    
+    min-height: 80px;
 }
+
 .compass-breadcrumb {
     position: absolute;
     left: 0px;
 }
+
 .compass-breadcrumb ul {
     list-style: none;
     display: flex;
@@ -191,6 +318,14 @@ ul ul a {
     /* For Firefox */
     scrollbar-color: #1E4387 #f0f0f0;
     /* For Firefox */
+}
+
+.vertical-line {
+    border-left: 4px solid #1E4387;
+    margin-left: 50%;
+    /* Center the line inside the column */
+    height: 100%;
+    /* You might need to adjust this value */
 }
 
 
@@ -284,7 +419,7 @@ ul ul a {
         /* Adjust font size for tablet devices */
     }
     .employee-avatar {
-        max-width: 100px;
+        max-width: 150px;
         height: 100%;
         /* Set height to fill the column */
     }
@@ -422,7 +557,8 @@ p {
 }
 
 .employee-avatar {
-    max-width: 125px;
+    border-radius: 10px;
+    max-width: 180px;
     height: 100%;
     /* Set height to fill the column */
 }
@@ -453,14 +589,28 @@ span.text-uppercase.employee-name {
     padding: 20px 0px 0px 0px;
 }
 
-.col.self-assessment-score {
+.self-assessment-score {
     border: 2px solid #414483;
-    padding: 10px 0px 10px 38px;
-    margin: 0 20px;
+    width: 100%;
+    margin: 0 10px 10px 0;
+    max-width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.col.numbered-items {
-    margin-top: 15px;
+.self-rating {
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .col.self-assessment-score {
+        margin: 0 10px;
+        /* Smaller margins on smaller screens */
+        padding: 10px 0px;
+        max-width: 100%;
+        /* Adjust max-width for very small devices */
+    }
 }
 
 .card-body,
@@ -471,10 +621,10 @@ span.text-uppercase.employee-name {
 .rating-label {
     font-weight: bold;
     padding-right: 14px;
-    font-size: 14px;
     margin-top: 13px;
+    font-size: 12px;
     transform: rotate(-60deg);
-    display:block!important;
+    display: block!important;
 }
 
 span#label-5 {
@@ -536,38 +686,109 @@ p.text-light {
     /* Adjust the value as needed */
 }
 
+.brand-color-bg {
+    background-color: #1E4387;
+}
 
 p {
     font-size: 18px;
 }
 
-<<<<<<< HEAD
-footer.d-flex.flex-wrap.justify-content-between.align-items-center.py-1.border-top.bg-light {
-    margin-left: 5em;
-}
-
-button.accordion-button.collapsed.fw-bolder.dictionary-title {
+.bdr {
     border-radius: 20px;
+    overflow: hidden;
 }
 
 table.table.table-striped.bdr {
     width: 85%;
-    margin-left: 120px;
+    margin-left: 85px;
 }
 
-.d-flex.justify-content-between.competency-assesment-form-control {
-    margin-top: -55px;
+td.rating-scale-number {
+    padding: 10px 0px 0px 34px !important;
 }
 
-.table>:not(caption)>*>* {
-    padding: 0.8rem 0.8rem;
-    background-color: var(--bs-table-bg);
-    border-bottom-width: 1px;
-    box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);
+@media (max-width: 1800px) {
+    .rating-scale-text {
+        display: none;
+    }
+    .rating-label,
+    .self-rating {
+        font-size: 12px !important;
+    }
+    .rating-number {
+        font-size: 12px !important;
+    }
+    .numbered-items {
+        font-size: 12px !important;
+    }
+    #ratingScaleInfo {
+        margin: 20px;
+    }
 }
 
-button.btn.btn-md.btn-outline-primary.disable {
-    display: none;
+@media (max-width: 1500px) {
+    .rating-label,
+    .self-rating {
+        font-size: 12px !important;
+    }
+    .rating-number {
+        font-size: 12px !important;
+    }
+    .numbered-items {
+        font-size: 12px !important;
+    }
 }
-=======
->>>>>>> ec9199c7b07a9d308950d40e8fb4d61239500aa4
+
+@media (max-width: 1325px) {
+    .rating-label,
+    .self-rating {
+        font-size: 8px !important;
+    }
+    .rating-number {
+        font-size: 8px !important;
+    }
+    .numbered-items {
+        font-size: 8px !important;
+    }
+}
+
+.numbered-items {
+    margin-top: 10px;
+    font-size: 14px !important;
+}
+
+.rating-label-container {
+    position: relative;
+}
+
+.rating-label {
+    font-weight: bold;
+    transform-origin: left bottom;
+    transform: rotate(-60deg);
+    text-align: left;
+    align-items: left;
+    bottom: 0px;
+    align-self: bottom;
+    position: absolute;
+}
+
+.rating-number {
+    font-size: 14px;
+}
+
+.card-body.my-checklist-card {
+    background: none;
+    padding: 10px 100px 10px 0px;
+    text-align: left !important;
+}
+
+.is-invalid {
+    border-color: #dc3545;
+}
+
+.invalid-feedback {
+    display: block;
+    color: #dc3545;
+    margin-top: 0.25rem;
+}

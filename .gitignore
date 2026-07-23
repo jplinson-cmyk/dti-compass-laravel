@@ -49,10 +49,14 @@ Thumbs.db
 *.wmv
 
 .env
+.env.live-copy
 
 composer.lock
 phpunit.xml
+php_errorlog
+docker-compose.yml
 vendor/
 
-
 .editorconfig
+public/storage
+storage/app/public

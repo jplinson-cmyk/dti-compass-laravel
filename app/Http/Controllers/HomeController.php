@@ -30,7 +30,7 @@ class HomeController extends Controller
 
         $employee = $user->userable;
 
-        if($user->hasRole('admin')){
+        if($user->hasAnyRole(['super_admin', 'admin'])){
             return redirect()->route('users.index');
         }else {
             return redirect()->route('competency_assessment.about', ['employee' => $employee, 'session_type' => 'self_assessment']);
